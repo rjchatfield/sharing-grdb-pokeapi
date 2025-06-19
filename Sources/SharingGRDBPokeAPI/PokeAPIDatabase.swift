@@ -1,29 +1,19 @@
 import Foundation
 import GRDB
-import SharingGRDB
-import StructuredQueries
 
-public struct PokeAPIDatabase {
-    public let dbQueue: DatabaseQueue
-    
-    /// Initialize the database with the bundled pokemon.db file
-    public static func bundled() throws -> PokeAPIDatabase {
-        try PokeAPIDatabase(
-            dbQueue: databaseQueue()
-        )
-    }
-    
-    public static func databaseQueue() throws -> DatabaseQueue {
-        try DatabaseQueue(
+public enum PokeAPIDatabase {
+    public static func makeDatabase() throws -> GRDB.DatabaseQueue {
+        try GRDB.DatabaseQueue(
             path: bundlePath,
             configuration: defaultConfiguration
         )
     }
 
-    private static var defaultConfiguration: Configuration {
-        var config = Configuration()
+    // MARK: -
+
+    private static var defaultConfiguration: GRDB.Configuration {
+        var config = GRDB.Configuration()
         config.readonly = true
-//        config.foreignKeysEnabled = true
         return config
     }
     
@@ -36,6 +26,8 @@ public struct PokeAPIDatabase {
         }
     }
 }
+
+// MARK: -
 
 private enum DatabaseError: Error, LocalizedError {
     case bundleResourceNotFound

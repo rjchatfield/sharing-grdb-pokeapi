@@ -13,24 +13,6 @@ import InlineSnapshotTesting
     .snapshots(record: .failed)
 )
 struct SnapshotTests {
-    @Test func testRepoInit() async throws {
-        _ = try PokeAPIDatabase.bundled()
-    }
-    
-    @Test
-    func testBasicSnap1() throws {
-        assertInlineSnapshot(
-            of: PokeAPIPokemon.select(\.identifier).where(\.isDefault),
-            as: .sql
-        ) {
-            """
-            SELECT "pokemon"."identifier"
-            FROM "pokemon"
-            WHERE "pokemon"."is_default"
-            """
-        }
-    }
-    
     // MARK: - Basic query tests
     
     @Test

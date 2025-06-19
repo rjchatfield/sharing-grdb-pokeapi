@@ -53,8 +53,8 @@ enum Helper {
     }
     
     private static var db: StructuredQueriesSQLite.Database {
-        let repo = try! PokeAPIDatabase.bundled()
-        return try! Database(path: repo.dbQueue.path)
+        let db = try! PokeAPIDatabase.makeDatabase()
+        return try! StructuredQueriesSQLite.Database(path: db.path)
     }
 }
 
