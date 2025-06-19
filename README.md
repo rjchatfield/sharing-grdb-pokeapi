@@ -1,4 +1,4 @@
-# SharingGRDBPokeAPI
+# PokeSwift
 
 A local SQLite version of the [PokeAPI](https://pokeapi.co) database for Swift applications, built using [sharing-grdb](https://github.com/pointfreeco/sharing-grdb) for type-safe database access.
 
