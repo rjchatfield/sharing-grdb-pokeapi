@@ -5,19 +5,21 @@ import SharingGRDB
 /// or provide other effects. Each move has type, power, accuracy, and special effects.
 @Table("moves")
 public struct PokeAPIMove: Decodable, Hashable, Identifiable, Sendable {
+    public typealias ID = Int
+    
     /// Unique move identifier
-    @Column("id", primaryKey: true) public var id: Int
+    @Column("id", primaryKey: true) public var id: ID
     
     /// Machine-readable move name (e.g., "tackle", "thunderbolt", "hyper-beam")
     @Column("identifier") public var identifier: String
     
     /// Generation in which this move was first introduced (1-9+)
-    @Column("generation_id") public var generationId: Int
-    
+    @Column("generation_id") public var generationId: PokeAPIGeneration.ID
+
     /// Type of this move (Fire, Water, Electric, etc.)
     /// Determines effectiveness and STAB eligibility
-    @Column("type_id") public var typeId: Int
-    
+    @Column("type_id") public var typeId: PokeAPIType.ID
+
     /// Base power of the move (typically 0-250)
     /// Nil for status moves that don't deal direct damage
     @Column("power") public var power: Int?
@@ -36,21 +38,21 @@ public struct PokeAPIMove: Decodable, Hashable, Identifiable, Sendable {
     
     /// What the move can target (single enemy, all enemies, self, etc.)
     @Column("target_id") public var targetId: Int
-    
+
     /// Physical, Special, or Status damage class
     /// Determines which Attack/Defense stats are used
-    @Column("damage_class_id") public var damageClassId: Int
-    
+    @Column("damage_class_id") public var damageClassId: PokeAPIMoveDamageClass.ID
+
     /// Primary effect this move has (damage, status condition, stat change, etc.)
     @Column("effect_id") public var effectId: Int
-    
+
     /// Percentage chance the secondary effect occurs (0-100)
     /// Nil if move has no secondary effect or always triggers
     @Column("effect_chance") public var effectChance: Int?
     
     /// Contest type for Pokemon Contests (Cool, Beauty, Cute, Smart, Tough)
     @Column("contest_type_id") public var contestTypeId: Int?
-    
+
     /// Effect this move has in Pokemon Contests
     @Column("contest_effect_id") public var contestEffectId: Int?
     

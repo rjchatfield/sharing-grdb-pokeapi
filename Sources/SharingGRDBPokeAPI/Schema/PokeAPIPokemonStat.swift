@@ -6,10 +6,10 @@ import SharingGRDB
 @Table("pokemon_stats")
 public struct PokeAPIPokemonStat: Decodable, Equatable, Sendable {
     /// Foreign key to the pokemon table
-    @Column("pokemon_id") public var pokemonId: Int
+    @Column("pokemon_id") public var pokemonId: PokeAPIPokemon.ID
     
     /// Foreign key to the stats table (HP, Attack, Defense, Sp. Attack, Sp. Defense, Speed)
-    @Column("stat_id") public var statId: Int
+    @Column("stat_id") public var statId: PokeAPIStat.ID
     
     /// Base stat value for this Pokemon (typically 1-255)
     /// This is the Pokemon's inherent stat value at level 50 with neutral nature

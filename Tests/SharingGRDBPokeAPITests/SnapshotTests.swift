@@ -1309,31 +1309,31 @@ struct SnapshotTests {
             """
             ┌─────────────────────┐
             │ PokeAPIPokemonType( │
-            │   pokemonId: "1",   │
+            │   pokemonId: 1,     │
             │   typeId: 12,       │
             │   slot: 1           │
             │ )                   │
             ├─────────────────────┤
             │ PokeAPIPokemonType( │
-            │   pokemonId: "1",   │
+            │   pokemonId: 1,     │
             │   typeId: 4,        │
             │   slot: 2           │
             │ )                   │
             ├─────────────────────┤
             │ PokeAPIPokemonType( │
-            │   pokemonId: "2",   │
+            │   pokemonId: 2,     │
             │   typeId: 12,       │
             │   slot: 1           │
             │ )                   │
             ├─────────────────────┤
             │ PokeAPIPokemonType( │
-            │   pokemonId: "2",   │
+            │   pokemonId: 2,     │
             │   typeId: 4,        │
             │   slot: 2           │
             │ )                   │
             ├─────────────────────┤
             │ PokeAPIPokemonType( │
-            │   pokemonId: "3",   │
+            │   pokemonId: 3,     │
             │   typeId: 12,       │
             │   slot: 1           │
             │ )                   │
@@ -1457,36 +1457,36 @@ struct SnapshotTests {
             │ PokeAPIType(              │
             │   id: 1,                  │
             │   identifier: "normal",   │
-            │   generation_id: 1,       │
-            │   damage_class_id: 2      │
+            │   generationId: 1,        │
+            │   damageClassId: 2        │
             │ )                         │
             ├───────────────────────────┤
             │ PokeAPIType(              │
             │   id: 2,                  │
             │   identifier: "fighting", │
-            │   generation_id: 1,       │
-            │   damage_class_id: 2      │
+            │   generationId: 1,        │
+            │   damageClassId: 2        │
             │ )                         │
             ├───────────────────────────┤
             │ PokeAPIType(              │
             │   id: 3,                  │
             │   identifier: "flying",   │
-            │   generation_id: 1,       │
-            │   damage_class_id: 2      │
+            │   generationId: 1,        │
+            │   damageClassId: 2        │
             │ )                         │
             ├───────────────────────────┤
             │ PokeAPIType(              │
             │   id: 4,                  │
             │   identifier: "poison",   │
-            │   generation_id: 1,       │
-            │   damage_class_id: 2      │
+            │   generationId: 1,        │
+            │   damageClassId: 2        │
             │ )                         │
             ├───────────────────────────┤
             │ PokeAPIType(              │
             │   id: 5,                  │
             │   identifier: "ground",   │
-            │   generation_id: 1,       │
-            │   damage_class_id: 2      │
+            │   generationId: 1,        │
+            │   damageClassId: 2        │
             │ )                         │
             └───────────────────────────┘
             """

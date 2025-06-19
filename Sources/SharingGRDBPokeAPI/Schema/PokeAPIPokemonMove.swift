@@ -6,14 +6,14 @@ import SharingGRDB
 @Table("pokemon_moves")
 public struct PokeAPIPokemonMove: Decodable, Hashable, Sendable {
     /// Foreign key to the pokemon table
-    @Column("pokemon_id") public var pokemonId: Int
+    @Column("pokemon_id") public var pokemonId: PokeAPIPokemon.ID
     
     /// Game version group this move learning data applies to
     /// Move availability and learning methods can vary between game versions
-    @Column("version_group_id") public var versionGroupId: Int
+    @Column("version_group_id") public var versionGroupId: PokeAPIVersionGroup.ID
     
     /// Foreign key to the moves table - the move being learned
-    @Column("move_id") public var moveId: Int
+    @Column("move_id") public var moveId: PokeAPIMove.ID
     
     /// Learning method (level-up, TM, tutor, egg, etc.)
     /// Determines how the Pokemon acquires this move

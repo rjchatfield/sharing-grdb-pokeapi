@@ -5,15 +5,17 @@ import SharingGRDB
 /// encounter rates. Multiple Pokemon can share the same slot, creating encounter tables.
 @Table("encounter_slots")
 public struct PokeAPIEncounterSlot: Decodable, Hashable, Identifiable, Sendable {
+    public typealias ID = Int
+
     /// Unique encounter slot identifier
-    @Column("id", primaryKey: true) public var id: Int
+    @Column("id", primaryKey: true) public var id: ID
     
     /// Game version group this encounter slot applies to
     /// Different versions may have different encounter rates for the same location
-    @Column("version_group_id") public var versionGroupId: Int
-    
+    @Column("version_group_id") public var versionGroupId: PokeAPIVersionGroup.ID
+
     /// Encounter method this slot is used for (walking, surfing, fishing, etc.)
-    @Column("encounter_method_id") public var encounterMethodId: Int
+    @Column("encounter_method_id") public var encounterMethodId: PokeAPIEncounterMethod.ID
     
     /// Slot number within the encounter method (typically 1-12)
     /// Lower slot numbers are usually more common encounters

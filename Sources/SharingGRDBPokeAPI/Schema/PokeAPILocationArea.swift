@@ -5,12 +5,14 @@ import SharingGRDB
 /// each with their own unique encounter tables and Pokemon availability.
 @Table("location_areas")
 public struct PokeAPILocationArea: Decodable, Hashable, Identifiable, Sendable {
+    public typealias ID = Int
+
     /// Unique location area identifier
-    @Column("id", primaryKey: true) public var id: Int
+    @Column("id", primaryKey: true) public var id: ID
     
     /// Parent location this area belongs to
-    @Column("location_id") public var locationId: Int
-    
+    @Column("location_id") public var locationId: PokeAPILocation.ID
+
     /// In-game index number for this area
     /// Used internally by the game engine for area identification
     @Column("game_index") public var gameIndex: Int

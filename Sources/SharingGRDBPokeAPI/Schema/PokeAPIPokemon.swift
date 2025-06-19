@@ -5,14 +5,16 @@ import SharingGRDB
 /// with its own stats, appearance, and battle characteristics.
 @Table("pokemon")
 public struct PokeAPIPokemon: Decodable, Hashable, Identifiable, Sendable {
+    public typealias ID = Int
+    
     /// Unique identifier for this Pokemon form
-    @Column("id", primaryKey: true) public var id: Int
+    @Column("id", primaryKey: true) public var id: ID
     
     /// Machine-readable name (e.g., "pikachu", "pikachu-cosplay")
     @Column("identifier") public var identifier: String
     
     /// Foreign key to the pokemon_species table - links to the base species information
-    @Column("species_id") public var speciesId: Int
+    @Column("species_id") public var speciesId: PokeAPIPokemonSpecies.ID
     
     /// Pokemon's height in decimeters (1 decimeter = 10 cm)
     /// Example: Pikachu's height of 4 means 40 cm tall

@@ -5,9 +5,11 @@ import SharingGRDB
 /// the user itself, or have other special targeting behaviors.
 @Table("move_targets")
 public struct PokeAPIMoveTarget: Decodable, Hashable, Identifiable, Sendable {
+    public typealias ID = Int
+
     /// Unique move target identifier
-    @Column("id", primaryKey: true) public var id: Int
-    
+    @Column("id", primaryKey: true) public var id: ID
+
     /// Machine-readable target type (e.g., "selected-pokemon", "all-opponents", "user")
     /// Examples: single enemy, all enemies, all allies, self, random enemy, entire field
     @Column("identifier") public var identifier: String

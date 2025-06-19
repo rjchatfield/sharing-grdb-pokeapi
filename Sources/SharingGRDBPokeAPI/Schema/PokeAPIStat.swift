@@ -5,12 +5,14 @@ import SharingGRDB
 /// Additional stats like Accuracy and Evasion exist for battle calculations.
 @Table("stats")
 public struct PokeAPIStat: Decodable, Equatable, Identifiable, Sendable {
+    public typealias ID = Int
+    
     /// Unique stat identifier (1=HP, 2=Attack, 3=Defense, 4=Sp.Attack, 5=Sp.Defense, 6=Speed)
-    @Column("id", primaryKey: true) public var id: Int
+    @Column("id", primaryKey: true) public var id: ID
     
     /// Move damage class this stat affects (Physical/Special/Status)
     /// Attack affects Physical, Special Attack affects Special, nil for others
-    @Column("damage_class_id") public var damageClassId: Int?
+    @Column("damage_class_id") public var damageClassId: PokeAPIMoveDamageClass.ID?
     
     /// Machine-readable stat name (e.g., "hp", "attack", "special-defense")
     @Column("identifier") public var identifier: String

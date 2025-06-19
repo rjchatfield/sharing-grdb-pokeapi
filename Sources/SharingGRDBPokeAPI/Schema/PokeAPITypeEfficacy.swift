@@ -6,10 +6,10 @@ import SharingGRDB
 @Table("type_efficacy")
 public struct PokeAPITypeEfficacy: Decodable, Equatable, Sendable {
     /// The attacking type (e.g., Fire-type moves)
-    @Column("damage_type_id") public var damageTypeId: Int
+    @Column("damage_type_id") public var damageTypeId: PokeAPIType.ID
     
     /// The defending type being attacked (e.g., Grass-type Pokemon)
-    @Column("target_type_id") public var targetTypeId: Int
+    @Column("target_type_id") public var targetTypeId: PokeAPIType.ID
     
     /// Damage multiplier as integer (0=no effect, 50=½x, 200=2x)
     /// Divide by 100 to get actual multiplier. Default 1x relationships are omitted.

@@ -5,19 +5,21 @@ import SharingGRDB
 /// and classification details that remain consistent regardless of form.
 @Table("pokemon_species")
 public struct PokeAPIPokemonSpecies: Codable, Equatable, Identifiable, Sendable {
+    public typealias ID = Int
+
     /// National Pokedex number and unique species identifier
-    @Column("id", primaryKey: true) public var id: Int
+    @Column("id", primaryKey: true) public var id: ID
     
     /// Machine-readable species name (e.g., "pikachu", "charizard")
     @Column("identifier") public var identifier: String
     
     /// Generation in which this species was first introduced (1-9+)
-    @Column("generation_id") public var generationId: Int
-    
+    @Column("generation_id") public var generationId: PokeAPIGeneration.ID
+
     /// Species this Pokemon evolves from, if any
     /// Nil for base evolution forms (e.g., Bulbasaur, Charmander)
-    @Column("evolves_from_species_id") public var evolvesFromSpeciesId: Int?
-    
+    @Column("evolves_from_species_id") public var evolvesFromSpeciesId: PokeAPIPokemonSpecies.ID?
+
     /// Evolution chain this species belongs to
     /// Links related evolutionary forms together
     @Column("evolution_chain_id") public var evolutionChainId: Int

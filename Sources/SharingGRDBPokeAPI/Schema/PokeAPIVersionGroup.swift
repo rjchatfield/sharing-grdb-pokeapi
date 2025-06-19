@@ -5,8 +5,10 @@ import SharingGRDB
 /// released together with similar features but different exclusive content.
 @Table("version_groups")
 public struct PokeAPIVersionGroup: Decodable, Hashable, Identifiable, Sendable {
+    public typealias ID = Int
+    
     /// Unique version group identifier
-    @Column("id", primaryKey: true) public var id: Int
+    @Column("id", primaryKey: true) public var id: ID
     
     /// Machine-readable version group name (e.g., "red-blue", "gold-silver", "diamond-pearl")
     /// Represents collections of related game versions
@@ -14,7 +16,7 @@ public struct PokeAPIVersionGroup: Decodable, Hashable, Identifiable, Sendable {
     
     /// Generation this version group belongs to
     /// Links the games to their respective generation's Pokemon and mechanics
-    @Column("generation_id") public var generationId: Int
+    @Column("generation_id") public var generationId: PokeAPIGeneration.ID
     
     /// Release order within the generation
     /// Used for chronological sorting of version groups

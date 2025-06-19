@@ -6,10 +6,10 @@ import SharingGRDB
 @Table("pokemon_abilities")
 public struct PokeAPIPokemonAbility: Decodable, Hashable, Sendable {
     /// Foreign key to the pokemon table
-    @Column("pokemon_id") public var pokemonId: Int
+    @Column("pokemon_id") public var pokemonId: PokeAPIPokemon.ID
     
     /// Foreign key to the abilities table
-    @Column("ability_id") public var abilityId: Int
+    @Column("ability_id") public var abilityId: PokeAPIAbility.ID
     
     /// Whether this is a hidden ability (Dream World/Hidden Ability)
     /// Hidden abilities are rarer and often more powerful than regular ones

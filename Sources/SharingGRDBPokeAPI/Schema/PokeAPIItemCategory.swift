@@ -5,8 +5,10 @@ import SharingGRDB
 /// such as healing items, Poke Balls, berries, TMs, and key items.
 @Table("item_categories")
 public struct PokeAPIItemCategory: Decodable, Hashable, Identifiable, Sendable {
+    public typealias ID = Int
+
     /// Unique item category identifier
-    @Column("id", primaryKey: true) public var id: Int
+    @Column("id", primaryKey: true) public var id: ID
     
     /// Bag pocket this category belongs to (Items, Medicine, Poke Balls, TMs, Berries, Key Items)
     /// Determines which bag compartment the items appear in

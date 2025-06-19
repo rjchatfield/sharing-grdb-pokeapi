@@ -5,15 +5,17 @@ import SharingGRDB
 /// Items can be used in battle, held by Pokemon, or used in the overworld.
 @Table("items")
 public struct PokeAPIItem: Decodable, Hashable, Identifiable, Sendable {
+    public typealias ID = Int
+    
     /// Unique item identifier
-    @Column("id", primaryKey: true) public var id: Int
+    @Column("id", primaryKey: true) public var id: ID
     
     /// Machine-readable item name (e.g., "potion", "poke-ball", "fire-stone")
     @Column("identifier") public var identifier: String
     
     /// Item category (healing, pokeballs, evolution, held items, etc.)
-    @Column("category_id") public var categoryId: Int
-    
+    @Column("category_id") public var categoryId: PokeAPIItemCategory.ID
+
     /// Purchase cost in Poke Dollars (0 for items that can't be bought)
     @Column("cost") public var cost: Int
     

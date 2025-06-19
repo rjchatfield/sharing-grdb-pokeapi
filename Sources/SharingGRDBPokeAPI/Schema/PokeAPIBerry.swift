@@ -5,11 +5,13 @@ import SharingGRDB
 /// Berries can be planted and grown in berry gardens throughout various games.
 @Table("berries")
 public struct PokeAPIBerry: Decodable, Hashable, Identifiable, Sendable {
+    public typealias ID = Int
+
     /// Unique berry identifier
-    @Column("id", primaryKey: true) public var id: Int
+    @Column("id", primaryKey: true) public var id: ID
     
     /// Corresponding item ID in the items table
-    @Column("item_id") public var itemId: Int
+    @Column("item_id") public var itemId: PokeAPIItem.ID
     
     /// Firmness category (very soft, soft, hard, very hard, super hard)
     /// Affects how the berry is processed in Pokemon contests

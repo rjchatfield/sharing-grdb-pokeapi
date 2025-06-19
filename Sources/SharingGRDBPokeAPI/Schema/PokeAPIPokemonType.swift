@@ -6,10 +6,10 @@ import SharingGRDB
 @Table("pokemon_types")
 public struct PokeAPIPokemonType: Codable, Equatable, Sendable {
     /// Foreign key to the pokemon table
-    @Column("pokemon_id") public var pokemonId: String
+    @Column("pokemon_id") public var pokemonId: PokeAPIPokemon.ID
     
     /// Foreign key to the types table (Fire, Water, Electric, etc.)
-    @Column("type_id") public var typeId: Int
+    @Column("type_id") public var typeId: PokeAPIType.ID
     
     /// Type slot: 1 for primary type, 2 for secondary type
     /// Single-type Pokemon only have slot 1

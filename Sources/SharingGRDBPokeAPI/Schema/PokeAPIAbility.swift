@@ -5,15 +5,17 @@ import SharingGRDB
 /// Examples include Static (paralysis chance), Levitate (Ground immunity), etc.
 @Table("abilities")
 public struct PokeAPIAbility: Decodable, Hashable, Identifiable, Sendable {
+    public typealias ID = Int
+    
     /// Unique ability identifier
-    @Column("id", primaryKey: true) public var id: Int
+    @Column("id", primaryKey: true) public var id: ID
     
     /// Machine-readable ability name (e.g., "static", "levitate", "water-absorb")
     @Column("identifier") public var identifier: String
     
     /// Generation in which this ability was first introduced (3+)
     /// Abilities were introduced in Generation III (Ruby/Sapphire)
-    @Column("generation_id") public var generationId: Int
+    @Column("generation_id") public var generationId: PokeAPIGeneration.ID
     
     /// Whether this ability appears in main series games
     /// False for abilities exclusive to spin-offs or side games

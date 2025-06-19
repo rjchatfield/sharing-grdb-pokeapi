@@ -5,24 +5,26 @@ import SharingGRDB
 /// Different game versions may have different encounter tables for the same location.
 @Table("encounters")
 public struct PokeAPIEncounter: Decodable, Hashable, Identifiable, Sendable {
+    public typealias ID = Int
+
     /// Unique encounter record identifier
-    @Column("id", primaryKey: true) public var id: Int
-    
+    @Column("id", primaryKey: true) public var id: ID
+
     /// Game version this encounter data applies to
-    @Column("version_id") public var versionId: Int
-    
+    @Column("version_id") public var versionId: PokeAPIVersion.ID
+
     /// Specific area within a location where this encounter occurs
-    @Column("location_area_id") public var locationAreaId: Int
-    
+    @Column("location_area_id") public var locationAreaId: PokeAPILocationArea.ID
+
     /// Encounter method and rarity slot (determines encounter rate)
-    @Column("encounter_slot_id") public var encounterSlotId: Int
-    
+    @Column("encounter_slot_id") public var encounterSlotId: PokeAPIEncounterSlot.ID
+
     /// Pokemon species that can be encountered
-    @Column("pokemon_id") public var pokemonId: Int
-    
+    @Column("pokemon_id") public var pokemonId: PokeAPIPokemon.ID
+
     /// Minimum level this Pokemon can be encountered at
     @Column("min_level") public var minLevel: Int
-    
+
     /// Maximum level this Pokemon can be encountered at
     @Column("max_level") public var maxLevel: Int
 }
