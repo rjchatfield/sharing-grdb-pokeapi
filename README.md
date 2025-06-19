@@ -1,4 +1,4 @@
-# PokeSwift
+# PokeAPI Database in Swift
 
 A local SQLite version of the [PokeAPI](https://pokeapi.co) database for Swift applications, built using [sharing-grdb](https://github.com/pointfreeco/sharing-grdb) for type-safe database access.
 
@@ -16,7 +16,7 @@ This package provides a complete, offline-accessible Pokemon database with all t
 
 ## Requirements
 
-- iOS 18.0+ or macOS 15.0+
+- iOS 13.0+, macOS 10.15+, tvOS 13+, watchOS 7.0+
 - Swift 6.1+
 - Xcode 16.4+
 
@@ -30,6 +30,12 @@ Add this package to your project by adding the following to your `Package.swift`
 dependencies: [
     .package(url: "https://github.com/rjchatfield/sharing-grdb-pokeapi", from: "0.1.0")
 ]
+```
+
+And then adding the following product to any target that needs access to the library:
+
+```swift
+.product(name: "SharingGRDB", package: "sharing-grdb"),
 ```
 
 Or add it through Xcode:
