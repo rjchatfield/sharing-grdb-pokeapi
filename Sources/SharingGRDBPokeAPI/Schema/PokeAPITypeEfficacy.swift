@@ -1,10 +1,18 @@
 import SharingGRDB
 
-/// Type effectiveness chart (super effective, not very effective, etc.).
+/// Defines the damage multipliers between attacking and defending Pokemon types.
+/// This creates the rock-paper-scissors type system that's fundamental to Pokemon battles.
+/// Default effectiveness is 1x; this table only stores non-default relationships.
 @Table("type_efficacy")
 public struct PokeAPITypeEfficacy: Decodable, Equatable, Sendable {
+    /// The attacking type (e.g., Fire-type moves)
     @Column("damage_type_id") public var damageTypeId: Int
+    
+    /// The defending type being attacked (e.g., Grass-type Pokemon)
     @Column("target_type_id") public var targetTypeId: Int
+    
+    /// Damage multiplier as integer (0=no effect, 50=½x, 200=2x)
+    /// Divide by 100 to get actual multiplier. Default 1x relationships are omitted.
     @Column("damage_factor") public var damageFactor: Int
 
     public var effectiveness: Double {

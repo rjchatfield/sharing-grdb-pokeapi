@@ -1,12 +1,25 @@
 import SharingGRDB
 
-/// Stat definitions (HP, Attack, Defense, etc.).
+/// Defines the core stats used throughout Pokemon games.
+/// The main six stats are HP, Attack, Defense, Special Attack, Special Defense, and Speed.
+/// Additional stats like Accuracy and Evasion exist for battle calculations.
 @Table("stats")
 public struct PokeAPIStat: Decodable, Equatable, Identifiable, Sendable {
+    /// Unique stat identifier (1=HP, 2=Attack, 3=Defense, 4=Sp.Attack, 5=Sp.Defense, 6=Speed)
     @Column("id", primaryKey: true) public var id: Int
+    
+    /// Move damage class this stat affects (Physical/Special/Status)
+    /// Attack affects Physical, Special Attack affects Special, nil for others
     @Column("damage_class_id") public var damageClassId: Int?
+    
+    /// Machine-readable stat name (e.g., "hp", "attack", "special-defense")
     @Column("identifier") public var identifier: String
+    
+    /// Whether this stat only exists during battle (true for Accuracy/Evasion)
+    /// Main six stats are permanent, others are temporary battle modifiers
     @Column("is_battle_only") public var isBattleOnly: Bool
+    
+    /// In-game index number for this stat (used internally by game mechanics)
     @Column("game_index") public var gameIndex: Int?
     
     public var formattedName: String {
