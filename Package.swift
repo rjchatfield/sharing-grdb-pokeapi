@@ -31,6 +31,7 @@ let package = Package(
             ],
             resources: [
                 .copy("Resources/pokemon.db"),
+                .process("Resources/Strings"),
             ]
         ),
         .testTarget(
