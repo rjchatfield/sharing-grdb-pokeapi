@@ -1,4 +1,4 @@
-import SharingGRDB
+import StructuredQueries
 
 /// Berries are special items that can be grown, fed to Pokemon, or used in crafting.
 /// They have unique properties for Pokemon contests, cooking, and the Natural Gift move.

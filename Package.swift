@@ -18,14 +18,15 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/pointfreeco/sharing-grdb", from: "0.5.0"),
         .package(url: "https://github.com/pointfreeco/swift-structured-queries", from: "0.7.0"),
+        .package(url: "https://github.com/groue/GRDB.swift", from: "6.0.0"),
     ],
     targets: [
         .target(
             name: "SharingGRDBPokeAPI",
             dependencies: [
-                .product(name: "SharingGRDB", package: "sharing-grdb"),
+                .product(name: "StructuredQueries", package: "swift-structured-queries"),
+                .product(name: "GRDB", package: "GRDB.swift"),
             ],
             resources: [
                 .copy("Resources/pokemon.db"),

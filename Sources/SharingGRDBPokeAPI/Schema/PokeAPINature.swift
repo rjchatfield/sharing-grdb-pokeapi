@@ -1,4 +1,4 @@
-import SharingGRDB
+import StructuredQueries
 
 /// Natures affect Pokemon stats and berry preferences (introduced in Gen III).
 /// Each nature increases one stat by 10% and decreases another by 10%,

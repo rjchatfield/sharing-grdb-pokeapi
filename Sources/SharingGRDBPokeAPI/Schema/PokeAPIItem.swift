@@ -1,4 +1,4 @@
-import SharingGRDB
+import StructuredQueries
 
 /// Represents all items in Pokemon games including healing items, Poke Balls,
 /// evolution stones, held items, TMs, berries, and key items.

@@ -1,4 +1,4 @@
-import SharingGRDB
+import StructuredQueries
 
 /// Defines probability slots for Pokemon encounters within specific methods and game versions.
 /// Each slot represents a different rarity tier (common, uncommon, rare) with different

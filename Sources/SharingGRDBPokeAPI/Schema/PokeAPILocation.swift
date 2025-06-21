@@ -1,4 +1,4 @@
-import SharingGRDB
+import StructuredQueries
 
 /// Represents major locations within Pokemon regions where Pokemon can be found.
 /// Locations contain multiple areas with different Pokemon encounters, items,

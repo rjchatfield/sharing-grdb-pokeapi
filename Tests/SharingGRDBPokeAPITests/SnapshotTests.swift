@@ -1,6 +1,5 @@
 import Testing
 import Dependencies
-import SharingGRDB
 import StructuredQueries
 import StructuredQueriesSQLite
 import StructuredQueriesTestSupport

@@ -1,4 +1,4 @@
-import SharingGRDB
+import StructuredQueries
 
 /// Contains core species data shared across all forms of a Pokemon.
 /// This includes breeding information, capture mechanics, evolution data,

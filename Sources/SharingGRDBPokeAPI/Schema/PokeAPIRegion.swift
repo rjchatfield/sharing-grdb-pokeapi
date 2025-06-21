@@ -1,4 +1,4 @@
-import SharingGRDB
+import StructuredQueries
 
 /// Represents the major geographical regions in the Pokemon world.
 /// Each region is typically associated with a generation and contains

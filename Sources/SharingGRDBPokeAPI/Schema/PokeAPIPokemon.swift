@@ -1,4 +1,4 @@
-import SharingGRDB
+import StructuredQueries
 
 /// Represents specific Pokemon forms (e.g., regular Pikachu vs. different regional forms).
 /// Each entry corresponds to a unique Pokemon form that can appear in battle,

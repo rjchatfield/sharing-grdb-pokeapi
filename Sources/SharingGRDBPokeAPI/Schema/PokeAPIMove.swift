@@ -1,4 +1,4 @@
-import SharingGRDB
+import StructuredQueries
 
 /// Represents all Pokemon moves with their battle mechanics and properties.
 /// Moves are learned by Pokemon and used in battle to deal damage, inflict status,

@@ -1,4 +1,4 @@
-import SharingGRDB
+import StructuredQueries
 
 /// Represents specific Pokemon game cartridges/titles within version groups.
 /// Each version may have exclusive Pokemon, different encounter rates, or unique features

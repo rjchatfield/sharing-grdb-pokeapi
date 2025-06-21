@@ -1,4 +1,4 @@
-import SharingGRDB
+import StructuredQueries
 
 /// Pokemon abilities provide passive effects during battle or in the overworld.
 /// Each Pokemon can have multiple possible abilities, but only one active at a time.

@@ -1,4 +1,4 @@
-import SharingGRDB
+import StructuredQueries
 
 /// Defines the core stats used throughout Pokemon games.
 /// The main six stats are HP, Attack, Defense, Special Attack, Special Defense, and Speed.

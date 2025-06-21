@@ -1,4 +1,4 @@
-import SharingGRDB
+import StructuredQueries
 
 /// Defines the damage multipliers between attacking and defending Pokemon types.
 /// This creates the rock-paper-scissors type system that's fundamental to Pokemon battles.

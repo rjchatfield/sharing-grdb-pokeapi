@@ -1,4 +1,4 @@
-import SharingGRDB
+import StructuredQueries
 
 /// Defines what a move can target in battle scenarios.
 /// Determines whether moves affect single Pokemon, multiple Pokemon,

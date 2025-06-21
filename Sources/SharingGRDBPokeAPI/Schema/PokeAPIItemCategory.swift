@@ -1,4 +1,4 @@
-import SharingGRDB
+import StructuredQueries
 
 /// Organizes items into logical categories within the player's bag pockets.
 /// Categories help group similar items together for easier navigation and organization,

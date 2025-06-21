@@ -1,4 +1,4 @@
-import SharingGRDB
+import StructuredQueries
 
 /// Groups related Pokemon game versions that share core mechanics and data.
 /// Version groups typically include paired versions (Red/Blue) or sets of games

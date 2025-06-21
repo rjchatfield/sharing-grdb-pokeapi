@@ -1,4 +1,4 @@
-import SharingGRDB
+import StructuredQueries
 
 /// Links Pokemon to their stat values (HP, Attack, Defense, etc.).
 /// Each Pokemon has 6 main stats, so each Pokemon will have 6 records in this table.

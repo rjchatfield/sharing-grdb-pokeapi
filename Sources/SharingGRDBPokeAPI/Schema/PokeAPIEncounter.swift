@@ -1,4 +1,4 @@
-import SharingGRDB
+import StructuredQueries
 
 /// Represents where and how wild Pokemon can be encountered in the game world.
 /// Includes encounter rates, level ranges, and specific location areas.

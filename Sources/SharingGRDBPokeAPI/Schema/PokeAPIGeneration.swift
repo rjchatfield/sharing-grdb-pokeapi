@@ -1,4 +1,4 @@
-import SharingGRDB
+import StructuredQueries
 
 /// Represents the major Pokemon game generations, each introducing new Pokemon,
 /// mechanics, regions, and features. Generations typically span 2-4 years and

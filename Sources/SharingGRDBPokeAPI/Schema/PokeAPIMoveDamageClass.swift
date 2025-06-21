@@ -1,4 +1,4 @@
-import SharingGRDB
+import StructuredQueries
 
 /// Categorizes moves by how they calculate damage and interact with stats.
 /// Physical moves use Attack vs Defense, Special moves use Sp.Attack vs Sp.Defense,

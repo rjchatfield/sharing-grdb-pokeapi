@@ -1,4 +1,4 @@
-import SharingGRDB
+import StructuredQueries
 
 /// Represents subdivisions of locations where different Pokemon encounters can occur.
 /// For example, a cave location might have different areas like "1F", "B1F", or "entrance",

@@ -1,4 +1,4 @@
-import SharingGRDB
+import StructuredQueries
 
 /// Defines the different ways wild Pokemon can be encountered in the game world.
 /// Each method represents a specific interaction type that can trigger a wild battle,

@@ -1,4 +1,4 @@
-import SharingGRDB
+import StructuredQueries
 
 /// Represents the 18 Pokemon types (Normal, Fire, Water, Electric, etc.).
 /// Types determine move effectiveness, resistances, and STAB (Same Type Attack Bonus).
