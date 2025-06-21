@@ -1,0 +1,11 @@
+/* Stats - en */
+
+"stat.1.name" = "HP";
+"stat.2.name" = "Attack";
+"stat.3.name" = "Defense";
+"stat.4.name" = "Special Attack";
+"stat.5.name" = "Special Defense";
+"stat.6.name" = "Speed";
+"stat.7.name" = "accuracy";
+"stat.8.name" = "evasion";
+

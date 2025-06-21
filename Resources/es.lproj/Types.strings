@@ -1,0 +1,23 @@
+/* Types - es */
+
+"type.1.name" = "Normal";
+"type.10.name" = "Fuego";
+"type.10001.name" = "???";
+"type.11.name" = "Agua";
+"type.12.name" = "Planta";
+"type.13.name" = "Eléctrico";
+"type.14.name" = "Psíquico";
+"type.15.name" = "Hielo";
+"type.16.name" = "Dragón";
+"type.17.name" = "Siniestro";
+"type.18.name" = "Hada";
+"type.19.name" = "Astral";
+"type.2.name" = "Lucha";
+"type.3.name" = "Volador";
+"type.4.name" = "Veneno";
+"type.5.name" = "Tierra";
+"type.6.name" = "Roca";
+"type.7.name" = "Bicho";
+"type.8.name" = "Fantasma";
+"type.9.name" = "Acero";
+

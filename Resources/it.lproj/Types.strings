@@ -1,0 +1,24 @@
+/* Types - it */
+
+"type.1.name" = "Normale";
+"type.10.name" = "Fuoco";
+"type.10001.name" = "???";
+"type.10002.name" = "Ombra";
+"type.11.name" = "Acqua";
+"type.12.name" = "Erba";
+"type.13.name" = "Elettro";
+"type.14.name" = "Psico";
+"type.15.name" = "Ghiaccio";
+"type.16.name" = "Drago";
+"type.17.name" = "Buio";
+"type.18.name" = "Folletto";
+"type.19.name" = "Astrale";
+"type.2.name" = "Lotta";
+"type.3.name" = "Volante";
+"type.4.name" = "Veleno";
+"type.5.name" = "Terra";
+"type.6.name" = "Roccia";
+"type.7.name" = "Coleottero";
+"type.8.name" = "Spettro";
+"type.9.name" = "Acciaio";
+

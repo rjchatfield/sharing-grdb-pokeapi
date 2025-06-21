@@ -1,0 +1,24 @@
+/* Types - ja */
+
+"type.1.name" = "ノーマル";
+"type.10.name" = "ほのお";
+"type.10001.name" = "？？？";
+"type.10002.name" = "ダーク";
+"type.11.name" = "みず";
+"type.12.name" = "くさ";
+"type.13.name" = "でんき";
+"type.14.name" = "エスパー";
+"type.15.name" = "こおり";
+"type.16.name" = "ドラゴン";
+"type.17.name" = "あく";
+"type.18.name" = "フェアリー";
+"type.19.name" = "ステラ";
+"type.2.name" = "かくとう";
+"type.3.name" = "ひこう";
+"type.4.name" = "どく";
+"type.5.name" = "じめん";
+"type.6.name" = "いわ";
+"type.7.name" = "むし";
+"type.8.name" = "ゴースト";
+"type.9.name" = "はがね";
+

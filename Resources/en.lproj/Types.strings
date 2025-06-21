@@ -1,0 +1,24 @@
+/* Types - en */
+
+"type.1.name" = "Normal";
+"type.10.name" = "Fire";
+"type.10001.name" = "???";
+"type.10002.name" = "Shadow";
+"type.11.name" = "Water";
+"type.12.name" = "Grass";
+"type.13.name" = "Electric";
+"type.14.name" = "Psychic";
+"type.15.name" = "Ice";
+"type.16.name" = "Dragon";
+"type.17.name" = "Dark";
+"type.18.name" = "Fairy";
+"type.19.name" = "Stellar";
+"type.2.name" = "Fighting";
+"type.3.name" = "Flying";
+"type.4.name" = "Poison";
+"type.5.name" = "Ground";
+"type.6.name" = "Rock";
+"type.7.name" = "Bug";
+"type.8.name" = "Ghost";
+"type.9.name" = "Steel";
+

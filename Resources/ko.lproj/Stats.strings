@@ -1,0 +1,11 @@
+/* Stats - ko */
+
+"stat.1.name" = "HP";
+"stat.2.name" = "공격";
+"stat.3.name" = "방어";
+"stat.4.name" = "특수공격";
+"stat.5.name" = "특수방어";
+"stat.6.name" = "스피드";
+"stat.7.name" = "명중률";
+"stat.8.name" = "회피율";
+

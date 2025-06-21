@@ -1,0 +1,11 @@
+/* Stats - de */
+
+"stat.1.name" = "KP";
+"stat.2.name" = "Angriff";
+"stat.3.name" = "Verteidigung";
+"stat.4.name" = "Spezialangriff";
+"stat.5.name" = "Spezialverteidigung";
+"stat.6.name" = "Initiative";
+"stat.7.name" = "Genauigkeit";
+"stat.8.name" = "Fluchtwert";
+

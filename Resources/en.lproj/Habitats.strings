@@ -1,0 +1,12 @@
+/* Habitats - en */
+
+"habitat.1.name" = "cave";
+"habitat.2.name" = "forest";
+"habitat.3.name" = "grassland";
+"habitat.4.name" = "mountain";
+"habitat.5.name" = "rare";
+"habitat.6.name" = "rough terrain";
+"habitat.7.name" = "sea";
+"habitat.8.name" = "urban";
+"habitat.9.name" = "water's edge";
+

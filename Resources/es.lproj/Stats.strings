@@ -1,0 +1,11 @@
+/* Stats - es */
+
+"stat.1.name" = "PS";
+"stat.2.name" = "Ataque";
+"stat.3.name" = "Defensa";
+"stat.4.name" = "Ataque Especial";
+"stat.5.name" = "Defensa Especial";
+"stat.6.name" = "Velocidad";
+"stat.7.name" = "Precisión";
+"stat.8.name" = "Evasión";
+

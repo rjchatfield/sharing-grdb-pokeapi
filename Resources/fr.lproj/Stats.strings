@@ -1,0 +1,11 @@
+/* Stats - fr */
+
+"stat.1.name" = "PV";
+"stat.2.name" = "Attaque";
+"stat.3.name" = "Défense";
+"stat.4.name" = "Attaque Spéciale";
+"stat.5.name" = "Défense Spéciale";
+"stat.6.name" = "Vitesse";
+"stat.7.name" = "Précision";
+"stat.8.name" = "Esquive";
+

@@ -1,0 +1,24 @@
+/* Types - de */
+
+"type.1.name" = "Normal";
+"type.10.name" = "Feuer";
+"type.10001.name" = "???";
+"type.10002.name" = "Crypto";
+"type.11.name" = "Wasser";
+"type.12.name" = "Pflanze";
+"type.13.name" = "Elektro";
+"type.14.name" = "Psycho";
+"type.15.name" = "Eis";
+"type.16.name" = "Drache";
+"type.17.name" = "Unlicht";
+"type.18.name" = "Fee";
+"type.19.name" = "Stellar";
+"type.2.name" = "Kampf";
+"type.3.name" = "Flug";
+"type.4.name" = "Gift";
+"type.5.name" = "Boden";
+"type.6.name" = "Gestein";
+"type.7.name" = "Käfer";
+"type.8.name" = "Geist";
+"type.9.name" = "Stahl";
+

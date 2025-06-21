@@ -1,0 +1,24 @@
+/* Types - fr */
+
+"type.1.name" = "Normal";
+"type.10.name" = "Feu";
+"type.10001.name" = "???";
+"type.10002.name" = "Obscur";
+"type.11.name" = "Eau";
+"type.12.name" = "Plante";
+"type.13.name" = "Électrik";
+"type.14.name" = "Psy";
+"type.15.name" = "Glace";
+"type.16.name" = "Dragon";
+"type.17.name" = "Ténèbres";
+"type.18.name" = "Fée";
+"type.19.name" = "Stellaire";
+"type.2.name" = "Combat";
+"type.3.name" = "Vol";
+"type.4.name" = "Poison";
+"type.5.name" = "Sol";
+"type.6.name" = "Roche";
+"type.7.name" = "Insecte";
+"type.8.name" = "Spectre";
+"type.9.name" = "Acier";
+
