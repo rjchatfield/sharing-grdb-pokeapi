@@ -20,7 +20,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/pointfreeco/swift-structured-queries", from: "0.7.0"),
-        .package(url: "https://github.com/groue/GRDB.swift", from: "6.0.0"),
+        .package(url: "https://github.com/groue/GRDB.swift", from: "7.4.0"),
     ],
     targets: [
         .target(
