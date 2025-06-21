@@ -1,6 +1,6 @@
-# PokeAPI Database in Swift
+# PokeAPI Database for Swift
 
-A local SQLite version of the [PokeAPI](https://pokeapi.co) database for Swift applications, built using [sharing-grdb](https://github.com/pointfreeco/sharing-grdb) for type-safe database access.
+A local SQLite version of the [PokeAPI](https://pokeapi.co) database for Swift applications, built using [StructuredQueries](https://github.com/pointfreeco/swift-structured-queries) and [GRDB.swift](https://github.com/groue/GRDB.swift) for type-safe database access.
 
 ## Overview
 
@@ -9,7 +9,7 @@ This package provides a complete, offline-accessible Pokemon database with all t
 ## Features
 
 - 🗄️ Complete PokeAPI database in SQLite format
-- 🔍 Type-safe database queries using sharing-grdb
+- 🔍 Type-safe database queries using StructuredQueries
 - 📱 iOS 18+ and macOS 15+ support
 - ⚡ Fast, offline access to Pokemon data
 - 🧪 Comprehensive test suite with snapshot testing
@@ -28,14 +28,14 @@ Add this package to your project by adding the following to your `Package.swift`
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/rjchatfield/sharing-grdb-pokeapi", from: "0.1.0")
+    .package(url: "https://github.com/rjchatfield/swift-pokeapi-database", from: "0.1.0")
 ]
 ```
 
 And then adding the following product to any target that needs access to the library:
 
 ```swift
-.product(name: "SharingGRDB", package: "sharing-grdb"),
+.product(name: "PokeAPIDatabase", package: "swift-pokeapi-database"),
 ```
 
 Or add it through Xcode:
@@ -48,7 +48,7 @@ Or add it through Xcode:
 ### Basic Setup
 
 ```swift
-import SharingGRDBPokeAPI
+import PokeAPIDatabase
 
 // Create a database connection
 let database = try PokeAPIDatabase.makeDatabase()

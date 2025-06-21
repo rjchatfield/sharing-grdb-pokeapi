@@ -1,7 +1,7 @@
 import StructuredQueries
 import StructuredQueriesSQLite
 import StructuredQueriesTestSupport
-@testable import SharingGRDBPokeAPI
+@testable import PokeAPIDatabase
 
 enum Helper {
     static func assertQuery<S: StructuredQueries.SelectStatement, each J: StructuredQueries.Table>(

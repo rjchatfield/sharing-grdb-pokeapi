@@ -5,7 +5,7 @@ import StructuredQueriesSQLite
 import StructuredQueriesTestSupport
 import SnapshotTesting
 import InlineSnapshotTesting
-@testable import SharingGRDBPokeAPI
+@testable import PokeAPIDatabase
 
 @Suite(
     .serialized,

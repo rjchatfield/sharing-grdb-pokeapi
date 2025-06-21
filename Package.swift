@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "SharingGRDBPokeAPI",
+    name: "PokeAPIDatabase",
     platforms: [
         .iOS(.v13),
         .macOS(.v10_15),
@@ -13,8 +13,8 @@ let package = Package(
     ],
     products: [
         .library(
-            name: "SharingGRDBPokeAPI",
-            targets: ["SharingGRDBPokeAPI"],
+            name: "PokeAPIDatabase",
+            targets: ["PokeAPIDatabase"],
         ),
     ],
     dependencies: [
@@ -23,7 +23,7 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "SharingGRDBPokeAPI",
+            name: "PokeAPIDatabase",
             dependencies: [
                 .product(name: "StructuredQueries", package: "swift-structured-queries"),
                 .product(name: "GRDB", package: "GRDB.swift"),
@@ -33,9 +33,9 @@ let package = Package(
             ]
         ),
         .testTarget(
-            name: "SharingGRDBPokeAPITests",
+            name: "PokeAPIDatabaseTests",
             dependencies: [
-                "SharingGRDBPokeAPI",
+                "PokeAPIDatabase",
                 .product(name: "StructuredQueries", package: "swift-structured-queries"),
                 .product(name: "_StructuredQueriesSQLite", package: "swift-structured-queries"),
                 .product(name: "StructuredQueriesTestSupport", package: "swift-structured-queries"),
