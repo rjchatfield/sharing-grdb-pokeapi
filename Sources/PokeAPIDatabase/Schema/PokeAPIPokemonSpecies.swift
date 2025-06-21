@@ -6,13 +6,16 @@ import StructuredQueries
 @Table("pokemon_species")
 public struct PokeAPIPokemonSpecies: Codable, Equatable, Identifiable, Sendable {
     public typealias ID = Int
+    public typealias Identifier = String
+    public typealias ColorID = Int
+    public typealias HabitatID = Int
 
     /// National Pokedex number and unique species identifier
     @Column("id", primaryKey: true) public var id: ID
     
     /// Machine-readable species name (e.g., "pikachu", "charizard")
-    @Column("identifier") public var identifier: String
-    
+    @Column("identifier") public var identifier: Identifier
+
     /// Generation in which this species was first introduced (1-9+)
     @Column("generation_id") public var generationId: PokeAPIGeneration.ID
 
@@ -26,15 +29,15 @@ public struct PokeAPIPokemonSpecies: Codable, Equatable, Identifiable, Sendable 
 
     /// Primary color classification for this Pokemon
     /// Used for Pokedex filtering and organization
-    @Column("color_id") public var colorId: Int
-    
+    @Column("color_id") public var colorId: ColorID
+
     /// Body shape category (humanoid, quadruped, serpentine, etc.)
     @Column("shape_id") public var shapeId: Int
     
     /// Natural habitat where this Pokemon can typically be found
     /// Nil for Pokemon without a specific natural habitat
-    @Column("habitat_id") public var habitatId: Int?
-    
+    @Column("habitat_id") public var habitatId: HabitatID?
+
     /// Gender distribution ratio: -1 = genderless, 0 = always male, 8 = always female
     /// Values 1-7 represent increasing likelihood of being female (1/8 to 7/8)
     @Column("gender_rate") public var genderRate: Int
@@ -86,11 +89,22 @@ public struct PokeAPIPokemonSpecies: Codable, Equatable, Identifiable, Sendable 
     /// Range: 1-200
     @Column("conquest_order") public var conquestOrder: Int?
 
-    public var formattedName: String {
-        identifier.capitalized.replacingOccurrences(of: "-", with: " ")
-    }
-    
+    // MARK: - Helpers
+
     public var nationalDexNumber: Int {
-        id
+        return id
+    }
+
+    public var formattedName: String {
+        return PokeAPIStrings.formatted(identifier: identifier)
+    }
+
+    public var localizedColor: String {
+        return PokeAPIStrings.color(id: colorId)!
+    }
+
+    public var localizedHabitat: String? {
+        guard let habitatId else { return nil }
+        return PokeAPIStrings.habitat(id: habitatId)
     }
 }

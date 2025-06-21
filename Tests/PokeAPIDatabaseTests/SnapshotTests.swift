@@ -392,43 +392,43 @@ struct SnapshotTests {
             PokeAPIGeneration.limit(5)
         ) {
             """
-            SELECT "generations"."id", "generations"."main_region_id", "generations"."identifier"
+            SELECT "generations"."id", "generations"."identifier", "generations"."main_region_id"
             FROM "generations"
             LIMIT 5
             """
-        } results: {
+        }results: {
             """
-            ┌────────────────────────────────┐
-            │ PokeAPIGeneration(             │
-            │   id: 1,                       │
-            │   mainRegionId: 1,             │
-            │   identifier: "generation-i"   │
-            │ )                              │
-            ├────────────────────────────────┤
-            │ PokeAPIGeneration(             │
-            │   id: 2,                       │
-            │   mainRegionId: 2,             │
-            │   identifier: "generation-ii"  │
-            │ )                              │
-            ├────────────────────────────────┤
-            │ PokeAPIGeneration(             │
-            │   id: 3,                       │
-            │   mainRegionId: 3,             │
-            │   identifier: "generation-iii" │
-            │ )                              │
-            ├────────────────────────────────┤
-            │ PokeAPIGeneration(             │
-            │   id: 4,                       │
-            │   mainRegionId: 4,             │
-            │   identifier: "generation-iv"  │
-            │ )                              │
-            ├────────────────────────────────┤
-            │ PokeAPIGeneration(             │
-            │   id: 5,                       │
-            │   mainRegionId: 5,             │
-            │   identifier: "generation-v"   │
-            │ )                              │
-            └────────────────────────────────┘
+            ┌─────────────────────────────────┐
+            │ PokeAPIGeneration(              │
+            │   id: 1,                        │
+            │   identifier: "generation-i",   │
+            │   mainRegionId: 1               │
+            │ )                               │
+            ├─────────────────────────────────┤
+            │ PokeAPIGeneration(              │
+            │   id: 2,                        │
+            │   identifier: "generation-ii",  │
+            │   mainRegionId: 2               │
+            │ )                               │
+            ├─────────────────────────────────┤
+            │ PokeAPIGeneration(              │
+            │   id: 3,                        │
+            │   identifier: "generation-iii", │
+            │   mainRegionId: 3               │
+            │ )                               │
+            ├─────────────────────────────────┤
+            │ PokeAPIGeneration(              │
+            │   id: 4,                        │
+            │   identifier: "generation-iv",  │
+            │   mainRegionId: 4               │
+            │ )                               │
+            ├─────────────────────────────────┤
+            │ PokeAPIGeneration(              │
+            │   id: 5,                        │
+            │   identifier: "generation-v",   │
+            │   mainRegionId: 5               │
+            │ )                               │
+            └─────────────────────────────────┘
             """
         }
     }
@@ -501,43 +501,43 @@ struct SnapshotTests {
             PokeAPIItemCategory.limit(5)
         ) {
             """
-            SELECT "item_categories"."id", "item_categories"."pocket_id", "item_categories"."identifier"
+            SELECT "item_categories"."id", "item_categories"."identifier", "item_categories"."pocket_id"
             FROM "item_categories"
             LIMIT 5
             """
-        } results: {
+        }results: {
             """
-            ┌─────────────────────────────┐
-            │ PokeAPIItemCategory(        │
-            │   id: 1,                    │
-            │   pocketId: 7,              │
-            │   identifier: "stat-boosts" │
-            │ )                           │
-            ├─────────────────────────────┤
-            │ PokeAPIItemCategory(        │
-            │   id: 2,                    │
-            │   pocketId: 5,              │
-            │   identifier: "effort-drop" │
-            │ )                           │
-            ├─────────────────────────────┤
-            │ PokeAPIItemCategory(        │
-            │   id: 3,                    │
-            │   pocketId: 5,              │
-            │   identifier: "medicine"    │
-            │ )                           │
-            ├─────────────────────────────┤
-            │ PokeAPIItemCategory(        │
-            │   id: 4,                    │
-            │   pocketId: 5,              │
-            │   identifier: "other"       │
-            │ )                           │
-            ├─────────────────────────────┤
-            │ PokeAPIItemCategory(        │
-            │   id: 5,                    │
-            │   pocketId: 5,              │
-            │   identifier: "in-a-pinch"  │
-            │ )                           │
-            └─────────────────────────────┘
+            ┌──────────────────────────────┐
+            │ PokeAPIItemCategory(         │
+            │   id: 1,                     │
+            │   identifier: "stat-boosts", │
+            │   pocketId: 7                │
+            │ )                            │
+            ├──────────────────────────────┤
+            │ PokeAPIItemCategory(         │
+            │   id: 2,                     │
+            │   identifier: "effort-drop", │
+            │   pocketId: 5                │
+            │ )                            │
+            ├──────────────────────────────┤
+            │ PokeAPIItemCategory(         │
+            │   id: 3,                     │
+            │   identifier: "medicine",    │
+            │   pocketId: 5                │
+            │ )                            │
+            ├──────────────────────────────┤
+            │ PokeAPIItemCategory(         │
+            │   id: 4,                     │
+            │   identifier: "other",       │
+            │   pocketId: 5                │
+            │ )                            │
+            ├──────────────────────────────┤
+            │ PokeAPIItemCategory(         │
+            │   id: 5,                     │
+            │   identifier: "in-a-pinch",  │
+            │   pocketId: 5                │
+            │ )                            │
+            └──────────────────────────────┘
             """
         }
     }
@@ -548,43 +548,43 @@ struct SnapshotTests {
             PokeAPILocation.limit(5)
         ) {
             """
-            SELECT "locations"."id", "locations"."region_id", "locations"."identifier"
+            SELECT "locations"."id", "locations"."identifier", "locations"."region_id"
             FROM "locations"
             LIMIT 5
             """
-        } results: {
+        }results: {
             """
-            ┌───────────────────────────────────────┐
-            │ PokeAPILocation(                      │
-            │   id: 1,                              │
-            │   regionId: 4,                        │
-            │   identifier: "canalave-city"         │
-            │ )                                     │
-            ├───────────────────────────────────────┤
-            │ PokeAPILocation(                      │
-            │   id: 2,                              │
-            │   regionId: 4,                        │
-            │   identifier: "eterna-city"           │
-            │ )                                     │
-            ├───────────────────────────────────────┤
-            │ PokeAPILocation(                      │
-            │   id: 3,                              │
-            │   regionId: 4,                        │
-            │   identifier: "pastoria-city"         │
-            │ )                                     │
-            ├───────────────────────────────────────┤
-            │ PokeAPILocation(                      │
-            │   id: 4,                              │
-            │   regionId: 4,                        │
-            │   identifier: "sunyshore-city"        │
-            │ )                                     │
-            ├───────────────────────────────────────┤
-            │ PokeAPILocation(                      │
-            │   id: 5,                              │
-            │   regionId: 4,                        │
-            │   identifier: "sinnoh-pokemon-league" │
-            │ )                                     │
-            └───────────────────────────────────────┘
+            ┌────────────────────────────────────────┐
+            │ PokeAPILocation(                       │
+            │   id: 1,                               │
+            │   identifier: "canalave-city",         │
+            │   regionId: 4                          │
+            │ )                                      │
+            ├────────────────────────────────────────┤
+            │ PokeAPILocation(                       │
+            │   id: 2,                               │
+            │   identifier: "eterna-city",           │
+            │   regionId: 4                          │
+            │ )                                      │
+            ├────────────────────────────────────────┤
+            │ PokeAPILocation(                       │
+            │   id: 3,                               │
+            │   identifier: "pastoria-city",         │
+            │   regionId: 4                          │
+            │ )                                      │
+            ├────────────────────────────────────────┤
+            │ PokeAPILocation(                       │
+            │   id: 4,                               │
+            │   identifier: "sunyshore-city",        │
+            │   regionId: 4                          │
+            │ )                                      │
+            ├────────────────────────────────────────┤
+            │ PokeAPILocation(                       │
+            │   id: 5,                               │
+            │   identifier: "sinnoh-pokemon-league", │
+            │   regionId: 4                          │
+            │ )                                      │
+            └────────────────────────────────────────┘
             """
         }
     }
@@ -595,11 +595,11 @@ struct SnapshotTests {
             PokeAPILocationArea.limit(5)
         ) {
             """
-            SELECT "location_areas"."id", "location_areas"."location_id", "location_areas"."game_index", "location_areas"."identifier"
+            SELECT "location_areas"."id", "location_areas"."identifier", "location_areas"."location_id", "location_areas"."game_index"
             FROM "location_areas"
             LIMIT 5
             """
-        } results: {
+        }results: {
             """
             The operation couldn’t be completed. (StructuredQueriesCore.QueryDecodingError error 0.)
             """
@@ -1456,49 +1456,49 @@ struct SnapshotTests {
             PokeAPIStat.limit(5)
         ) {
             """
-            SELECT "stats"."id", "stats"."damage_class_id", "stats"."identifier", "stats"."is_battle_only", "stats"."game_index"
+            SELECT "stats"."id", "stats"."identifier", "stats"."damage_class_id", "stats"."is_battle_only", "stats"."game_index"
             FROM "stats"
             LIMIT 5
             """
-        } results: {
+        }results: {
             """
             ┌──────────────────────────────────┐
             │ PokeAPIStat(                     │
             │   id: 1,                         │
-            │   damageClassId: nil,            │
             │   identifier: "hp",              │
+            │   damageClassId: nil,            │
             │   isBattleOnly: false,           │
             │   gameIndex: 1                   │
             │ )                                │
             ├──────────────────────────────────┤
             │ PokeAPIStat(                     │
             │   id: 2,                         │
-            │   damageClassId: 2,              │
             │   identifier: "attack",          │
+            │   damageClassId: 2,              │
             │   isBattleOnly: false,           │
             │   gameIndex: 2                   │
             │ )                                │
             ├──────────────────────────────────┤
             │ PokeAPIStat(                     │
             │   id: 3,                         │
-            │   damageClassId: 2,              │
             │   identifier: "defense",         │
+            │   damageClassId: 2,              │
             │   isBattleOnly: false,           │
             │   gameIndex: 3                   │
             │ )                                │
             ├──────────────────────────────────┤
             │ PokeAPIStat(                     │
             │   id: 4,                         │
-            │   damageClassId: 3,              │
             │   identifier: "special-attack",  │
+            │   damageClassId: 3,              │
             │   isBattleOnly: false,           │
             │   gameIndex: 5                   │
             │ )                                │
             ├──────────────────────────────────┤
             │ PokeAPIStat(                     │
             │   id: 5,                         │
-            │   damageClassId: 3,              │
             │   identifier: "special-defense", │
+            │   damageClassId: 3,              │
             │   isBattleOnly: false,           │
             │   gameIndex: 6                   │
             │ )                                │
@@ -1612,43 +1612,43 @@ struct SnapshotTests {
             PokeAPIVersion.limit(5)
         ) {
             """
-            SELECT "versions"."id", "versions"."version_group_id", "versions"."identifier"
+            SELECT "versions"."id", "versions"."identifier", "versions"."version_group_id"
             FROM "versions"
             LIMIT 5
             """
-        } results: {
+        }results: {
             """
-            ┌────────────────────────┐
-            │ PokeAPIVersion(        │
-            │   id: 1,               │
-            │   versionGroupId: 1,   │
-            │   identifier: "red"    │
-            │ )                      │
-            ├────────────────────────┤
-            │ PokeAPIVersion(        │
-            │   id: 2,               │
-            │   versionGroupId: 1,   │
-            │   identifier: "blue"   │
-            │ )                      │
-            ├────────────────────────┤
-            │ PokeAPIVersion(        │
-            │   id: 3,               │
-            │   versionGroupId: 2,   │
-            │   identifier: "yellow" │
-            │ )                      │
-            ├────────────────────────┤
-            │ PokeAPIVersion(        │
-            │   id: 4,               │
-            │   versionGroupId: 3,   │
-            │   identifier: "gold"   │
-            │ )                      │
-            ├────────────────────────┤
-            │ PokeAPIVersion(        │
-            │   id: 5,               │
-            │   versionGroupId: 3,   │
-            │   identifier: "silver" │
-            │ )                      │
-            └────────────────────────┘
+            ┌─────────────────────────┐
+            │ PokeAPIVersion(         │
+            │   id: 1,                │
+            │   identifier: "red",    │
+            │   versionGroupId: 1     │
+            │ )                       │
+            ├─────────────────────────┤
+            │ PokeAPIVersion(         │
+            │   id: 2,                │
+            │   identifier: "blue",   │
+            │   versionGroupId: 1     │
+            │ )                       │
+            ├─────────────────────────┤
+            │ PokeAPIVersion(         │
+            │   id: 3,                │
+            │   identifier: "yellow", │
+            │   versionGroupId: 2     │
+            │ )                       │
+            ├─────────────────────────┤
+            │ PokeAPIVersion(         │
+            │   id: 4,                │
+            │   identifier: "gold",   │
+            │   versionGroupId: 3     │
+            │ )                       │
+            ├─────────────────────────┤
+            │ PokeAPIVersion(         │
+            │   id: 5,                │
+            │   identifier: "silver", │
+            │   versionGroupId: 3     │
+            │ )                       │
+            └─────────────────────────┘
             """
         }
     }

@@ -6,12 +6,13 @@ import StructuredQueries
 @Table("moves")
 public struct PokeAPIMove: Decodable, Hashable, Identifiable, Sendable {
     public typealias ID = Int
-    
+    public typealias Identifier = String
+
     /// Unique move identifier
     @Column("id", primaryKey: true) public var id: ID
     
     /// Machine-readable move name (e.g., "tackle", "thunderbolt", "hyper-beam")
-    @Column("identifier") public var identifier: String
+    @Column("identifier") public var identifier: Identifier
     
     /// Generation in which this move was first introduced (1-9+)
     @Column("generation_id") public var generationId: PokeAPIGeneration.ID
@@ -63,4 +64,10 @@ public struct PokeAPIMove: Decodable, Hashable, Identifiable, Sendable {
     
     /// Effect this move has in Super Contests (Diamond/Pearl/Platinum)
     @Column("super_contest_effect_id") public var superContestEffectId: Int?
+
+    // MARK: - Helpers
+
+    public var localizedName: String {
+        return PokeAPIStrings.move(id: id, identifier: identifier)
+    }
 }

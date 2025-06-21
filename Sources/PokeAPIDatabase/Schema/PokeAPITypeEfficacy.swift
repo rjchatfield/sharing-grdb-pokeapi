@@ -16,8 +16,10 @@ public struct PokeAPITypeEfficacy: Decodable, Equatable, Sendable {
     /// Range: 0-200
     @Column("damage_factor") public var damageFactor: Int
 
+    // MARK: - Helpers
+
     public var effectiveness: Double {
-        Double(damageFactor) / 100.0
+        return Double(damageFactor) / 100.0
     }
     
     public var effectivenessDescription: String {

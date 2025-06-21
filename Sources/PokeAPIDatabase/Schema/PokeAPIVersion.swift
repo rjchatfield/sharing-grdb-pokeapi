@@ -6,15 +6,22 @@ import StructuredQueries
 @Table("versions")
 public struct PokeAPIVersion: Decodable, Hashable, Identifiable, Sendable {
     public typealias ID = Int
+    public typealias Identifier = String
 
     /// Unique version identifier
     @Column("id", primaryKey: true) public var id: ID
     
+    /// Machine-readable version name (e.g., "red", "blue", "gold", "silver", "diamond")
+    /// Individual game cartridge or digital release identifier
+    @Column("identifier") public var identifier: Identifier
+    
     /// Version group this individual game belongs to
     /// Links related versions like Red/Blue or Diamond/Pearl together
     @Column("version_group_id") public var versionGroupId: PokeAPIVersionGroup.ID
-    
-    /// Machine-readable version name (e.g., "red", "blue", "gold", "silver", "diamond")
-    /// Individual game cartridge or digital release identifier
-    @Column("identifier") public var identifier: String
+
+    // MARK: - Helpers
+
+    public var formattedName: String {
+        return PokeAPIStrings.formatted(identifier: identifier)
+    }
 }

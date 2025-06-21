@@ -6,12 +6,13 @@ import StructuredQueries
 @Table("natures")
 public struct PokeAPINature: Decodable, Hashable, Identifiable, Sendable {
     public typealias ID = Int
+    public typealias Identifier = String
 
     /// Unique nature identifier (1-25)
     @Column("id", primaryKey: true) public var id: ID
 
     /// Machine-readable nature name (e.g., "adamant", "modest", "jolly")
-    @Column("identifier") public var identifier: String
+    @Column("identifier") public var identifier: Identifier
     
     /// Stat that this nature decreases by 10%
     /// Same as increased_stat_id for neutral natures
@@ -30,4 +31,10 @@ public struct PokeAPINature: Decodable, Hashable, Identifiable, Sendable {
     /// In-game index for this nature
     /// Range: 0-24
     @Column("game_index") public var gameIndex: Int
+
+    // MARK: - Helpers
+
+    public var localizedName: String {
+        return PokeAPIStrings.nature(id: id, identifier: identifier)
+    }
 }

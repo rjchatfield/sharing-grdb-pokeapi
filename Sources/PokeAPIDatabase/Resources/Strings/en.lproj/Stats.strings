@@ -6,6 +6,6 @@
 "stat.4.name" = "Special Attack";
 "stat.5.name" = "Special Defense";
 "stat.6.name" = "Speed";
-"stat.7.name" = "accuracy";
-"stat.8.name" = "evasion";
+"stat.7.name" = "Accuracy";
+"stat.8.name" = "Evasion";
 

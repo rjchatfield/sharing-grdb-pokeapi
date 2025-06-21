@@ -7,12 +7,13 @@ import StructuredQueries
 @Table("pokemon")
 public struct PokeAPIPokemon: Decodable, Hashable, Identifiable, Sendable {
     public typealias ID = Int
-    
+    public typealias Identifier = String
+
     /// Unique identifier for this Pokemon form
     @Column("id", primaryKey: true) public var id: ID
     
     /// Machine-readable name (e.g., "pikachu", "pikachu-cosplay")
-    @Column("identifier") public var identifier: String
+    @Column("identifier") public var identifier: Identifier
     
     /// Foreign key to the pokemon_species table - links to the base species information
     @Column("species_id") public var speciesId: PokeAPIPokemonSpecies.ID
@@ -44,18 +45,18 @@ public struct PokeAPIPokemon: Decodable, Hashable, Identifiable, Sendable {
     // MARK: - Helpers
 
     public var nationalDexNumber: Int {
-        id
+        return id
     }
 
-    public var formattedName: String {
-        identifier.capitalized.replacingOccurrences(of: "-", with: " ")
+    public var localizedName: String {
+        return PokeAPIStrings.pokemon(id: id, identifier: identifier)
     }
 
     public var height: Measurement<UnitLength> {
-        Measurement(value: Double(heightInDecimeters), unit: UnitLength.decimeters)
+        return Measurement(value: Double(heightInDecimeters), unit: UnitLength.decimeters)
     }
 
     public var weight: Measurement<UnitMass> {
-        Measurement(value: Double(weightInHectograms) / 10.0, unit: UnitMass.kilograms)
+        return Measurement(value: Double(weightInHectograms) / 10.0, unit: UnitMass.kilograms)
     }
 }

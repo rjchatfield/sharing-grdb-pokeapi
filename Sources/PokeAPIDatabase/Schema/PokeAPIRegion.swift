@@ -7,11 +7,18 @@ import StructuredQueries
 @Table("regions")
 public struct PokeAPIRegion: Decodable, Hashable, Identifiable, Sendable {
     public typealias ID = Int
+    public typealias Identifier = String
 
     /// Unique region identifier
     @Column("id", primaryKey: true) public var id: ID
     
     /// Machine-readable region name (e.g., "kanto", "johto", "hoenn", "sinnoh")
     /// Each region represents a distinct area with its own Pokemon, culture, and storyline
-    @Column("identifier") public var identifier: String
+    @Column("identifier") public var identifier: Identifier
+
+    // MARK: - Helpers
+
+    public var localizedName: String {
+        return PokeAPIStrings.region(id: id, identifier: identifier)
+    }
 }

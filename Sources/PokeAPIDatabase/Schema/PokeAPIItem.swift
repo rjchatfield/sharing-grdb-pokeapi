@@ -6,13 +6,14 @@ import StructuredQueries
 @Table("items")
 public struct PokeAPIItem: Decodable, Hashable, Identifiable, Sendable {
     public typealias ID = Int
-    
+    public typealias Identifier = String
+
     /// Unique item identifier
     @Column("id", primaryKey: true) public var id: ID
     
     /// Machine-readable item name (e.g., "potion", "poke-ball", "fire-stone")
-    @Column("identifier") public var identifier: String
-    
+    @Column("identifier") public var identifier: Identifier
+
     /// Item category (healing, pokeballs, evolution, held items, etc.)
     @Column("category_id") public var categoryId: PokeAPIItemCategory.ID
 
@@ -28,4 +29,10 @@ public struct PokeAPIItem: Decodable, Hashable, Identifiable, Sendable {
     /// Special effect when used with the move Fling
     /// Nil for items with no special fling effect
     @Column("fling_effect_id") public var flingEffectId: Int?
+
+    // MARK: - Helpers
+
+    public var localizedName: String {
+        return PokeAPIStrings.item(id: id, identifier: identifier)
+    }
 }

@@ -6,11 +6,18 @@ import StructuredQueries
 @Table("move_damage_classes")
 public struct PokeAPIMoveDamageClass: Decodable, Hashable, Identifiable, Sendable {
     public typealias ID = Int
+    public typealias Identifier = String
 
     /// Unique damage class identifier (1=Physical, 2=Special, 3=Status)
     @Column("id", primaryKey: true) public var id: ID
-
+    
     /// Machine-readable damage class name ("physical", "special", "status")
     /// Determines which stats are used for damage calculation
-    @Column("identifier") public var identifier: String
+    @Column("identifier") public var identifier: Identifier
+
+    // MARK: - Helpers
+
+    public var formattedName: String {
+        return PokeAPIStrings.formatted(identifier: identifier)
+    }
 }
