@@ -20,5 +20,6 @@ public struct PokeAPIVersionGroup: Decodable, Hashable, Identifiable, Sendable {
     
     /// Release order within the generation
     /// Used for chronological sorting of version groups
+    /// Range: 1-29
     @Column("order") public var order: Int
 }

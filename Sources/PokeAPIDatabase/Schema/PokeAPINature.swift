@@ -28,5 +28,6 @@ public struct PokeAPINature: Decodable, Hashable, Identifiable, Sendable {
     @Column("likes_flavor_id") public var likesFlavorId: Int
     
     /// In-game index for this nature
+    /// Range: 0-24
     @Column("game_index") public var gameIndex: Int
 }

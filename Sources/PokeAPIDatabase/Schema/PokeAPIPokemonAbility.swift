@@ -17,5 +17,6 @@ public struct PokeAPIPokemonAbility: Decodable, Hashable, Sendable {
     
     /// Ability slot (1-2 for regular abilities, 3 for hidden ability)
     /// Determines which ability the Pokemon has based on its personality
+    /// Range: 1-3
     @Column("slot") public var slot: Int
 }

@@ -23,8 +23,10 @@ public struct PokeAPIEncounter: Decodable, Hashable, Identifiable, Sendable {
     @Column("pokemon_id") public var pokemonId: PokeAPIPokemon.ID
 
     /// Minimum level this Pokemon can be encountered at
+    /// Range: 1-80
     @Column("min_level") public var minLevel: Int
 
     /// Maximum level this Pokemon can be encountered at
+    /// Range: 1-100
     @Column("max_level") public var maxLevel: Int
 }

@@ -13,5 +13,6 @@ public struct PokeAPIPokemonType: Codable, Equatable, Sendable {
     
     /// Type slot: 1 for primary type, 2 for secondary type
     /// Single-type Pokemon only have slot 1
+    /// Range: 1-2
     @Column("slot") public var slot: Int?
 }

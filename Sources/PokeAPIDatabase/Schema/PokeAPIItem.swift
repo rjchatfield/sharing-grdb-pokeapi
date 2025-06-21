@@ -17,10 +17,12 @@ public struct PokeAPIItem: Decodable, Hashable, Identifiable, Sendable {
     @Column("category_id") public var categoryId: PokeAPIItemCategory.ID
 
     /// Purchase cost in Poke Dollars (0 for items that can't be bought)
+    /// Range: 0-100000
     @Column("cost") public var cost: Int
     
     /// Base power when used with the move Fling (Gen IV+)
     /// Nil for items that can't be flung
+    /// Range: 10-130
     @Column("fling_power") public var flingPower: Int?
     
     /// Special effect when used with the move Fling

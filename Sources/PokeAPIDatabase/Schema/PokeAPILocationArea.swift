@@ -15,6 +15,7 @@ public struct PokeAPILocationArea: Decodable, Hashable, Identifiable, Sendable {
 
     /// In-game index number for this area
     /// Used internally by the game engine for area identification
+    /// Range: 0-183
     @Column("game_index") public var gameIndex: Int
     
     /// Machine-readable area name (e.g., "area", "1f", "b1f", "entrance", "summit")

@@ -22,6 +22,7 @@ public struct PokeAPIStat: Decodable, Equatable, Identifiable, Sendable {
     @Column("is_battle_only") public var isBattleOnly: Bool
     
     /// In-game index number for this stat (used internally by game mechanics)
+    /// Range: 1-6
     @Column("game_index") public var gameIndex: Int?
     
     public var formattedName: String {

@@ -13,6 +13,7 @@ public struct PokeAPITypeEfficacy: Decodable, Equatable, Sendable {
     
     /// Damage multiplier as integer (0=no effect, 50=½x, 200=2x)
     /// Divide by 100 to get actual multiplier. Default 1x relationships are omitted.
+    /// Range: 0-200
     @Column("damage_factor") public var damageFactor: Int
 
     public var effectiveness: Double {

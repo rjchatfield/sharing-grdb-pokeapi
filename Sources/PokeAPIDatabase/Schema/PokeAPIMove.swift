@@ -22,18 +22,22 @@ public struct PokeAPIMove: Decodable, Hashable, Identifiable, Sendable {
 
     /// Base power of the move (typically 0-250)
     /// Nil for status moves that don't deal direct damage
+    /// Range: 0-250
     @Column("power") public var power: Int?
     
     /// Power Points - number of times this move can be used (1-40)
     /// Nil for moves with unlimited uses (very rare)
+    /// Range: 1-40
     @Column("pp") public var pp: Int?
     
     /// Hit accuracy as a percentage (0-100, some moves >100)
     /// Nil for moves that never miss (e.g., Swift)
+    /// Range: 0-100
     @Column("accuracy") public var accuracy: Int?
     
     /// Move priority (-6 to +5, 0 is normal)
     /// Higher priority moves go first regardless of Speed
+    /// Range: -7 to 5
     @Column("priority") public var priority: Int
     
     /// What the move can target (single enemy, all enemies, self, etc.)
@@ -48,6 +52,7 @@ public struct PokeAPIMove: Decodable, Hashable, Identifiable, Sendable {
 
     /// Percentage chance the secondary effect occurs (0-100)
     /// Nil if move has no secondary effect or always triggers
+    /// Range: 10-100
     @Column("effect_chance") public var effectChance: Int?
     
     /// Contest type for Pokemon Contests (Cool, Beauty, Cute, Smart, Tough)

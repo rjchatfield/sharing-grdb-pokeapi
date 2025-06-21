@@ -16,5 +16,6 @@ public struct PokeAPIEncounterMethod: Decodable, Hashable, Identifiable, Sendabl
     
     /// Display order for UI listing purposes
     /// Lower numbers appear first in encounter method lists
+    /// Range: 1-37
     @Column("order") public var order: Int
 }

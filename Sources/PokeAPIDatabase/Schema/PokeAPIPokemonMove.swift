@@ -21,10 +21,12 @@ public struct PokeAPIPokemonMove: Decodable, Hashable, Sendable {
     
     /// Level at which the move is learned (for level-up moves)
     /// 0 for moves learned at evolution, 1 for starting moves, -1 for non-level moves
+    /// Range: 0-100
     @Column("level") public var level: Int
     
     /// Order in which moves are learned at the same level
     /// Used for sorting when multiple moves are learned simultaneously
+    /// Range: 1-23
     @Column("order") public var order: Int?
     
     /// Mastery level or special conditions (used in some games)

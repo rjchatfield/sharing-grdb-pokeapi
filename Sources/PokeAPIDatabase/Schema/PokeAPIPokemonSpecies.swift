@@ -41,10 +41,12 @@ public struct PokeAPIPokemonSpecies: Codable, Equatable, Identifiable, Sendable 
     
     /// Base capture rate (0-255, higher = easier to catch)
     /// Example: Caterpie = 255 (very easy), Mewtwo = 3 (very hard)
+    /// Range: 3-255
     @Column("capture_rate") public var captureRate: Int
     
     /// Base friendship/happiness value when caught (0-255)
     /// Affects happiness evolution and certain move effectiveness
+    /// Range: 0-140
     @Column("base_happiness") public var baseHappiness: Int
     
     /// Whether this is considered a "baby" Pokemon
@@ -53,6 +55,7 @@ public struct PokeAPIPokemonSpecies: Codable, Equatable, Identifiable, Sendable 
     
     /// Base number of egg cycles required to hatch (steps = cycles × 256)
     /// Used for breeding mechanics
+    /// Range: 5-120
     @Column("hatch_counter") public var hatchCounter: Int
     
     /// Whether male and female versions have visual differences
@@ -76,9 +79,11 @@ public struct PokeAPIPokemonSpecies: Codable, Equatable, Identifiable, Sendable 
     @Column("is_mythical") public var isMythical: Bool
     
     /// National Pokedex sort order
+    /// Range: 1-1027
     @Column("order") public var order: Int
     
     /// Sort order for Pokemon Conquest game (if applicable)
+    /// Range: 1-200
     @Column("conquest_order") public var conquestOrder: Int?
 
     public var formattedName: String {
