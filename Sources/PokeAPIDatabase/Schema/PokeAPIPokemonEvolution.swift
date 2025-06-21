@@ -18,7 +18,7 @@ public struct PokeAPIPokemonEvolution: Decodable, Hashable, Identifiable, Sendab
 
     /// Item required to trigger evolution (evolution stones, etc.)
     /// Nil if no item is required
-    @Column("trigger_item_id") public var triggerItemId: Int?
+    @Column("trigger_item_id") public var triggerItemId: PokeAPIItem.ID?
 
     /// Minimum level required for evolution
     /// Nil if level is not a requirement

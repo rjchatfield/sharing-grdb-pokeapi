@@ -1,5 +1,4 @@
 import Testing
-import Dependencies
 import StructuredQueries
 import StructuredQueriesSQLite
 import StructuredQueriesTestSupport
@@ -315,6 +314,74 @@ struct SnapshotTests {
             │   rarity: 10            │
             │ )                       │
             └─────────────────────────┘
+            """
+        }
+    }
+    
+    @Test
+    func testEvolutionChainBasicQuery() {
+        Helper.assertQuery(
+            PokeAPIEvolutionChain.limit(5)
+        ) {
+            """
+            SELECT "evolution_chains"."id", "evolution_chains"."baby_trigger_item_id"
+            FROM "evolution_chains"
+            LIMIT 5
+            """
+        } results: {
+            """
+            ┌──────────────────────────┐
+            │ PokeAPIEvolutionChain(   │
+            │   id: 1,                 │
+            │   babyTriggerItemId: nil │
+            │ )                        │
+            ├──────────────────────────┤
+            │ PokeAPIEvolutionChain(   │
+            │   id: 2,                 │
+            │   babyTriggerItemId: nil │
+            │ )                        │
+            ├──────────────────────────┤
+            │ PokeAPIEvolutionChain(   │
+            │   id: 3,                 │
+            │   babyTriggerItemId: nil │
+            │ )                        │
+            ├──────────────────────────┤
+            │ PokeAPIEvolutionChain(   │
+            │   id: 4,                 │
+            │   babyTriggerItemId: nil │
+            │ )                        │
+            ├──────────────────────────┤
+            │ PokeAPIEvolutionChain(   │
+            │   id: 5,                 │
+            │   babyTriggerItemId: nil │
+            │ )                        │
+            └──────────────────────────┘
+            """
+        }
+        Helper.assertQuery(
+            PokeAPIEvolutionChain
+                .where({ $0.babyTriggerItemId != nil })
+                .limit(2)
+        ) {
+            """
+            SELECT "evolution_chains"."id", "evolution_chains"."baby_trigger_item_id"
+            FROM "evolution_chains"
+            WHERE ("evolution_chains"."baby_trigger_item_id" IS NOT NULL)
+            LIMIT 2
+            """
+        } results: {
+            """
+            ┌──────────────────────────┐
+            │ PokeAPIEvolutionChain(   │
+            │   id: 51,                │
+            │   babyTriggerItemId: 296 │
+            │ )                        │
+            ├──────────────────────────┤
+            │ PokeAPIEvolutionChain(   │
+            │   id: 57,                │
+            │   babyTriggerItemId: 291 │
+            │ )                        │
+            └──────────────────────────┘
             """
         }
     }
@@ -804,8 +871,8 @@ struct SnapshotTests {
             │   id: 1,                    │
             │   identifier: "bulbasaur",  │
             │   speciesId: 1,             │
-            │   height: 7,                │
-            │   weight: 69,               │
+            │   heightInDecimeters: 7,    │
+            │   weightInHectograms: 69,   │
             │   baseExperience: 64,       │
             │   order: 1,                 │
             │   isDefault: true           │
@@ -815,8 +882,8 @@ struct SnapshotTests {
             │   id: 2,                    │
             │   identifier: "ivysaur",    │
             │   speciesId: 2,             │
-            │   height: 10,               │
-            │   weight: 130,              │
+            │   heightInDecimeters: 10,   │
+            │   weightInHectograms: 130,  │
             │   baseExperience: 142,      │
             │   order: 2,                 │
             │   isDefault: true           │
@@ -826,8 +893,8 @@ struct SnapshotTests {
             │   id: 3,                    │
             │   identifier: "venusaur",   │
             │   speciesId: 3,             │
-            │   height: 20,               │
-            │   weight: 1000,             │
+            │   heightInDecimeters: 20,   │
+            │   weightInHectograms: 1000, │
             │   baseExperience: 236,      │
             │   order: 3,                 │
             │   isDefault: true           │
@@ -837,8 +904,8 @@ struct SnapshotTests {
             │   id: 4,                    │
             │   identifier: "charmander", │
             │   speciesId: 4,             │
-            │   height: 6,                │
-            │   weight: 85,               │
+            │   heightInDecimeters: 6,    │
+            │   weightInHectograms: 85,   │
             │   baseExperience: 62,       │
             │   order: 5,                 │
             │   isDefault: true           │
@@ -848,8 +915,8 @@ struct SnapshotTests {
             │   id: 5,                    │
             │   identifier: "charmeleon", │
             │   speciesId: 5,             │
-            │   height: 11,               │
-            │   weight: 190,              │
+            │   heightInDecimeters: 11,   │
+            │   weightInHectograms: 190,  │
             │   baseExperience: 142,      │
             │   order: 6,                 │
             │   isDefault: true           │

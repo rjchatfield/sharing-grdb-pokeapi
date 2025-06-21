@@ -22,8 +22,8 @@ public struct PokeAPIPokemonSpecies: Codable, Equatable, Identifiable, Sendable 
 
     /// Evolution chain this species belongs to
     /// Links related evolutionary forms together
-    @Column("evolution_chain_id") public var evolutionChainId: Int
-    
+    @Column("evolution_chain_id") public var evolutionChainId: PokeAPIEvolutionChain.ID
+
     /// Primary color classification for this Pokemon
     /// Used for Pokedex filtering and organization
     @Column("color_id") public var colorId: Int
