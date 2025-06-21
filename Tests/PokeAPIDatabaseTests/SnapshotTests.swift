@@ -4,7 +4,7 @@ import StructuredQueriesSQLite
 import StructuredQueriesTestSupport
 import SnapshotTesting
 import InlineSnapshotTesting
-@testable import PokeAPIDatabase
+import PokeAPIDatabase
 
 @Suite(
     .serialized,
