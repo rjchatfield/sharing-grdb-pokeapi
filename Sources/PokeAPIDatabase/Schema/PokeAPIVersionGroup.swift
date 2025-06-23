@@ -1,11 +1,12 @@
 import StructuredQueries
+import Tagged
 
 /// Groups related Pokemon game versions that share core mechanics and data.
 /// Version groups typically include paired versions (Red/Blue) or sets of games
 /// released together with similar features but different exclusive content.
 @Table("version_groups")
 public struct PokeAPIVersionGroup: Decodable, Hashable, Identifiable, Sendable {
-    public typealias ID = Int
+    public typealias ID = Tagged<Self, Int>
     public typealias Identifier = String
 
     /// Unique version group identifier

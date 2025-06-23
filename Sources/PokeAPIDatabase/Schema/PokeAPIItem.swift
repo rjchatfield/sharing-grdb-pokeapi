@@ -1,11 +1,12 @@
 import StructuredQueries
+import Tagged
 
 /// Represents all items in Pokemon games including healing items, Poke Balls,
 /// evolution stones, held items, TMs, berries, and key items.
 /// Items can be used in battle, held by Pokemon, or used in the overworld.
 @Table("items")
 public struct PokeAPIItem: Decodable, Hashable, Identifiable, Sendable {
-    public typealias ID = Int
+    public typealias ID = Tagged<Self, Int>
     public typealias Identifier = String
 
     /// Unique item identifier

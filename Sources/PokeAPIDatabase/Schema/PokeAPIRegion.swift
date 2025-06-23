@@ -1,4 +1,5 @@
 import StructuredQueries
+import Tagged
 
 /// Represents the major geographical regions in the Pokemon world.
 /// Each region is typically associated with a generation and contains
@@ -6,7 +7,7 @@ import StructuredQueries
 /// Kanto, Johto, Hoenn, Sinnoh, Unova, Kalos, Alola, and Galar.
 @Table("regions")
 public struct PokeAPIRegion: Decodable, Hashable, Identifiable, Sendable {
-    public typealias ID = Int
+    public typealias ID = Tagged<Self, Int>
     public typealias Identifier = String
 
     /// Unique region identifier

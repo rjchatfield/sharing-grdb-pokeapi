@@ -1,4 +1,5 @@
 import StructuredQueries
+import Tagged
 
 /// Each Pokemon can have 1-2 types (e.g., Charizard is Fire/Flying).
 /// The slot determines whether it's the primary (1) or secondary (2) type,

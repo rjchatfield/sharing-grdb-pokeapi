@@ -1,11 +1,12 @@
 import StructuredQueries
+import Tagged
 
 /// Represents all Pokemon moves with their battle mechanics and properties.
 /// Moves are learned by Pokemon and used in battle to deal damage, inflict status,
 /// or provide other effects. Each move has type, power, accuracy, and special effects.
 @Table("moves")
 public struct PokeAPIMove: Decodable, Hashable, Identifiable, Sendable {
-    public typealias ID = Int
+    public typealias ID = Tagged<Self, Int>
     public typealias Identifier = String
 
     /// Unique move identifier

@@ -1,11 +1,12 @@
 import StructuredQueries
+import Tagged
 
 /// Represents the major Pokemon game generations, each introducing new Pokemon,
 /// mechanics, regions, and features. Generations typically span 2-4 years and
 /// include multiple game versions (e.g., Red/Blue, Gold/Silver, etc.).
 @Table("generations")
 public struct PokeAPIGeneration: Decodable, Hashable, Identifiable, Sendable {
-    public typealias ID = Int
+    public typealias ID = Tagged<Self, Int>
     public typealias Identifier = String
 
     /// Generation number (1=Red/Blue, 2=Gold/Silver, 3=Ruby/Sapphire, etc.)

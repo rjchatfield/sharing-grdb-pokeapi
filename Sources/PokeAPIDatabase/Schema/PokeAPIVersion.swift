@@ -1,11 +1,12 @@
 import StructuredQueries
+import Tagged
 
 /// Represents specific Pokemon game cartridges/titles within version groups.
 /// Each version may have exclusive Pokemon, different encounter rates, or unique features
 /// while sharing core mechanics with other versions in the same group.
 @Table("versions")
 public struct PokeAPIVersion: Decodable, Hashable, Identifiable, Sendable {
-    public typealias ID = Int
+    public typealias ID = Tagged<Self, Int>
     public typealias Identifier = String
 
     /// Unique version identifier

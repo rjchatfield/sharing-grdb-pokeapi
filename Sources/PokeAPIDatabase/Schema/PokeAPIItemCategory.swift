@@ -1,11 +1,12 @@
 import StructuredQueries
+import Tagged
 
 /// Organizes items into logical categories within the player's bag pockets.
 /// Categories help group similar items together for easier navigation and organization,
 /// such as healing items, Poke Balls, berries, TMs, and key items.
 @Table("item_categories")
 public struct PokeAPIItemCategory: Decodable, Hashable, Identifiable, Sendable {
-    public typealias ID = Int
+    public typealias ID = Tagged<Self, Int>
     public typealias Identifier = String
 
     /// Unique item category identifier

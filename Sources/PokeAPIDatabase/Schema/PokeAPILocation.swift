@@ -1,11 +1,12 @@
 import StructuredQueries
+import Tagged
 
 /// Represents major locations within Pokemon regions where Pokemon can be found.
 /// Locations contain multiple areas with different Pokemon encounters, items,
 /// and events. Examples include cities, routes, caves, and special areas.
 @Table("locations")
 public struct PokeAPILocation: Decodable, Hashable, Identifiable, Sendable {
-    public typealias ID = Int
+    public typealias ID = Tagged<Self, Int>
     public typealias Identifier = String
 
     /// Unique location identifier

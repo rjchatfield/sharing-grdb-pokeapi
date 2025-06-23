@@ -1,11 +1,12 @@
 import StructuredQueries
+import Tagged
 
 /// Defines the different ways wild Pokemon can be encountered in the game world.
 /// Each method represents a specific interaction type that can trigger a wild battle,
 /// such as walking in tall grass, surfing on water, or fishing with different rods.
 @Table("encounter_methods")
 public struct PokeAPIEncounterMethod: Decodable, Hashable, Identifiable, Sendable {
-    public typealias ID = Int
+    public typealias ID = Tagged<Self, Int>
     public typealias Identifier = String
 
     /// Unique encounter method identifier

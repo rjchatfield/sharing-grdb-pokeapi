@@ -1,11 +1,12 @@
 import StructuredQueries
+import Tagged
 
 /// Represents an evolution chain linking Pokemon species through evolutionary relationships.
 /// Each chain represents a complete evolutionary line (e.g., Bulbasaur -> Ivysaur -> Venusaur).
 /// Baby Pokemon may require special items to produce, which are tracked here.
 @Table("evolution_chains")
 public struct PokeAPIEvolutionChain: Decodable, Hashable, Identifiable, Sendable {
-    public typealias ID = Int
+    public typealias ID = Tagged<Self, Int>
     
     /// Unique evolution chain identifier
     @Column("id", primaryKey: true) public var id: ID

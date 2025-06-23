@@ -1,11 +1,12 @@
 import StructuredQueries
+import Tagged
 
 /// Defines what a move can target in battle scenarios.
 /// Determines whether moves affect single Pokemon, multiple Pokemon,
 /// the user itself, or have other special targeting behaviors.
 @Table("move_targets")
 public struct PokeAPIMoveTarget: Decodable, Hashable, Identifiable, Sendable {
-    public typealias ID = Int
+    public typealias ID = Tagged<Self, Int>
     public typealias Identifier = String
 
     /// Unique move target identifier

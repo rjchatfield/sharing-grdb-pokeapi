@@ -1,4 +1,5 @@
 import StructuredQueries
+import Tagged
 
 /// Defines which moves each Pokemon can learn and how they learn them.
 /// Different game versions may have different move learning patterns.

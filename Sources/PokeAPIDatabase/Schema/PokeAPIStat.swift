@@ -1,11 +1,12 @@
 import StructuredQueries
+import Tagged
 
 /// Defines the core stats used throughout Pokemon games.
 /// The main six stats are HP, Attack, Defense, Special Attack, Special Defense, and Speed.
 /// Additional stats like Accuracy and Evasion exist for battle calculations.
 @Table("stats")
 public struct PokeAPIStat: Decodable, Equatable, Identifiable, Sendable {
-    public typealias ID = Int
+    public typealias ID = Tagged<Self, Int>
     public typealias Identifier = String
 
     /// Unique stat identifier (1=HP, 2=Attack, 3=Defense, 4=Sp.Attack, 5=Sp.Defense, 6=Speed)

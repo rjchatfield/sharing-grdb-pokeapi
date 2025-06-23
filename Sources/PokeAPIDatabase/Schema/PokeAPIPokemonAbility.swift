@@ -1,4 +1,5 @@
 import StructuredQueries
+import Tagged
 
 /// Each Pokemon can have 1-3 abilities: up to 2 regular abilities and 1 hidden ability.
 /// Only one ability is active at a time, determined by the Pokemon's personality or item.

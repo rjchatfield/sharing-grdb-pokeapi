@@ -1,11 +1,12 @@
 import StructuredQueries
+import Tagged
 
 /// Represents where and how wild Pokemon can be encountered in the game world.
 /// Includes encounter rates, level ranges, and specific location areas.
 /// Different game versions may have different encounter tables for the same location.
 @Table("encounters")
 public struct PokeAPIEncounter: Decodable, Hashable, Identifiable, Sendable {
-    public typealias ID = Int
+    public typealias ID = Tagged<Self, Int>
 
     /// Unique encounter record identifier
     @Column("id", primaryKey: true) public var id: ID

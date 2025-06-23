@@ -1,14 +1,15 @@
 import StructuredQueries
+import Tagged
 
 /// Contains core species data shared across all forms of a Pokemon.
 /// This includes breeding information, capture mechanics, evolution data,
 /// and classification details that remain consistent regardless of form.
 @Table("pokemon_species")
 public struct PokeAPIPokemonSpecies: Codable, Equatable, Identifiable, Sendable {
-    public typealias ID = Int
+    public typealias ID = Tagged<Self, Int>
     public typealias Identifier = String
-    public typealias ColorID = Int
-    public typealias HabitatID = Int
+    public typealias ColorID = Tagged<Self, Int>
+    public typealias HabitatID = Tagged<Self, Int>
 
     /// National Pokedex number and unique species identifier
     @Column("id", primaryKey: true) public var id: ID
@@ -92,7 +93,7 @@ public struct PokeAPIPokemonSpecies: Codable, Equatable, Identifiable, Sendable 
     // MARK: - Helpers
 
     public var nationalDexNumber: Int {
-        return id
+        return id.rawValue
     }
 
     public var formattedName: String {

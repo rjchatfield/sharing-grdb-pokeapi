@@ -1,11 +1,12 @@
 import StructuredQueries
+import Tagged
 
 /// Berries are special items that can be grown, fed to Pokemon, or used in crafting.
 /// They have unique properties for Pokemon contests, cooking, and the Natural Gift move.
 /// Berries can be planted and grown in berry gardens throughout various games.
 @Table("berries")
 public struct PokeAPIBerry: Decodable, Hashable, Identifiable, Sendable {
-    public typealias ID = Int
+    public typealias ID = Tagged<Self, Int>
 
     /// Unique berry identifier
     @Column("id", primaryKey: true) public var id: ID

@@ -1,11 +1,12 @@
 import StructuredQueries
+import Tagged
 
 /// Defines the specific conditions required for Pokemon to evolve.
 /// Pokemon can evolve through various methods: leveling up, using items,
 /// trading, friendship, location, time of day, and many other complex conditions.
 @Table("pokemon_evolution")
 public struct PokeAPIPokemonEvolution: Decodable, Hashable, Identifiable, Sendable {
-    public typealias ID = Int
+    public typealias ID = Tagged<Self, Int>
 
     /// Unique evolution record identifier
     @Column("id", primaryKey: true) public var id: ID

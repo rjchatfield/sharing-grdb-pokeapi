@@ -1,11 +1,12 @@
 import StructuredQueries
+import Tagged
 
 /// Natures affect Pokemon stats and berry preferences (introduced in Gen III).
 /// Each nature increases one stat by 10% and decreases another by 10%,
 /// or has no effect (neutral natures). There are 25 total natures.
 @Table("natures")
 public struct PokeAPINature: Decodable, Hashable, Identifiable, Sendable {
-    public typealias ID = Int
+    public typealias ID = Tagged<Self, Int>
     public typealias Identifier = String
 
     /// Unique nature identifier (1-25)

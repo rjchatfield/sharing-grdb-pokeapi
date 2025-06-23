@@ -25,42 +25,42 @@ struct SnapshotTests {
             """
         } results: {
             """
-            ┌───────────────────────────────┐
-            │ PokeAPIAbility(               │
-            │   id: 1,                      │
-            │   identifier: "stench",       │
-            │   generationId: 3,            │
-            │   isMainSeries: true          │
-            │ )                             │
-            ├───────────────────────────────┤
-            │ PokeAPIAbility(               │
-            │   id: 2,                      │
-            │   identifier: "drizzle",      │
-            │   generationId: 3,            │
-            │   isMainSeries: true          │
-            │ )                             │
-            ├───────────────────────────────┤
-            │ PokeAPIAbility(               │
-            │   id: 3,                      │
-            │   identifier: "speed-boost",  │
-            │   generationId: 3,            │
-            │   isMainSeries: true          │
-            │ )                             │
-            ├───────────────────────────────┤
-            │ PokeAPIAbility(               │
-            │   id: 4,                      │
-            │   identifier: "battle-armor", │
-            │   generationId: 3,            │
-            │   isMainSeries: true          │
-            │ )                             │
-            ├───────────────────────────────┤
-            │ PokeAPIAbility(               │
-            │   id: 5,                      │
-            │   identifier: "sturdy",       │
-            │   generationId: 3,            │
-            │   isMainSeries: true          │
-            │ )                             │
-            └───────────────────────────────┘
+            ┌──────────────────────────────────────┐
+            │ PokeAPIAbility(                      │
+            │   id: Tagged(rawValue: 1),           │
+            │   identifier: "stench",              │
+            │   generationId: Tagged(rawValue: 3), │
+            │   isMainSeries: true                 │
+            │ )                                    │
+            ├──────────────────────────────────────┤
+            │ PokeAPIAbility(                      │
+            │   id: Tagged(rawValue: 2),           │
+            │   identifier: "drizzle",             │
+            │   generationId: Tagged(rawValue: 3), │
+            │   isMainSeries: true                 │
+            │ )                                    │
+            ├──────────────────────────────────────┤
+            │ PokeAPIAbility(                      │
+            │   id: Tagged(rawValue: 3),           │
+            │   identifier: "speed-boost",         │
+            │   generationId: Tagged(rawValue: 3), │
+            │   isMainSeries: true                 │
+            │ )                                    │
+            ├──────────────────────────────────────┤
+            │ PokeAPIAbility(                      │
+            │   id: Tagged(rawValue: 4),           │
+            │   identifier: "battle-armor",        │
+            │   generationId: Tagged(rawValue: 3), │
+            │   isMainSeries: true                 │
+            │ )                                    │
+            ├──────────────────────────────────────┤
+            │ PokeAPIAbility(                      │
+            │   id: Tagged(rawValue: 5),           │
+            │   identifier: "sturdy",              │
+            │   generationId: Tagged(rawValue: 3), │
+            │   isMainSeries: true                 │
+            │ )                                    │
+            └──────────────────────────────────────┘
             """
         }
     }
@@ -77,72 +77,72 @@ struct SnapshotTests {
             """
         } results: {
             """
-            ┌──────────────────────────┐
-            │ PokeAPIBerry(            │
-            │   id: 1,                 │
-            │   itemId: 126,           │
-            │   firmnessId: 2,         │
-            │   naturalGiftPower: 60,  │
-            │   naturalGiftTypeId: 10, │
-            │   size: 20,              │
-            │   maxHarvest: 5,         │
-            │   growthTime: 3,         │
-            │   soilDryness: 15,       │
-            │   smoothness: 25         │
-            │ )                        │
-            ├──────────────────────────┤
-            │ PokeAPIBerry(            │
-            │   id: 2,                 │
-            │   itemId: 127,           │
-            │   firmnessId: 5,         │
-            │   naturalGiftPower: 60,  │
-            │   naturalGiftTypeId: 11, │
-            │   size: 80,              │
-            │   maxHarvest: 5,         │
-            │   growthTime: 3,         │
-            │   soilDryness: 15,       │
-            │   smoothness: 25         │
-            │ )                        │
-            ├──────────────────────────┤
-            │ PokeAPIBerry(            │
-            │   id: 3,                 │
-            │   itemId: 128,           │
-            │   firmnessId: 1,         │
-            │   naturalGiftPower: 60,  │
-            │   naturalGiftTypeId: 13, │
-            │   size: 40,              │
-            │   maxHarvest: 5,         │
-            │   growthTime: 3,         │
-            │   soilDryness: 15,       │
-            │   smoothness: 25         │
-            │ )                        │
-            ├──────────────────────────┤
-            │ PokeAPIBerry(            │
-            │   id: 4,                 │
-            │   itemId: 129,           │
-            │   firmnessId: 3,         │
-            │   naturalGiftPower: 60,  │
-            │   naturalGiftTypeId: 12, │
-            │   size: 32,              │
-            │   maxHarvest: 5,         │
-            │   growthTime: 3,         │
-            │   soilDryness: 15,       │
-            │   smoothness: 25         │
-            │ )                        │
-            ├──────────────────────────┤
-            │ PokeAPIBerry(            │
-            │   id: 5,                 │
-            │   itemId: 130,           │
-            │   firmnessId: 5,         │
-            │   naturalGiftPower: 60,  │
-            │   naturalGiftTypeId: 15, │
-            │   size: 50,              │
-            │   maxHarvest: 5,         │
-            │   growthTime: 3,         │
-            │   soilDryness: 15,       │
-            │   smoothness: 25         │
-            │ )                        │
-            └──────────────────────────┘
+            ┌──────────────────────────────────┐
+            │ PokeAPIBerry(                    │
+            │   id: Tagged(rawValue: 1),       │
+            │   itemId: Tagged(rawValue: 126), │
+            │   firmnessId: 2,                 │
+            │   naturalGiftPower: 60,          │
+            │   naturalGiftTypeId: 10,         │
+            │   size: 20,                      │
+            │   maxHarvest: 5,                 │
+            │   growthTime: 3,                 │
+            │   soilDryness: 15,               │
+            │   smoothness: 25                 │
+            │ )                                │
+            ├──────────────────────────────────┤
+            │ PokeAPIBerry(                    │
+            │   id: Tagged(rawValue: 2),       │
+            │   itemId: Tagged(rawValue: 127), │
+            │   firmnessId: 5,                 │
+            │   naturalGiftPower: 60,          │
+            │   naturalGiftTypeId: 11,         │
+            │   size: 80,                      │
+            │   maxHarvest: 5,                 │
+            │   growthTime: 3,                 │
+            │   soilDryness: 15,               │
+            │   smoothness: 25                 │
+            │ )                                │
+            ├──────────────────────────────────┤
+            │ PokeAPIBerry(                    │
+            │   id: Tagged(rawValue: 3),       │
+            │   itemId: Tagged(rawValue: 128), │
+            │   firmnessId: 1,                 │
+            │   naturalGiftPower: 60,          │
+            │   naturalGiftTypeId: 13,         │
+            │   size: 40,                      │
+            │   maxHarvest: 5,                 │
+            │   growthTime: 3,                 │
+            │   soilDryness: 15,               │
+            │   smoothness: 25                 │
+            │ )                                │
+            ├──────────────────────────────────┤
+            │ PokeAPIBerry(                    │
+            │   id: Tagged(rawValue: 4),       │
+            │   itemId: Tagged(rawValue: 129), │
+            │   firmnessId: 3,                 │
+            │   naturalGiftPower: 60,          │
+            │   naturalGiftTypeId: 12,         │
+            │   size: 32,                      │
+            │   maxHarvest: 5,                 │
+            │   growthTime: 3,                 │
+            │   soilDryness: 15,               │
+            │   smoothness: 25                 │
+            │ )                                │
+            ├──────────────────────────────────┤
+            │ PokeAPIBerry(                    │
+            │   id: Tagged(rawValue: 5),       │
+            │   itemId: Tagged(rawValue: 130), │
+            │   firmnessId: 5,                 │
+            │   naturalGiftPower: 60,          │
+            │   naturalGiftTypeId: 15,         │
+            │   size: 50,                      │
+            │   maxHarvest: 5,                 │
+            │   growthTime: 3,                 │
+            │   soilDryness: 15,               │
+            │   smoothness: 25                 │
+            │ )                                │
+            └──────────────────────────────────┘
             """
         }
     }
@@ -159,57 +159,57 @@ struct SnapshotTests {
             """
         } results: {
             """
-            ┌────────────────────────┐
-            │ PokeAPIEncounter(      │
-            │   id: 1,               │
-            │   versionId: 12,       │
-            │   locationAreaId: 1,   │
-            │   encounterSlotId: 28, │
-            │   pokemonId: 72,       │
-            │   minLevel: 20,        │
-            │   maxLevel: 30         │
-            │ )                      │
-            ├────────────────────────┤
-            │ PokeAPIEncounter(      │
-            │   id: 2,               │
-            │   versionId: 12,       │
-            │   locationAreaId: 1,   │
-            │   encounterSlotId: 29, │
-            │   pokemonId: 278,      │
-            │   minLevel: 20,        │
-            │   maxLevel: 30         │
-            │ )                      │
-            ├────────────────────────┤
-            │ PokeAPIEncounter(      │
-            │   id: 3,               │
-            │   versionId: 12,       │
-            │   locationAreaId: 1,   │
-            │   encounterSlotId: 30, │
-            │   pokemonId: 73,       │
-            │   minLevel: 20,        │
-            │   maxLevel: 40         │
-            │ )                      │
-            ├────────────────────────┤
-            │ PokeAPIEncounter(      │
-            │   id: 4,               │
-            │   versionId: 12,       │
-            │   locationAreaId: 1,   │
-            │   encounterSlotId: 31, │
-            │   pokemonId: 279,      │
-            │   minLevel: 20,        │
-            │   maxLevel: 40         │
-            │ )                      │
-            ├────────────────────────┤
-            │ PokeAPIEncounter(      │
-            │   id: 5,               │
-            │   versionId: 12,       │
-            │   locationAreaId: 1,   │
-            │   encounterSlotId: 32, │
-            │   pokemonId: 279,      │
-            │   minLevel: 20,        │
-            │   maxLevel: 40         │
-            │ )                      │
-            └────────────────────────┘
+            ┌──────────────────────────────────────────┐
+            │ PokeAPIEncounter(                        │
+            │   id: Tagged(rawValue: 1),               │
+            │   versionId: Tagged(rawValue: 12),       │
+            │   locationAreaId: Tagged(rawValue: 1),   │
+            │   encounterSlotId: Tagged(rawValue: 28), │
+            │   pokemonId: Tagged(rawValue: 72),       │
+            │   minLevel: 20,                          │
+            │   maxLevel: 30                           │
+            │ )                                        │
+            ├──────────────────────────────────────────┤
+            │ PokeAPIEncounter(                        │
+            │   id: Tagged(rawValue: 2),               │
+            │   versionId: Tagged(rawValue: 12),       │
+            │   locationAreaId: Tagged(rawValue: 1),   │
+            │   encounterSlotId: Tagged(rawValue: 29), │
+            │   pokemonId: Tagged(rawValue: 278),      │
+            │   minLevel: 20,                          │
+            │   maxLevel: 30                           │
+            │ )                                        │
+            ├──────────────────────────────────────────┤
+            │ PokeAPIEncounter(                        │
+            │   id: Tagged(rawValue: 3),               │
+            │   versionId: Tagged(rawValue: 12),       │
+            │   locationAreaId: Tagged(rawValue: 1),   │
+            │   encounterSlotId: Tagged(rawValue: 30), │
+            │   pokemonId: Tagged(rawValue: 73),       │
+            │   minLevel: 20,                          │
+            │   maxLevel: 40                           │
+            │ )                                        │
+            ├──────────────────────────────────────────┤
+            │ PokeAPIEncounter(                        │
+            │   id: Tagged(rawValue: 4),               │
+            │   versionId: Tagged(rawValue: 12),       │
+            │   locationAreaId: Tagged(rawValue: 1),   │
+            │   encounterSlotId: Tagged(rawValue: 31), │
+            │   pokemonId: Tagged(rawValue: 279),      │
+            │   minLevel: 20,                          │
+            │   maxLevel: 40                           │
+            │ )                                        │
+            ├──────────────────────────────────────────┤
+            │ PokeAPIEncounter(                        │
+            │   id: Tagged(rawValue: 5),               │
+            │   versionId: Tagged(rawValue: 12),       │
+            │   locationAreaId: Tagged(rawValue: 1),   │
+            │   encounterSlotId: Tagged(rawValue: 32), │
+            │   pokemonId: Tagged(rawValue: 279),      │
+            │   minLevel: 20,                          │
+            │   maxLevel: 40                           │
+            │ )                                        │
+            └──────────────────────────────────────────┘
             """
         }
     }
@@ -228,31 +228,31 @@ struct SnapshotTests {
             """
             ┌────────────────────────────┐
             │ PokeAPIEncounterMethod(    │
-            │   id: 1,                   │
+            │   id: Tagged(rawValue: 1), │
             │   identifier: "walk",      │
             │   order: 1                 │
             │ )                          │
             ├────────────────────────────┤
             │ PokeAPIEncounterMethod(    │
-            │   id: 2,                   │
+            │   id: Tagged(rawValue: 2), │
             │   identifier: "old-rod",   │
             │   order: 10                │
             │ )                          │
             ├────────────────────────────┤
             │ PokeAPIEncounterMethod(    │
-            │   id: 3,                   │
+            │   id: Tagged(rawValue: 3), │
             │   identifier: "good-rod",  │
             │   order: 11                │
             │ )                          │
             ├────────────────────────────┤
             │ PokeAPIEncounterMethod(    │
-            │   id: 4,                   │
+            │   id: Tagged(rawValue: 4), │
             │   identifier: "super-rod", │
             │   order: 12                │
             │ )                          │
             ├────────────────────────────┤
             │ PokeAPIEncounterMethod(    │
-            │   id: 5,                   │
+            │   id: Tagged(rawValue: 5), │
             │   identifier: "surf",      │
             │   order: 14                │
             │ )                          │
@@ -273,47 +273,47 @@ struct SnapshotTests {
             """
         } results: {
             """
-            ┌─────────────────────────┐
-            │ PokeAPIEncounterSlot(   │
-            │   id: 1,                │
-            │   versionGroupId: 8,    │
-            │   encounterMethodId: 1, │
-            │   slot: 1,              │
-            │   rarity: 20            │
-            │ )                       │
-            ├─────────────────────────┤
-            │ PokeAPIEncounterSlot(   │
-            │   id: 2,                │
-            │   versionGroupId: 8,    │
-            │   encounterMethodId: 1, │
-            │   slot: 2,              │
-            │   rarity: 20            │
-            │ )                       │
-            ├─────────────────────────┤
-            │ PokeAPIEncounterSlot(   │
-            │   id: 3,                │
-            │   versionGroupId: 8,    │
-            │   encounterMethodId: 1, │
-            │   slot: 3,              │
-            │   rarity: 10            │
-            │ )                       │
-            ├─────────────────────────┤
-            │ PokeAPIEncounterSlot(   │
-            │   id: 4,                │
-            │   versionGroupId: 8,    │
-            │   encounterMethodId: 1, │
-            │   slot: 4,              │
-            │   rarity: 10            │
-            │ )                       │
-            ├─────────────────────────┤
-            │ PokeAPIEncounterSlot(   │
-            │   id: 5,                │
-            │   versionGroupId: 8,    │
-            │   encounterMethodId: 1, │
-            │   slot: 5,              │
-            │   rarity: 10            │
-            │ )                       │
-            └─────────────────────────┘
+            ┌───────────────────────────────────────────┐
+            │ PokeAPIEncounterSlot(                     │
+            │   id: Tagged(rawValue: 1),                │
+            │   versionGroupId: Tagged(rawValue: 8),    │
+            │   encounterMethodId: Tagged(rawValue: 1), │
+            │   slot: 1,                                │
+            │   rarity: 20                              │
+            │ )                                         │
+            ├───────────────────────────────────────────┤
+            │ PokeAPIEncounterSlot(                     │
+            │   id: Tagged(rawValue: 2),                │
+            │   versionGroupId: Tagged(rawValue: 8),    │
+            │   encounterMethodId: Tagged(rawValue: 1), │
+            │   slot: 2,                                │
+            │   rarity: 20                              │
+            │ )                                         │
+            ├───────────────────────────────────────────┤
+            │ PokeAPIEncounterSlot(                     │
+            │   id: Tagged(rawValue: 3),                │
+            │   versionGroupId: Tagged(rawValue: 8),    │
+            │   encounterMethodId: Tagged(rawValue: 1), │
+            │   slot: 3,                                │
+            │   rarity: 10                              │
+            │ )                                         │
+            ├───────────────────────────────────────────┤
+            │ PokeAPIEncounterSlot(                     │
+            │   id: Tagged(rawValue: 4),                │
+            │   versionGroupId: Tagged(rawValue: 8),    │
+            │   encounterMethodId: Tagged(rawValue: 1), │
+            │   slot: 4,                                │
+            │   rarity: 10                              │
+            │ )                                         │
+            ├───────────────────────────────────────────┤
+            │ PokeAPIEncounterSlot(                     │
+            │   id: Tagged(rawValue: 5),                │
+            │   versionGroupId: Tagged(rawValue: 8),    │
+            │   encounterMethodId: Tagged(rawValue: 1), │
+            │   slot: 5,                                │
+            │   rarity: 10                              │
+            │ )                                         │
+            └───────────────────────────────────────────┘
             """
         }
     }
@@ -330,32 +330,32 @@ struct SnapshotTests {
             """
         } results: {
             """
-            ┌──────────────────────────┐
-            │ PokeAPIEvolutionChain(   │
-            │   id: 1,                 │
-            │   babyTriggerItemId: nil │
-            │ )                        │
-            ├──────────────────────────┤
-            │ PokeAPIEvolutionChain(   │
-            │   id: 2,                 │
-            │   babyTriggerItemId: nil │
-            │ )                        │
-            ├──────────────────────────┤
-            │ PokeAPIEvolutionChain(   │
-            │   id: 3,                 │
-            │   babyTriggerItemId: nil │
-            │ )                        │
-            ├──────────────────────────┤
-            │ PokeAPIEvolutionChain(   │
-            │   id: 4,                 │
-            │   babyTriggerItemId: nil │
-            │ )                        │
-            ├──────────────────────────┤
-            │ PokeAPIEvolutionChain(   │
-            │   id: 5,                 │
-            │   babyTriggerItemId: nil │
-            │ )                        │
-            └──────────────────────────┘
+            ┌────────────────────────────┐
+            │ PokeAPIEvolutionChain(     │
+            │   id: Tagged(rawValue: 1), │
+            │   babyTriggerItemId: nil   │
+            │ )                          │
+            ├────────────────────────────┤
+            │ PokeAPIEvolutionChain(     │
+            │   id: Tagged(rawValue: 2), │
+            │   babyTriggerItemId: nil   │
+            │ )                          │
+            ├────────────────────────────┤
+            │ PokeAPIEvolutionChain(     │
+            │   id: Tagged(rawValue: 3), │
+            │   babyTriggerItemId: nil   │
+            │ )                          │
+            ├────────────────────────────┤
+            │ PokeAPIEvolutionChain(     │
+            │   id: Tagged(rawValue: 4), │
+            │   babyTriggerItemId: nil   │
+            │ )                          │
+            ├────────────────────────────┤
+            │ PokeAPIEvolutionChain(     │
+            │   id: Tagged(rawValue: 5), │
+            │   babyTriggerItemId: nil   │
+            │ )                          │
+            └────────────────────────────┘
             """
         }
         Helper.assertQuery(
@@ -371,17 +371,17 @@ struct SnapshotTests {
             """
         } results: {
             """
-            ┌──────────────────────────┐
-            │ PokeAPIEvolutionChain(   │
-            │   id: 51,                │
-            │   babyTriggerItemId: 296 │
-            │ )                        │
-            ├──────────────────────────┤
-            │ PokeAPIEvolutionChain(   │
-            │   id: 57,                │
-            │   babyTriggerItemId: 291 │
-            │ )                        │
-            └──────────────────────────┘
+            ┌────────────────────────────────────────────┐
+            │ PokeAPIEvolutionChain(                     │
+            │   id: Tagged(rawValue: 51),                │
+            │   babyTriggerItemId: Tagged(rawValue: 296) │
+            │ )                                          │
+            ├────────────────────────────────────────────┤
+            │ PokeAPIEvolutionChain(                     │
+            │   id: Tagged(rawValue: 57),                │
+            │   babyTriggerItemId: Tagged(rawValue: 291) │
+            │ )                                          │
+            └────────────────────────────────────────────┘
             """
         }
     }
@@ -398,37 +398,37 @@ struct SnapshotTests {
             """
         }results: {
             """
-            ┌─────────────────────────────────┐
-            │ PokeAPIGeneration(              │
-            │   id: 1,                        │
-            │   identifier: "generation-i",   │
-            │   mainRegionId: 1               │
-            │ )                               │
-            ├─────────────────────────────────┤
-            │ PokeAPIGeneration(              │
-            │   id: 2,                        │
-            │   identifier: "generation-ii",  │
-            │   mainRegionId: 2               │
-            │ )                               │
-            ├─────────────────────────────────┤
-            │ PokeAPIGeneration(              │
-            │   id: 3,                        │
-            │   identifier: "generation-iii", │
-            │   mainRegionId: 3               │
-            │ )                               │
-            ├─────────────────────────────────┤
-            │ PokeAPIGeneration(              │
-            │   id: 4,                        │
-            │   identifier: "generation-iv",  │
-            │   mainRegionId: 4               │
-            │ )                               │
-            ├─────────────────────────────────┤
-            │ PokeAPIGeneration(              │
-            │   id: 5,                        │
-            │   identifier: "generation-v",   │
-            │   mainRegionId: 5               │
-            │ )                               │
-            └─────────────────────────────────┘
+            ┌─────────────────────────────────────┐
+            │ PokeAPIGeneration(                  │
+            │   id: Tagged(rawValue: 1),          │
+            │   identifier: "generation-i",       │
+            │   mainRegionId: Tagged(rawValue: 1) │
+            │ )                                   │
+            ├─────────────────────────────────────┤
+            │ PokeAPIGeneration(                  │
+            │   id: Tagged(rawValue: 2),          │
+            │   identifier: "generation-ii",      │
+            │   mainRegionId: Tagged(rawValue: 2) │
+            │ )                                   │
+            ├─────────────────────────────────────┤
+            │ PokeAPIGeneration(                  │
+            │   id: Tagged(rawValue: 3),          │
+            │   identifier: "generation-iii",     │
+            │   mainRegionId: Tagged(rawValue: 3) │
+            │ )                                   │
+            ├─────────────────────────────────────┤
+            │ PokeAPIGeneration(                  │
+            │   id: Tagged(rawValue: 4),          │
+            │   identifier: "generation-iv",      │
+            │   mainRegionId: Tagged(rawValue: 4) │
+            │ )                                   │
+            ├─────────────────────────────────────┤
+            │ PokeAPIGeneration(                  │
+            │   id: Tagged(rawValue: 5),          │
+            │   identifier: "generation-v",       │
+            │   mainRegionId: Tagged(rawValue: 5) │
+            │ )                                   │
+            └─────────────────────────────────────┘
             """
         }
     }
@@ -445,52 +445,52 @@ struct SnapshotTests {
             """
         } results: {
             """
-            ┌──────────────────────────────┐
-            │ PokeAPIItem(                 │
-            │   id: 1,                     │
-            │   identifier: "master-ball", │
-            │   categoryId: 34,            │
-            │   cost: 0,                   │
-            │   flingPower: nil,           │
-            │   flingEffectId: nil         │
-            │ )                            │
-            ├──────────────────────────────┤
-            │ PokeAPIItem(                 │
-            │   id: 2,                     │
-            │   identifier: "ultra-ball",  │
-            │   categoryId: 34,            │
-            │   cost: 800,                 │
-            │   flingPower: nil,           │
-            │   flingEffectId: nil         │
-            │ )                            │
-            ├──────────────────────────────┤
-            │ PokeAPIItem(                 │
-            │   id: 3,                     │
-            │   identifier: "great-ball",  │
-            │   categoryId: 34,            │
-            │   cost: 600,                 │
-            │   flingPower: nil,           │
-            │   flingEffectId: nil         │
-            │ )                            │
-            ├──────────────────────────────┤
-            │ PokeAPIItem(                 │
-            │   id: 4,                     │
-            │   identifier: "poke-ball",   │
-            │   categoryId: 34,            │
-            │   cost: 200,                 │
-            │   flingPower: nil,           │
-            │   flingEffectId: nil         │
-            │ )                            │
-            ├──────────────────────────────┤
-            │ PokeAPIItem(                 │
-            │   id: 5,                     │
-            │   identifier: "safari-ball", │
-            │   categoryId: 34,            │
-            │   cost: 0,                   │
-            │   flingPower: nil,           │
-            │   flingEffectId: nil         │
-            │ )                            │
-            └──────────────────────────────┘
+            ┌─────────────────────────────────────┐
+            │ PokeAPIItem(                        │
+            │   id: Tagged(rawValue: 1),          │
+            │   identifier: "master-ball",        │
+            │   categoryId: Tagged(rawValue: 34), │
+            │   cost: 0,                          │
+            │   flingPower: nil,                  │
+            │   flingEffectId: nil                │
+            │ )                                   │
+            ├─────────────────────────────────────┤
+            │ PokeAPIItem(                        │
+            │   id: Tagged(rawValue: 2),          │
+            │   identifier: "ultra-ball",         │
+            │   categoryId: Tagged(rawValue: 34), │
+            │   cost: 800,                        │
+            │   flingPower: nil,                  │
+            │   flingEffectId: nil                │
+            │ )                                   │
+            ├─────────────────────────────────────┤
+            │ PokeAPIItem(                        │
+            │   id: Tagged(rawValue: 3),          │
+            │   identifier: "great-ball",         │
+            │   categoryId: Tagged(rawValue: 34), │
+            │   cost: 600,                        │
+            │   flingPower: nil,                  │
+            │   flingEffectId: nil                │
+            │ )                                   │
+            ├─────────────────────────────────────┤
+            │ PokeAPIItem(                        │
+            │   id: Tagged(rawValue: 4),          │
+            │   identifier: "poke-ball",          │
+            │   categoryId: Tagged(rawValue: 34), │
+            │   cost: 200,                        │
+            │   flingPower: nil,                  │
+            │   flingEffectId: nil                │
+            │ )                                   │
+            ├─────────────────────────────────────┤
+            │ PokeAPIItem(                        │
+            │   id: Tagged(rawValue: 5),          │
+            │   identifier: "safari-ball",        │
+            │   categoryId: Tagged(rawValue: 34), │
+            │   cost: 0,                          │
+            │   flingPower: nil,                  │
+            │   flingEffectId: nil                │
+            │ )                                   │
+            └─────────────────────────────────────┘
             """
         }
     }
@@ -509,31 +509,31 @@ struct SnapshotTests {
             """
             ┌──────────────────────────────┐
             │ PokeAPIItemCategory(         │
-            │   id: 1,                     │
+            │   id: Tagged(rawValue: 1),   │
             │   identifier: "stat-boosts", │
             │   pocketId: 7                │
             │ )                            │
             ├──────────────────────────────┤
             │ PokeAPIItemCategory(         │
-            │   id: 2,                     │
+            │   id: Tagged(rawValue: 2),   │
             │   identifier: "effort-drop", │
             │   pocketId: 5                │
             │ )                            │
             ├──────────────────────────────┤
             │ PokeAPIItemCategory(         │
-            │   id: 3,                     │
+            │   id: Tagged(rawValue: 3),   │
             │   identifier: "medicine",    │
             │   pocketId: 5                │
             │ )                            │
             ├──────────────────────────────┤
             │ PokeAPIItemCategory(         │
-            │   id: 4,                     │
+            │   id: Tagged(rawValue: 4),   │
             │   identifier: "other",       │
             │   pocketId: 5                │
             │ )                            │
             ├──────────────────────────────┤
             │ PokeAPIItemCategory(         │
-            │   id: 5,                     │
+            │   id: Tagged(rawValue: 5),   │
             │   identifier: "in-a-pinch",  │
             │   pocketId: 5                │
             │ )                            │
@@ -556,33 +556,33 @@ struct SnapshotTests {
             """
             ┌────────────────────────────────────────┐
             │ PokeAPILocation(                       │
-            │   id: 1,                               │
+            │   id: Tagged(rawValue: 1),             │
             │   identifier: "canalave-city",         │
-            │   regionId: 4                          │
+            │   regionId: Tagged(rawValue: 4)        │
             │ )                                      │
             ├────────────────────────────────────────┤
             │ PokeAPILocation(                       │
-            │   id: 2,                               │
+            │   id: Tagged(rawValue: 2),             │
             │   identifier: "eterna-city",           │
-            │   regionId: 4                          │
+            │   regionId: Tagged(rawValue: 4)        │
             │ )                                      │
             ├────────────────────────────────────────┤
             │ PokeAPILocation(                       │
-            │   id: 3,                               │
+            │   id: Tagged(rawValue: 3),             │
             │   identifier: "pastoria-city",         │
-            │   regionId: 4                          │
+            │   regionId: Tagged(rawValue: 4)        │
             │ )                                      │
             ├────────────────────────────────────────┤
             │ PokeAPILocation(                       │
-            │   id: 4,                               │
+            │   id: Tagged(rawValue: 4),             │
             │   identifier: "sunyshore-city",        │
-            │   regionId: 4                          │
+            │   regionId: Tagged(rawValue: 4)        │
             │ )                                      │
             ├────────────────────────────────────────┤
             │ PokeAPILocation(                       │
-            │   id: 5,                               │
+            │   id: Tagged(rawValue: 5),             │
             │   identifier: "sinnoh-pokemon-league", │
-            │   regionId: 4                          │
+            │   regionId: Tagged(rawValue: 4)        │
             │ )                                      │
             └────────────────────────────────────────┘
             """
@@ -618,97 +618,97 @@ struct SnapshotTests {
             """
         } results: {
             """
-            ┌──────────────────────────────┐
-            │ PokeAPIMove(                 │
-            │   id: 1,                     │
-            │   identifier: "pound",       │
-            │   generationId: 1,           │
-            │   typeId: 1,                 │
-            │   power: 40,                 │
-            │   pp: 35,                    │
-            │   accuracy: 100,             │
-            │   priority: 0,               │
-            │   targetId: 10,              │
-            │   damageClassId: 2,          │
-            │   effectId: 1,               │
-            │   effectChance: nil,         │
-            │   contestTypeId: 5,          │
-            │   contestEffectId: 1,        │
-            │   superContestEffectId: 5    │
-            │ )                            │
-            ├──────────────────────────────┤
-            │ PokeAPIMove(                 │
-            │   id: 2,                     │
-            │   identifier: "karate-chop", │
-            │   generationId: 1,           │
-            │   typeId: 2,                 │
-            │   power: 50,                 │
-            │   pp: 25,                    │
-            │   accuracy: 100,             │
-            │   priority: 0,               │
-            │   targetId: 10,              │
-            │   damageClassId: 2,          │
-            │   effectId: 44,              │
-            │   effectChance: nil,         │
-            │   contestTypeId: 5,          │
-            │   contestEffectId: 2,        │
-            │   superContestEffectId: 5    │
-            │ )                            │
-            ├──────────────────────────────┤
-            │ PokeAPIMove(                 │
-            │   id: 3,                     │
-            │   identifier: "double-slap", │
-            │   generationId: 1,           │
-            │   typeId: 1,                 │
-            │   power: 15,                 │
-            │   pp: 10,                    │
-            │   accuracy: 85,              │
-            │   priority: 0,               │
-            │   targetId: 10,              │
-            │   damageClassId: 2,          │
-            │   effectId: 30,              │
-            │   effectChance: nil,         │
-            │   contestTypeId: 5,          │
-            │   contestEffectId: 10,       │
-            │   superContestEffectId: 7    │
-            │ )                            │
-            ├──────────────────────────────┤
-            │ PokeAPIMove(                 │
-            │   id: 4,                     │
-            │   identifier: "comet-punch", │
-            │   generationId: 1,           │
-            │   typeId: 1,                 │
-            │   power: 18,                 │
-            │   pp: 15,                    │
-            │   accuracy: 85,              │
-            │   priority: 0,               │
-            │   targetId: 10,              │
-            │   damageClassId: 2,          │
-            │   effectId: 30,              │
-            │   effectChance: nil,         │
-            │   contestTypeId: 5,          │
-            │   contestEffectId: 12,       │
-            │   superContestEffectId: 7    │
-            │ )                            │
-            ├──────────────────────────────┤
-            │ PokeAPIMove(                 │
-            │   id: 5,                     │
-            │   identifier: "mega-punch",  │
-            │   generationId: 1,           │
-            │   typeId: 1,                 │
-            │   power: 80,                 │
-            │   pp: 20,                    │
-            │   accuracy: 85,              │
-            │   priority: 0,               │
-            │   targetId: 10,              │
-            │   damageClassId: 2,          │
-            │   effectId: 1,               │
-            │   effectChance: nil,         │
-            │   contestTypeId: 5,          │
-            │   contestEffectId: 1,        │
-            │   superContestEffectId: 18   │
-            │ )                            │
-            └──────────────────────────────┘
+            ┌───────────────────────────────────────┐
+            │ PokeAPIMove(                          │
+            │   id: Tagged(rawValue: 1),            │
+            │   identifier: "pound",                │
+            │   generationId: Tagged(rawValue: 1),  │
+            │   typeId: Tagged(rawValue: 1),        │
+            │   power: 40,                          │
+            │   pp: 35,                             │
+            │   accuracy: 100,                      │
+            │   priority: 0,                        │
+            │   targetId: 10,                       │
+            │   damageClassId: Tagged(rawValue: 2), │
+            │   effectId: 1,                        │
+            │   effectChance: nil,                  │
+            │   contestTypeId: 5,                   │
+            │   contestEffectId: 1,                 │
+            │   superContestEffectId: 5             │
+            │ )                                     │
+            ├───────────────────────────────────────┤
+            │ PokeAPIMove(                          │
+            │   id: Tagged(rawValue: 2),            │
+            │   identifier: "karate-chop",          │
+            │   generationId: Tagged(rawValue: 1),  │
+            │   typeId: Tagged(rawValue: 2),        │
+            │   power: 50,                          │
+            │   pp: 25,                             │
+            │   accuracy: 100,                      │
+            │   priority: 0,                        │
+            │   targetId: 10,                       │
+            │   damageClassId: Tagged(rawValue: 2), │
+            │   effectId: 44,                       │
+            │   effectChance: nil,                  │
+            │   contestTypeId: 5,                   │
+            │   contestEffectId: 2,                 │
+            │   superContestEffectId: 5             │
+            │ )                                     │
+            ├───────────────────────────────────────┤
+            │ PokeAPIMove(                          │
+            │   id: Tagged(rawValue: 3),            │
+            │   identifier: "double-slap",          │
+            │   generationId: Tagged(rawValue: 1),  │
+            │   typeId: Tagged(rawValue: 1),        │
+            │   power: 15,                          │
+            │   pp: 10,                             │
+            │   accuracy: 85,                       │
+            │   priority: 0,                        │
+            │   targetId: 10,                       │
+            │   damageClassId: Tagged(rawValue: 2), │
+            │   effectId: 30,                       │
+            │   effectChance: nil,                  │
+            │   contestTypeId: 5,                   │
+            │   contestEffectId: 10,                │
+            │   superContestEffectId: 7             │
+            │ )                                     │
+            ├───────────────────────────────────────┤
+            │ PokeAPIMove(                          │
+            │   id: Tagged(rawValue: 4),            │
+            │   identifier: "comet-punch",          │
+            │   generationId: Tagged(rawValue: 1),  │
+            │   typeId: Tagged(rawValue: 1),        │
+            │   power: 18,                          │
+            │   pp: 15,                             │
+            │   accuracy: 85,                       │
+            │   priority: 0,                        │
+            │   targetId: 10,                       │
+            │   damageClassId: Tagged(rawValue: 2), │
+            │   effectId: 30,                       │
+            │   effectChance: nil,                  │
+            │   contestTypeId: 5,                   │
+            │   contestEffectId: 12,                │
+            │   superContestEffectId: 7             │
+            │ )                                     │
+            ├───────────────────────────────────────┤
+            │ PokeAPIMove(                          │
+            │   id: Tagged(rawValue: 5),            │
+            │   identifier: "mega-punch",           │
+            │   generationId: Tagged(rawValue: 1),  │
+            │   typeId: Tagged(rawValue: 1),        │
+            │   power: 80,                          │
+            │   pp: 20,                             │
+            │   accuracy: 85,                       │
+            │   priority: 0,                        │
+            │   targetId: 10,                       │
+            │   damageClassId: Tagged(rawValue: 2), │
+            │   effectId: 1,                        │
+            │   effectChance: nil,                  │
+            │   contestTypeId: 5,                   │
+            │   contestEffectId: 1,                 │
+            │   superContestEffectId: 18            │
+            │ )                                     │
+            └───────────────────────────────────────┘
             """
         }
     }
@@ -725,22 +725,22 @@ struct SnapshotTests {
             """
         } results: {
             """
-            ┌──────────────────────────┐
-            │ PokeAPIMoveDamageClass(  │
-            │   id: 1,                 │
-            │   identifier: "status"   │
-            │ )                        │
-            ├──────────────────────────┤
-            │ PokeAPIMoveDamageClass(  │
-            │   id: 2,                 │
-            │   identifier: "physical" │
-            │ )                        │
-            ├──────────────────────────┤
-            │ PokeAPIMoveDamageClass(  │
-            │   id: 3,                 │
-            │   identifier: "special"  │
-            │ )                        │
-            └──────────────────────────┘
+            ┌────────────────────────────┐
+            │ PokeAPIMoveDamageClass(    │
+            │   id: Tagged(rawValue: 1), │
+            │   identifier: "status"     │
+            │ )                          │
+            ├────────────────────────────┤
+            │ PokeAPIMoveDamageClass(    │
+            │   id: Tagged(rawValue: 2), │
+            │   identifier: "physical"   │
+            │ )                          │
+            ├────────────────────────────┤
+            │ PokeAPIMoveDamageClass(    │
+            │   id: Tagged(rawValue: 3), │
+            │   identifier: "special"    │
+            │ )                          │
+            └────────────────────────────┘
             """
         }
     }
@@ -759,27 +759,27 @@ struct SnapshotTests {
             """
             ┌───────────────────────────────────────────┐
             │ PokeAPIMoveTarget(                        │
-            │   id: 1,                                  │
+            │   id: Tagged(rawValue: 1),                │
             │   identifier: "specific-move"             │
             │ )                                         │
             ├───────────────────────────────────────────┤
             │ PokeAPIMoveTarget(                        │
-            │   id: 2,                                  │
+            │   id: Tagged(rawValue: 2),                │
             │   identifier: "selected-pokemon-me-first" │
             │ )                                         │
             ├───────────────────────────────────────────┤
             │ PokeAPIMoveTarget(                        │
-            │   id: 3,                                  │
+            │   id: Tagged(rawValue: 3),                │
             │   identifier: "ally"                      │
             │ )                                         │
             ├───────────────────────────────────────────┤
             │ PokeAPIMoveTarget(                        │
-            │   id: 4,                                  │
+            │   id: Tagged(rawValue: 4),                │
             │   identifier: "users-field"               │
             │ )                                         │
             ├───────────────────────────────────────────┤
             │ PokeAPIMoveTarget(                        │
-            │   id: 5,                                  │
+            │   id: Tagged(rawValue: 5),                │
             │   identifier: "user-or-ally"              │
             │ )                                         │
             └───────────────────────────────────────────┘
@@ -799,57 +799,57 @@ struct SnapshotTests {
             """
         } results: {
             """
-            ┌─────────────────────────┐
-            │ PokeAPINature(          │
-            │   id: 1,                │
-            │   identifier: "hardy",  │
-            │   decreasedStatId: 2,   │
-            │   increasedStatId: 2,   │
-            │   hatesFlavorId: 1,     │
-            │   likesFlavorId: 1,     │
-            │   gameIndex: 0          │
-            │ )                       │
-            ├─────────────────────────┤
-            │ PokeAPINature(          │
-            │   id: 2,                │
-            │   identifier: "bold",   │
-            │   decreasedStatId: 2,   │
-            │   increasedStatId: 3,   │
-            │   hatesFlavorId: 1,     │
-            │   likesFlavorId: 5,     │
-            │   gameIndex: 5          │
-            │ )                       │
-            ├─────────────────────────┤
-            │ PokeAPINature(          │
-            │   id: 3,                │
-            │   identifier: "modest", │
-            │   decreasedStatId: 2,   │
-            │   increasedStatId: 4,   │
-            │   hatesFlavorId: 1,     │
-            │   likesFlavorId: 2,     │
-            │   gameIndex: 15         │
-            │ )                       │
-            ├─────────────────────────┤
-            │ PokeAPINature(          │
-            │   id: 4,                │
-            │   identifier: "calm",   │
-            │   decreasedStatId: 2,   │
-            │   increasedStatId: 5,   │
-            │   hatesFlavorId: 1,     │
-            │   likesFlavorId: 4,     │
-            │   gameIndex: 20         │
-            │ )                       │
-            ├─────────────────────────┤
-            │ PokeAPINature(          │
-            │   id: 5,                │
-            │   identifier: "timid",  │
-            │   decreasedStatId: 2,   │
-            │   increasedStatId: 6,   │
-            │   hatesFlavorId: 1,     │
-            │   likesFlavorId: 3,     │
-            │   gameIndex: 10         │
-            │ )                       │
-            └─────────────────────────┘
+            ┌─────────────────────────────────────────┐
+            │ PokeAPINature(                          │
+            │   id: Tagged(rawValue: 1),              │
+            │   identifier: "hardy",                  │
+            │   decreasedStatId: Tagged(rawValue: 2), │
+            │   increasedStatId: Tagged(rawValue: 2), │
+            │   hatesFlavorId: 1,                     │
+            │   likesFlavorId: 1,                     │
+            │   gameIndex: 0                          │
+            │ )                                       │
+            ├─────────────────────────────────────────┤
+            │ PokeAPINature(                          │
+            │   id: Tagged(rawValue: 2),              │
+            │   identifier: "bold",                   │
+            │   decreasedStatId: Tagged(rawValue: 2), │
+            │   increasedStatId: Tagged(rawValue: 3), │
+            │   hatesFlavorId: 1,                     │
+            │   likesFlavorId: 5,                     │
+            │   gameIndex: 5                          │
+            │ )                                       │
+            ├─────────────────────────────────────────┤
+            │ PokeAPINature(                          │
+            │   id: Tagged(rawValue: 3),              │
+            │   identifier: "modest",                 │
+            │   decreasedStatId: Tagged(rawValue: 2), │
+            │   increasedStatId: Tagged(rawValue: 4), │
+            │   hatesFlavorId: 1,                     │
+            │   likesFlavorId: 2,                     │
+            │   gameIndex: 15                         │
+            │ )                                       │
+            ├─────────────────────────────────────────┤
+            │ PokeAPINature(                          │
+            │   id: Tagged(rawValue: 4),              │
+            │   identifier: "calm",                   │
+            │   decreasedStatId: Tagged(rawValue: 2), │
+            │   increasedStatId: Tagged(rawValue: 5), │
+            │   hatesFlavorId: 1,                     │
+            │   likesFlavorId: 4,                     │
+            │   gameIndex: 20                         │
+            │ )                                       │
+            ├─────────────────────────────────────────┤
+            │ PokeAPINature(                          │
+            │   id: Tagged(rawValue: 5),              │
+            │   identifier: "timid",                  │
+            │   decreasedStatId: Tagged(rawValue: 2), │
+            │   increasedStatId: Tagged(rawValue: 6), │
+            │   hatesFlavorId: 1,                     │
+            │   likesFlavorId: 3,                     │
+            │   gameIndex: 10                         │
+            │ )                                       │
+            └─────────────────────────────────────────┘
             """
         }
     }
@@ -866,62 +866,62 @@ struct SnapshotTests {
             """
         } results: {
             """
-            ┌─────────────────────────────┐
-            │ PokeAPIPokemon(             │
-            │   id: 1,                    │
-            │   identifier: "bulbasaur",  │
-            │   speciesId: 1,             │
-            │   heightInDecimeters: 7,    │
-            │   weightInHectograms: 69,   │
-            │   baseExperience: 64,       │
-            │   order: 1,                 │
-            │   isDefault: true           │
-            │ )                           │
-            ├─────────────────────────────┤
-            │ PokeAPIPokemon(             │
-            │   id: 2,                    │
-            │   identifier: "ivysaur",    │
-            │   speciesId: 2,             │
-            │   heightInDecimeters: 10,   │
-            │   weightInHectograms: 130,  │
-            │   baseExperience: 142,      │
-            │   order: 2,                 │
-            │   isDefault: true           │
-            │ )                           │
-            ├─────────────────────────────┤
-            │ PokeAPIPokemon(             │
-            │   id: 3,                    │
-            │   identifier: "venusaur",   │
-            │   speciesId: 3,             │
-            │   heightInDecimeters: 20,   │
-            │   weightInHectograms: 1000, │
-            │   baseExperience: 236,      │
-            │   order: 3,                 │
-            │   isDefault: true           │
-            │ )                           │
-            ├─────────────────────────────┤
-            │ PokeAPIPokemon(             │
-            │   id: 4,                    │
-            │   identifier: "charmander", │
-            │   speciesId: 4,             │
-            │   heightInDecimeters: 6,    │
-            │   weightInHectograms: 85,   │
-            │   baseExperience: 62,       │
-            │   order: 5,                 │
-            │   isDefault: true           │
-            │ )                           │
-            ├─────────────────────────────┤
-            │ PokeAPIPokemon(             │
-            │   id: 5,                    │
-            │   identifier: "charmeleon", │
-            │   speciesId: 5,             │
-            │   heightInDecimeters: 11,   │
-            │   weightInHectograms: 190,  │
-            │   baseExperience: 142,      │
-            │   order: 6,                 │
-            │   isDefault: true           │
-            │ )                           │
-            └─────────────────────────────┘
+            ┌───────────────────────────────────┐
+            │ PokeAPIPokemon(                   │
+            │   id: Tagged(rawValue: 1),        │
+            │   identifier: "bulbasaur",        │
+            │   speciesId: Tagged(rawValue: 1), │
+            │   heightInDecimeters: 7,          │
+            │   weightInHectograms: 69,         │
+            │   baseExperience: 64,             │
+            │   order: 1,                       │
+            │   isDefault: true                 │
+            │ )                                 │
+            ├───────────────────────────────────┤
+            │ PokeAPIPokemon(                   │
+            │   id: Tagged(rawValue: 2),        │
+            │   identifier: "ivysaur",          │
+            │   speciesId: Tagged(rawValue: 2), │
+            │   heightInDecimeters: 10,         │
+            │   weightInHectograms: 130,        │
+            │   baseExperience: 142,            │
+            │   order: 2,                       │
+            │   isDefault: true                 │
+            │ )                                 │
+            ├───────────────────────────────────┤
+            │ PokeAPIPokemon(                   │
+            │   id: Tagged(rawValue: 3),        │
+            │   identifier: "venusaur",         │
+            │   speciesId: Tagged(rawValue: 3), │
+            │   heightInDecimeters: 20,         │
+            │   weightInHectograms: 1000,       │
+            │   baseExperience: 236,            │
+            │   order: 3,                       │
+            │   isDefault: true                 │
+            │ )                                 │
+            ├───────────────────────────────────┤
+            │ PokeAPIPokemon(                   │
+            │   id: Tagged(rawValue: 4),        │
+            │   identifier: "charmander",       │
+            │   speciesId: Tagged(rawValue: 4), │
+            │   heightInDecimeters: 6,          │
+            │   weightInHectograms: 85,         │
+            │   baseExperience: 62,             │
+            │   order: 5,                       │
+            │   isDefault: true                 │
+            │ )                                 │
+            ├───────────────────────────────────┤
+            │ PokeAPIPokemon(                   │
+            │   id: Tagged(rawValue: 5),        │
+            │   identifier: "charmeleon",       │
+            │   speciesId: Tagged(rawValue: 5), │
+            │   heightInDecimeters: 11,         │
+            │   weightInHectograms: 190,        │
+            │   baseExperience: 142,            │
+            │   order: 6,                       │
+            │   isDefault: true                 │
+            │ )                                 │
+            └───────────────────────────────────┘
             """
         }
     }
@@ -938,42 +938,42 @@ struct SnapshotTests {
             """
         } results: {
             """
-            ┌────────────────────────┐
-            │ PokeAPIPokemonAbility( │
-            │   pokemonId: 1,        │
-            │   abilityId: 65,       │
-            │   isHidden: false,     │
-            │   slot: 1              │
-            │ )                      │
-            ├────────────────────────┤
-            │ PokeAPIPokemonAbility( │
-            │   pokemonId: 1,        │
-            │   abilityId: 34,       │
-            │   isHidden: true,      │
-            │   slot: 3              │
-            │ )                      │
-            ├────────────────────────┤
-            │ PokeAPIPokemonAbility( │
-            │   pokemonId: 2,        │
-            │   abilityId: 65,       │
-            │   isHidden: false,     │
-            │   slot: 1              │
-            │ )                      │
-            ├────────────────────────┤
-            │ PokeAPIPokemonAbility( │
-            │   pokemonId: 2,        │
-            │   abilityId: 34,       │
-            │   isHidden: true,      │
-            │   slot: 3              │
-            │ )                      │
-            ├────────────────────────┤
-            │ PokeAPIPokemonAbility( │
-            │   pokemonId: 3,        │
-            │   abilityId: 65,       │
-            │   isHidden: false,     │
-            │   slot: 1              │
-            │ )                      │
-            └────────────────────────┘
+            ┌────────────────────────────────────┐
+            │ PokeAPIPokemonAbility(             │
+            │   pokemonId: Tagged(rawValue: 1),  │
+            │   abilityId: Tagged(rawValue: 65), │
+            │   isHidden: false,                 │
+            │   slot: 1                          │
+            │ )                                  │
+            ├────────────────────────────────────┤
+            │ PokeAPIPokemonAbility(             │
+            │   pokemonId: Tagged(rawValue: 1),  │
+            │   abilityId: Tagged(rawValue: 34), │
+            │   isHidden: true,                  │
+            │   slot: 3                          │
+            │ )                                  │
+            ├────────────────────────────────────┤
+            │ PokeAPIPokemonAbility(             │
+            │   pokemonId: Tagged(rawValue: 2),  │
+            │   abilityId: Tagged(rawValue: 65), │
+            │   isHidden: false,                 │
+            │   slot: 1                          │
+            │ )                                  │
+            ├────────────────────────────────────┤
+            │ PokeAPIPokemonAbility(             │
+            │   pokemonId: Tagged(rawValue: 2),  │
+            │   abilityId: Tagged(rawValue: 34), │
+            │   isHidden: true,                  │
+            │   slot: 3                          │
+            │ )                                  │
+            ├────────────────────────────────────┤
+            │ PokeAPIPokemonAbility(             │
+            │   pokemonId: Tagged(rawValue: 3),  │
+            │   abilityId: Tagged(rawValue: 65), │
+            │   isHidden: false,                 │
+            │   slot: 1                          │
+            │ )                                  │
+            └────────────────────────────────────┘
             """
         }
     }
@@ -990,122 +990,122 @@ struct SnapshotTests {
             """
         } results: {
             """
-            ┌───────────────────────────────┐
-            │ PokeAPIPokemonEvolution(      │
-            │   id: 1,                      │
-            │   evolvedSpeciesId: 2,        │
-            │   evolutionTriggerId: 1,      │
-            │   triggerItemId: nil,         │
-            │   minimumLevel: "16",         │
-            │   genderId: nil,              │
-            │   locationId: nil,            │
-            │   heldItemId: nil,            │
-            │   timeOfDay: nil,             │
-            │   knownMoveId: nil,           │
-            │   knownMoveTypeId: nil,       │
-            │   minimumHappiness: nil,      │
-            │   minimumBeauty: nil,         │
-            │   minimumAffection: nil,      │
-            │   relativePhysicalStats: nil, │
-            │   partySpeciesId: nil,        │
-            │   partyTypeId: nil,           │
-            │   tradeSpeciesId: nil,        │
-            │   needsOverworldRain: false,  │
-            │   turnUpsideDown: "0"         │
-            │ )                             │
-            ├───────────────────────────────┤
-            │ PokeAPIPokemonEvolution(      │
-            │   id: 2,                      │
-            │   evolvedSpeciesId: 3,        │
-            │   evolutionTriggerId: 1,      │
-            │   triggerItemId: nil,         │
-            │   minimumLevel: "32",         │
-            │   genderId: nil,              │
-            │   locationId: nil,            │
-            │   heldItemId: nil,            │
-            │   timeOfDay: nil,             │
-            │   knownMoveId: nil,           │
-            │   knownMoveTypeId: nil,       │
-            │   minimumHappiness: nil,      │
-            │   minimumBeauty: nil,         │
-            │   minimumAffection: nil,      │
-            │   relativePhysicalStats: nil, │
-            │   partySpeciesId: nil,        │
-            │   partyTypeId: nil,           │
-            │   tradeSpeciesId: nil,        │
-            │   needsOverworldRain: false,  │
-            │   turnUpsideDown: "0"         │
-            │ )                             │
-            ├───────────────────────────────┤
-            │ PokeAPIPokemonEvolution(      │
-            │   id: 3,                      │
-            │   evolvedSpeciesId: 5,        │
-            │   evolutionTriggerId: 1,      │
-            │   triggerItemId: nil,         │
-            │   minimumLevel: "16",         │
-            │   genderId: nil,              │
-            │   locationId: nil,            │
-            │   heldItemId: nil,            │
-            │   timeOfDay: nil,             │
-            │   knownMoveId: nil,           │
-            │   knownMoveTypeId: nil,       │
-            │   minimumHappiness: nil,      │
-            │   minimumBeauty: nil,         │
-            │   minimumAffection: nil,      │
-            │   relativePhysicalStats: nil, │
-            │   partySpeciesId: nil,        │
-            │   partyTypeId: nil,           │
-            │   tradeSpeciesId: nil,        │
-            │   needsOverworldRain: false,  │
-            │   turnUpsideDown: "0"         │
-            │ )                             │
-            ├───────────────────────────────┤
-            │ PokeAPIPokemonEvolution(      │
-            │   id: 4,                      │
-            │   evolvedSpeciesId: 6,        │
-            │   evolutionTriggerId: 1,      │
-            │   triggerItemId: nil,         │
-            │   minimumLevel: "36",         │
-            │   genderId: nil,              │
-            │   locationId: nil,            │
-            │   heldItemId: nil,            │
-            │   timeOfDay: nil,             │
-            │   knownMoveId: nil,           │
-            │   knownMoveTypeId: nil,       │
-            │   minimumHappiness: nil,      │
-            │   minimumBeauty: nil,         │
-            │   minimumAffection: nil,      │
-            │   relativePhysicalStats: nil, │
-            │   partySpeciesId: nil,        │
-            │   partyTypeId: nil,           │
-            │   tradeSpeciesId: nil,        │
-            │   needsOverworldRain: false,  │
-            │   turnUpsideDown: "0"         │
-            │ )                             │
-            ├───────────────────────────────┤
-            │ PokeAPIPokemonEvolution(      │
-            │   id: 5,                      │
-            │   evolvedSpeciesId: 8,        │
-            │   evolutionTriggerId: 1,      │
-            │   triggerItemId: nil,         │
-            │   minimumLevel: "16",         │
-            │   genderId: nil,              │
-            │   locationId: nil,            │
-            │   heldItemId: nil,            │
-            │   timeOfDay: nil,             │
-            │   knownMoveId: nil,           │
-            │   knownMoveTypeId: nil,       │
-            │   minimumHappiness: nil,      │
-            │   minimumBeauty: nil,         │
-            │   minimumAffection: nil,      │
-            │   relativePhysicalStats: nil, │
-            │   partySpeciesId: nil,        │
-            │   partyTypeId: nil,           │
-            │   tradeSpeciesId: nil,        │
-            │   needsOverworldRain: false,  │
-            │   turnUpsideDown: "0"         │
-            │ )                             │
-            └───────────────────────────────┘
+            ┌──────────────────────────────────────────┐
+            │ PokeAPIPokemonEvolution(                 │
+            │   id: Tagged(rawValue: 1),               │
+            │   evolvedSpeciesId: Tagged(rawValue: 2), │
+            │   evolutionTriggerId: 1,                 │
+            │   triggerItemId: nil,                    │
+            │   minimumLevel: "16",                    │
+            │   genderId: nil,                         │
+            │   locationId: nil,                       │
+            │   heldItemId: nil,                       │
+            │   timeOfDay: nil,                        │
+            │   knownMoveId: nil,                      │
+            │   knownMoveTypeId: nil,                  │
+            │   minimumHappiness: nil,                 │
+            │   minimumBeauty: nil,                    │
+            │   minimumAffection: nil,                 │
+            │   relativePhysicalStats: nil,            │
+            │   partySpeciesId: nil,                   │
+            │   partyTypeId: nil,                      │
+            │   tradeSpeciesId: nil,                   │
+            │   needsOverworldRain: false,             │
+            │   turnUpsideDown: "0"                    │
+            │ )                                        │
+            ├──────────────────────────────────────────┤
+            │ PokeAPIPokemonEvolution(                 │
+            │   id: Tagged(rawValue: 2),               │
+            │   evolvedSpeciesId: Tagged(rawValue: 3), │
+            │   evolutionTriggerId: 1,                 │
+            │   triggerItemId: nil,                    │
+            │   minimumLevel: "32",                    │
+            │   genderId: nil,                         │
+            │   locationId: nil,                       │
+            │   heldItemId: nil,                       │
+            │   timeOfDay: nil,                        │
+            │   knownMoveId: nil,                      │
+            │   knownMoveTypeId: nil,                  │
+            │   minimumHappiness: nil,                 │
+            │   minimumBeauty: nil,                    │
+            │   minimumAffection: nil,                 │
+            │   relativePhysicalStats: nil,            │
+            │   partySpeciesId: nil,                   │
+            │   partyTypeId: nil,                      │
+            │   tradeSpeciesId: nil,                   │
+            │   needsOverworldRain: false,             │
+            │   turnUpsideDown: "0"                    │
+            │ )                                        │
+            ├──────────────────────────────────────────┤
+            │ PokeAPIPokemonEvolution(                 │
+            │   id: Tagged(rawValue: 3),               │
+            │   evolvedSpeciesId: Tagged(rawValue: 5), │
+            │   evolutionTriggerId: 1,                 │
+            │   triggerItemId: nil,                    │
+            │   minimumLevel: "16",                    │
+            │   genderId: nil,                         │
+            │   locationId: nil,                       │
+            │   heldItemId: nil,                       │
+            │   timeOfDay: nil,                        │
+            │   knownMoveId: nil,                      │
+            │   knownMoveTypeId: nil,                  │
+            │   minimumHappiness: nil,                 │
+            │   minimumBeauty: nil,                    │
+            │   minimumAffection: nil,                 │
+            │   relativePhysicalStats: nil,            │
+            │   partySpeciesId: nil,                   │
+            │   partyTypeId: nil,                      │
+            │   tradeSpeciesId: nil,                   │
+            │   needsOverworldRain: false,             │
+            │   turnUpsideDown: "0"                    │
+            │ )                                        │
+            ├──────────────────────────────────────────┤
+            │ PokeAPIPokemonEvolution(                 │
+            │   id: Tagged(rawValue: 4),               │
+            │   evolvedSpeciesId: Tagged(rawValue: 6), │
+            │   evolutionTriggerId: 1,                 │
+            │   triggerItemId: nil,                    │
+            │   minimumLevel: "36",                    │
+            │   genderId: nil,                         │
+            │   locationId: nil,                       │
+            │   heldItemId: nil,                       │
+            │   timeOfDay: nil,                        │
+            │   knownMoveId: nil,                      │
+            │   knownMoveTypeId: nil,                  │
+            │   minimumHappiness: nil,                 │
+            │   minimumBeauty: nil,                    │
+            │   minimumAffection: nil,                 │
+            │   relativePhysicalStats: nil,            │
+            │   partySpeciesId: nil,                   │
+            │   partyTypeId: nil,                      │
+            │   tradeSpeciesId: nil,                   │
+            │   needsOverworldRain: false,             │
+            │   turnUpsideDown: "0"                    │
+            │ )                                        │
+            ├──────────────────────────────────────────┤
+            │ PokeAPIPokemonEvolution(                 │
+            │   id: Tagged(rawValue: 5),               │
+            │   evolvedSpeciesId: Tagged(rawValue: 8), │
+            │   evolutionTriggerId: 1,                 │
+            │   triggerItemId: nil,                    │
+            │   minimumLevel: "16",                    │
+            │   genderId: nil,                         │
+            │   locationId: nil,                       │
+            │   heldItemId: nil,                       │
+            │   timeOfDay: nil,                        │
+            │   knownMoveId: nil,                      │
+            │   knownMoveTypeId: nil,                  │
+            │   minimumHappiness: nil,                 │
+            │   minimumBeauty: nil,                    │
+            │   minimumAffection: nil,                 │
+            │   relativePhysicalStats: nil,            │
+            │   partySpeciesId: nil,                   │
+            │   partyTypeId: nil,                      │
+            │   tradeSpeciesId: nil,                   │
+            │   needsOverworldRain: false,             │
+            │   turnUpsideDown: "0"                    │
+            │ )                                        │
+            └──────────────────────────────────────────┘
             """
         }
     }
@@ -1122,57 +1122,57 @@ struct SnapshotTests {
             """
         } results: {
             """
-            ┌───────────────────────────┐
-            │ PokeAPIPokemonMove(       │
-            │   pokemonId: 1,           │
-            │   versionGroupId: 1,      │
-            │   moveId: 33,             │
-            │   pokemonMoveMethodId: 1, │
-            │   level: 1,               │
-            │   order: 1,               │
-            │   mastery: nil            │
-            │ )                         │
-            ├───────────────────────────┤
-            │ PokeAPIPokemonMove(       │
-            │   pokemonId: 1,           │
-            │   versionGroupId: 1,      │
-            │   moveId: 45,             │
-            │   pokemonMoveMethodId: 1, │
-            │   level: 1,               │
-            │   order: 2,               │
-            │   mastery: nil            │
-            │ )                         │
-            ├───────────────────────────┤
-            │ PokeAPIPokemonMove(       │
-            │   pokemonId: 1,           │
-            │   versionGroupId: 1,      │
-            │   moveId: 73,             │
-            │   pokemonMoveMethodId: 1, │
-            │   level: 7,               │
-            │   order: nil,             │
-            │   mastery: nil            │
-            │ )                         │
-            ├───────────────────────────┤
-            │ PokeAPIPokemonMove(       │
-            │   pokemonId: 1,           │
-            │   versionGroupId: 1,      │
-            │   moveId: 22,             │
-            │   pokemonMoveMethodId: 1, │
-            │   level: 13,              │
-            │   order: nil,             │
-            │   mastery: nil            │
-            │ )                         │
-            ├───────────────────────────┤
-            │ PokeAPIPokemonMove(       │
-            │   pokemonId: 1,           │
-            │   versionGroupId: 1,      │
-            │   moveId: 77,             │
-            │   pokemonMoveMethodId: 1, │
-            │   level: 20,              │
-            │   order: nil,             │
-            │   mastery: nil            │
-            │ )                         │
-            └───────────────────────────┘
+            ┌────────────────────────────────────────┐
+            │ PokeAPIPokemonMove(                    │
+            │   pokemonId: Tagged(rawValue: 1),      │
+            │   versionGroupId: Tagged(rawValue: 1), │
+            │   moveId: Tagged(rawValue: 33),        │
+            │   pokemonMoveMethodId: 1,              │
+            │   level: 1,                            │
+            │   order: 1,                            │
+            │   mastery: nil                         │
+            │ )                                      │
+            ├────────────────────────────────────────┤
+            │ PokeAPIPokemonMove(                    │
+            │   pokemonId: Tagged(rawValue: 1),      │
+            │   versionGroupId: Tagged(rawValue: 1), │
+            │   moveId: Tagged(rawValue: 45),        │
+            │   pokemonMoveMethodId: 1,              │
+            │   level: 1,                            │
+            │   order: 2,                            │
+            │   mastery: nil                         │
+            │ )                                      │
+            ├────────────────────────────────────────┤
+            │ PokeAPIPokemonMove(                    │
+            │   pokemonId: Tagged(rawValue: 1),      │
+            │   versionGroupId: Tagged(rawValue: 1), │
+            │   moveId: Tagged(rawValue: 73),        │
+            │   pokemonMoveMethodId: 1,              │
+            │   level: 7,                            │
+            │   order: nil,                          │
+            │   mastery: nil                         │
+            │ )                                      │
+            ├────────────────────────────────────────┤
+            │ PokeAPIPokemonMove(                    │
+            │   pokemonId: Tagged(rawValue: 1),      │
+            │   versionGroupId: Tagged(rawValue: 1), │
+            │   moveId: Tagged(rawValue: 22),        │
+            │   pokemonMoveMethodId: 1,              │
+            │   level: 13,                           │
+            │   order: nil,                          │
+            │   mastery: nil                         │
+            │ )                                      │
+            ├────────────────────────────────────────┤
+            │ PokeAPIPokemonMove(                    │
+            │   pokemonId: Tagged(rawValue: 1),      │
+            │   versionGroupId: Tagged(rawValue: 1), │
+            │   moveId: Tagged(rawValue: 77),        │
+            │   pokemonMoveMethodId: 1,              │
+            │   level: 20,                           │
+            │   order: nil,                          │
+            │   mastery: nil                         │
+            │ )                                      │
+            └────────────────────────────────────────┘
             """
         }
     }
@@ -1189,122 +1189,122 @@ struct SnapshotTests {
             """
         } results: {
             """
-            ┌────────────────────────────────┐
-            │ PokeAPIPokemonSpecies(         │
-            │   id: 1,                       │
-            │   identifier: "bulbasaur",     │
-            │   generationId: 1,             │
-            │   evolvesFromSpeciesId: nil,   │
-            │   evolutionChainId: 1,         │
-            │   colorId: 5,                  │
-            │   shapeId: 8,                  │
-            │   habitatId: 3,                │
-            │   genderRate: 1,               │
-            │   captureRate: 45,             │
-            │   baseHappiness: 70,           │
-            │   isBaby: false,               │
-            │   hatchCounter: 20,            │
-            │   hasGenderDifferences: false, │
-            │   growthRateId: 4,             │
-            │   formsSwitchable: false,      │
-            │   isLegendary: false,          │
-            │   isMythical: false,           │
-            │   order: 1,                    │
-            │   conquestOrder: nil           │
-            │ )                              │
-            ├────────────────────────────────┤
-            │ PokeAPIPokemonSpecies(         │
-            │   id: 2,                       │
-            │   identifier: "ivysaur",       │
-            │   generationId: 1,             │
-            │   evolvesFromSpeciesId: 1,     │
-            │   evolutionChainId: 1,         │
-            │   colorId: 5,                  │
-            │   shapeId: 8,                  │
-            │   habitatId: 3,                │
-            │   genderRate: 1,               │
-            │   captureRate: 45,             │
-            │   baseHappiness: 70,           │
-            │   isBaby: false,               │
-            │   hatchCounter: 20,            │
-            │   hasGenderDifferences: false, │
-            │   growthRateId: 4,             │
-            │   formsSwitchable: false,      │
-            │   isLegendary: false,          │
-            │   isMythical: false,           │
-            │   order: 2,                    │
-            │   conquestOrder: nil           │
-            │ )                              │
-            ├────────────────────────────────┤
-            │ PokeAPIPokemonSpecies(         │
-            │   id: 3,                       │
-            │   identifier: "venusaur",      │
-            │   generationId: 1,             │
-            │   evolvesFromSpeciesId: 2,     │
-            │   evolutionChainId: 1,         │
-            │   colorId: 5,                  │
-            │   shapeId: 8,                  │
-            │   habitatId: 3,                │
-            │   genderRate: 1,               │
-            │   captureRate: 45,             │
-            │   baseHappiness: 70,           │
-            │   isBaby: false,               │
-            │   hatchCounter: 20,            │
-            │   hasGenderDifferences: true,  │
-            │   growthRateId: 4,             │
-            │   formsSwitchable: true,       │
-            │   isLegendary: false,          │
-            │   isMythical: false,           │
-            │   order: 3,                    │
-            │   conquestOrder: nil           │
-            │ )                              │
-            ├────────────────────────────────┤
-            │ PokeAPIPokemonSpecies(         │
-            │   id: 4,                       │
-            │   identifier: "charmander",    │
-            │   generationId: 1,             │
-            │   evolvesFromSpeciesId: nil,   │
-            │   evolutionChainId: 2,         │
-            │   colorId: 8,                  │
-            │   shapeId: 6,                  │
-            │   habitatId: 4,                │
-            │   genderRate: 1,               │
-            │   captureRate: 45,             │
-            │   baseHappiness: 70,           │
-            │   isBaby: false,               │
-            │   hatchCounter: 20,            │
-            │   hasGenderDifferences: false, │
-            │   growthRateId: 4,             │
-            │   formsSwitchable: false,      │
-            │   isLegendary: false,          │
-            │   isMythical: false,           │
-            │   order: 4,                    │
-            │   conquestOrder: 109           │
-            │ )                              │
-            ├────────────────────────────────┤
-            │ PokeAPIPokemonSpecies(         │
-            │   id: 5,                       │
-            │   identifier: "charmeleon",    │
-            │   generationId: 1,             │
-            │   evolvesFromSpeciesId: 4,     │
-            │   evolutionChainId: 2,         │
-            │   colorId: 8,                  │
-            │   shapeId: 6,                  │
-            │   habitatId: 4,                │
-            │   genderRate: 1,               │
-            │   captureRate: 45,             │
-            │   baseHappiness: 70,           │
-            │   isBaby: false,               │
-            │   hatchCounter: 20,            │
-            │   hasGenderDifferences: false, │
-            │   growthRateId: 4,             │
-            │   formsSwitchable: false,      │
-            │   isLegendary: false,          │
-            │   isMythical: false,           │
-            │   order: 5,                    │
-            │   conquestOrder: 110           │
-            │ )                              │
-            └────────────────────────────────┘
+            ┌──────────────────────────────────────────────┐
+            │ PokeAPIPokemonSpecies(                       │
+            │   id: Tagged(rawValue: 1),                   │
+            │   identifier: "bulbasaur",                   │
+            │   generationId: Tagged(rawValue: 1),         │
+            │   evolvesFromSpeciesId: nil,                 │
+            │   evolutionChainId: Tagged(rawValue: 1),     │
+            │   colorId: Tagged(rawValue: 5),              │
+            │   shapeId: 8,                                │
+            │   habitatId: Tagged(rawValue: 3),            │
+            │   genderRate: 1,                             │
+            │   captureRate: 45,                           │
+            │   baseHappiness: 70,                         │
+            │   isBaby: false,                             │
+            │   hatchCounter: 20,                          │
+            │   hasGenderDifferences: false,               │
+            │   growthRateId: 4,                           │
+            │   formsSwitchable: false,                    │
+            │   isLegendary: false,                        │
+            │   isMythical: false,                         │
+            │   order: 1,                                  │
+            │   conquestOrder: nil                         │
+            │ )                                            │
+            ├──────────────────────────────────────────────┤
+            │ PokeAPIPokemonSpecies(                       │
+            │   id: Tagged(rawValue: 2),                   │
+            │   identifier: "ivysaur",                     │
+            │   generationId: Tagged(rawValue: 1),         │
+            │   evolvesFromSpeciesId: Tagged(rawValue: 1), │
+            │   evolutionChainId: Tagged(rawValue: 1),     │
+            │   colorId: Tagged(rawValue: 5),              │
+            │   shapeId: 8,                                │
+            │   habitatId: Tagged(rawValue: 3),            │
+            │   genderRate: 1,                             │
+            │   captureRate: 45,                           │
+            │   baseHappiness: 70,                         │
+            │   isBaby: false,                             │
+            │   hatchCounter: 20,                          │
+            │   hasGenderDifferences: false,               │
+            │   growthRateId: 4,                           │
+            │   formsSwitchable: false,                    │
+            │   isLegendary: false,                        │
+            │   isMythical: false,                         │
+            │   order: 2,                                  │
+            │   conquestOrder: nil                         │
+            │ )                                            │
+            ├──────────────────────────────────────────────┤
+            │ PokeAPIPokemonSpecies(                       │
+            │   id: Tagged(rawValue: 3),                   │
+            │   identifier: "venusaur",                    │
+            │   generationId: Tagged(rawValue: 1),         │
+            │   evolvesFromSpeciesId: Tagged(rawValue: 2), │
+            │   evolutionChainId: Tagged(rawValue: 1),     │
+            │   colorId: Tagged(rawValue: 5),              │
+            │   shapeId: 8,                                │
+            │   habitatId: Tagged(rawValue: 3),            │
+            │   genderRate: 1,                             │
+            │   captureRate: 45,                           │
+            │   baseHappiness: 70,                         │
+            │   isBaby: false,                             │
+            │   hatchCounter: 20,                          │
+            │   hasGenderDifferences: true,                │
+            │   growthRateId: 4,                           │
+            │   formsSwitchable: true,                     │
+            │   isLegendary: false,                        │
+            │   isMythical: false,                         │
+            │   order: 3,                                  │
+            │   conquestOrder: nil                         │
+            │ )                                            │
+            ├──────────────────────────────────────────────┤
+            │ PokeAPIPokemonSpecies(                       │
+            │   id: Tagged(rawValue: 4),                   │
+            │   identifier: "charmander",                  │
+            │   generationId: Tagged(rawValue: 1),         │
+            │   evolvesFromSpeciesId: nil,                 │
+            │   evolutionChainId: Tagged(rawValue: 2),     │
+            │   colorId: Tagged(rawValue: 8),              │
+            │   shapeId: 6,                                │
+            │   habitatId: Tagged(rawValue: 4),            │
+            │   genderRate: 1,                             │
+            │   captureRate: 45,                           │
+            │   baseHappiness: 70,                         │
+            │   isBaby: false,                             │
+            │   hatchCounter: 20,                          │
+            │   hasGenderDifferences: false,               │
+            │   growthRateId: 4,                           │
+            │   formsSwitchable: false,                    │
+            │   isLegendary: false,                        │
+            │   isMythical: false,                         │
+            │   order: 4,                                  │
+            │   conquestOrder: 109                         │
+            │ )                                            │
+            ├──────────────────────────────────────────────┤
+            │ PokeAPIPokemonSpecies(                       │
+            │   id: Tagged(rawValue: 5),                   │
+            │   identifier: "charmeleon",                  │
+            │   generationId: Tagged(rawValue: 1),         │
+            │   evolvesFromSpeciesId: Tagged(rawValue: 4), │
+            │   evolutionChainId: Tagged(rawValue: 2),     │
+            │   colorId: Tagged(rawValue: 8),              │
+            │   shapeId: 6,                                │
+            │   habitatId: Tagged(rawValue: 4),            │
+            │   genderRate: 1,                             │
+            │   captureRate: 45,                           │
+            │   baseHappiness: 70,                         │
+            │   isBaby: false,                             │
+            │   hatchCounter: 20,                          │
+            │   hasGenderDifferences: false,               │
+            │   growthRateId: 4,                           │
+            │   formsSwitchable: false,                    │
+            │   isLegendary: false,                        │
+            │   isMythical: false,                         │
+            │   order: 5,                                  │
+            │   conquestOrder: 110                         │
+            │ )                                            │
+            └──────────────────────────────────────────────┘
             """
         }
     }
@@ -1321,42 +1321,42 @@ struct SnapshotTests {
             """
         } results: {
             """
-            ┌─────────────────────┐
-            │ PokeAPIPokemonStat( │
-            │   pokemonId: 1,     │
-            │   statId: 1,        │
-            │   baseStat: 45,     │
-            │   effort: 0         │
-            │ )                   │
-            ├─────────────────────┤
-            │ PokeAPIPokemonStat( │
-            │   pokemonId: 1,     │
-            │   statId: 2,        │
-            │   baseStat: 49,     │
-            │   effort: 0         │
-            │ )                   │
-            ├─────────────────────┤
-            │ PokeAPIPokemonStat( │
-            │   pokemonId: 1,     │
-            │   statId: 3,        │
-            │   baseStat: 49,     │
-            │   effort: 0         │
-            │ )                   │
-            ├─────────────────────┤
-            │ PokeAPIPokemonStat( │
-            │   pokemonId: 1,     │
-            │   statId: 4,        │
-            │   baseStat: 65,     │
-            │   effort: 1         │
-            │ )                   │
-            ├─────────────────────┤
-            │ PokeAPIPokemonStat( │
-            │   pokemonId: 1,     │
-            │   statId: 5,        │
-            │   baseStat: 65,     │
-            │   effort: 0         │
-            │ )                   │
-            └─────────────────────┘
+            ┌───────────────────────────────────┐
+            │ PokeAPIPokemonStat(               │
+            │   pokemonId: Tagged(rawValue: 1), │
+            │   statId: Tagged(rawValue: 1),    │
+            │   baseStat: 45,                   │
+            │   effort: 0                       │
+            │ )                                 │
+            ├───────────────────────────────────┤
+            │ PokeAPIPokemonStat(               │
+            │   pokemonId: Tagged(rawValue: 1), │
+            │   statId: Tagged(rawValue: 2),    │
+            │   baseStat: 49,                   │
+            │   effort: 0                       │
+            │ )                                 │
+            ├───────────────────────────────────┤
+            │ PokeAPIPokemonStat(               │
+            │   pokemonId: Tagged(rawValue: 1), │
+            │   statId: Tagged(rawValue: 3),    │
+            │   baseStat: 49,                   │
+            │   effort: 0                       │
+            │ )                                 │
+            ├───────────────────────────────────┤
+            │ PokeAPIPokemonStat(               │
+            │   pokemonId: Tagged(rawValue: 1), │
+            │   statId: Tagged(rawValue: 4),    │
+            │   baseStat: 65,                   │
+            │   effort: 1                       │
+            │ )                                 │
+            ├───────────────────────────────────┤
+            │ PokeAPIPokemonStat(               │
+            │   pokemonId: Tagged(rawValue: 1), │
+            │   statId: Tagged(rawValue: 5),    │
+            │   baseStat: 65,                   │
+            │   effort: 0                       │
+            │ )                                 │
+            └───────────────────────────────────┘
             """
         }
     }
@@ -1373,37 +1373,37 @@ struct SnapshotTests {
             """
         } results: {
             """
-            ┌─────────────────────┐
-            │ PokeAPIPokemonType( │
-            │   pokemonId: 1,     │
-            │   typeId: 12,       │
-            │   slot: 1           │
-            │ )                   │
-            ├─────────────────────┤
-            │ PokeAPIPokemonType( │
-            │   pokemonId: 1,     │
-            │   typeId: 4,        │
-            │   slot: 2           │
-            │ )                   │
-            ├─────────────────────┤
-            │ PokeAPIPokemonType( │
-            │   pokemonId: 2,     │
-            │   typeId: 12,       │
-            │   slot: 1           │
-            │ )                   │
-            ├─────────────────────┤
-            │ PokeAPIPokemonType( │
-            │   pokemonId: 2,     │
-            │   typeId: 4,        │
-            │   slot: 2           │
-            │ )                   │
-            ├─────────────────────┤
-            │ PokeAPIPokemonType( │
-            │   pokemonId: 3,     │
-            │   typeId: 12,       │
-            │   slot: 1           │
-            │ )                   │
-            └─────────────────────┘
+            ┌───────────────────────────────────┐
+            │ PokeAPIPokemonType(               │
+            │   pokemonId: Tagged(rawValue: 1), │
+            │   typeId: Tagged(rawValue: 12),   │
+            │   slot: 1                         │
+            │ )                                 │
+            ├───────────────────────────────────┤
+            │ PokeAPIPokemonType(               │
+            │   pokemonId: Tagged(rawValue: 1), │
+            │   typeId: Tagged(rawValue: 4),    │
+            │   slot: 2                         │
+            │ )                                 │
+            ├───────────────────────────────────┤
+            │ PokeAPIPokemonType(               │
+            │   pokemonId: Tagged(rawValue: 2), │
+            │   typeId: Tagged(rawValue: 12),   │
+            │   slot: 1                         │
+            │ )                                 │
+            ├───────────────────────────────────┤
+            │ PokeAPIPokemonType(               │
+            │   pokemonId: Tagged(rawValue: 2), │
+            │   typeId: Tagged(rawValue: 4),    │
+            │   slot: 2                         │
+            │ )                                 │
+            ├───────────────────────────────────┤
+            │ PokeAPIPokemonType(               │
+            │   pokemonId: Tagged(rawValue: 3), │
+            │   typeId: Tagged(rawValue: 12),   │
+            │   slot: 1                         │
+            │ )                                 │
+            └───────────────────────────────────┘
             """
         }
     }
@@ -1420,32 +1420,32 @@ struct SnapshotTests {
             """
         } results: {
             """
-            ┌────────────────────────┐
-            │ PokeAPIRegion(         │
-            │   id: 1,               │
-            │   identifier: "kanto"  │
-            │ )                      │
-            ├────────────────────────┤
-            │ PokeAPIRegion(         │
-            │   id: 2,               │
-            │   identifier: "johto"  │
-            │ )                      │
-            ├────────────────────────┤
-            │ PokeAPIRegion(         │
-            │   id: 3,               │
-            │   identifier: "hoenn"  │
-            │ )                      │
-            ├────────────────────────┤
-            │ PokeAPIRegion(         │
-            │   id: 4,               │
-            │   identifier: "sinnoh" │
-            │ )                      │
-            ├────────────────────────┤
-            │ PokeAPIRegion(         │
-            │   id: 5,               │
-            │   identifier: "unova"  │
-            │ )                      │
-            └────────────────────────┘
+            ┌────────────────────────────┐
+            │ PokeAPIRegion(             │
+            │   id: Tagged(rawValue: 1), │
+            │   identifier: "kanto"      │
+            │ )                          │
+            ├────────────────────────────┤
+            │ PokeAPIRegion(             │
+            │   id: Tagged(rawValue: 2), │
+            │   identifier: "johto"      │
+            │ )                          │
+            ├────────────────────────────┤
+            │ PokeAPIRegion(             │
+            │   id: Tagged(rawValue: 3), │
+            │   identifier: "hoenn"      │
+            │ )                          │
+            ├────────────────────────────┤
+            │ PokeAPIRegion(             │
+            │   id: Tagged(rawValue: 4), │
+            │   identifier: "sinnoh"     │
+            │ )                          │
+            ├────────────────────────────┤
+            │ PokeAPIRegion(             │
+            │   id: Tagged(rawValue: 5), │
+            │   identifier: "unova"      │
+            │ )                          │
+            └────────────────────────────┘
             """
         }
     }
@@ -1462,47 +1462,47 @@ struct SnapshotTests {
             """
         }results: {
             """
-            ┌──────────────────────────────────┐
-            │ PokeAPIStat(                     │
-            │   id: 1,                         │
-            │   identifier: "hp",              │
-            │   damageClassId: nil,            │
-            │   isBattleOnly: false,           │
-            │   gameIndex: 1                   │
-            │ )                                │
-            ├──────────────────────────────────┤
-            │ PokeAPIStat(                     │
-            │   id: 2,                         │
-            │   identifier: "attack",          │
-            │   damageClassId: 2,              │
-            │   isBattleOnly: false,           │
-            │   gameIndex: 2                   │
-            │ )                                │
-            ├──────────────────────────────────┤
-            │ PokeAPIStat(                     │
-            │   id: 3,                         │
-            │   identifier: "defense",         │
-            │   damageClassId: 2,              │
-            │   isBattleOnly: false,           │
-            │   gameIndex: 3                   │
-            │ )                                │
-            ├──────────────────────────────────┤
-            │ PokeAPIStat(                     │
-            │   id: 4,                         │
-            │   identifier: "special-attack",  │
-            │   damageClassId: 3,              │
-            │   isBattleOnly: false,           │
-            │   gameIndex: 5                   │
-            │ )                                │
-            ├──────────────────────────────────┤
-            │ PokeAPIStat(                     │
-            │   id: 5,                         │
-            │   identifier: "special-defense", │
-            │   damageClassId: 3,              │
-            │   isBattleOnly: false,           │
-            │   gameIndex: 6                   │
-            │ )                                │
-            └──────────────────────────────────┘
+            ┌───────────────────────────────────────┐
+            │ PokeAPIStat(                          │
+            │   id: Tagged(rawValue: 1),            │
+            │   identifier: "hp",                   │
+            │   damageClassId: nil,                 │
+            │   isBattleOnly: false,                │
+            │   gameIndex: 1                        │
+            │ )                                     │
+            ├───────────────────────────────────────┤
+            │ PokeAPIStat(                          │
+            │   id: Tagged(rawValue: 2),            │
+            │   identifier: "attack",               │
+            │   damageClassId: Tagged(rawValue: 2), │
+            │   isBattleOnly: false,                │
+            │   gameIndex: 2                        │
+            │ )                                     │
+            ├───────────────────────────────────────┤
+            │ PokeAPIStat(                          │
+            │   id: Tagged(rawValue: 3),            │
+            │   identifier: "defense",              │
+            │   damageClassId: Tagged(rawValue: 2), │
+            │   isBattleOnly: false,                │
+            │   gameIndex: 3                        │
+            │ )                                     │
+            ├───────────────────────────────────────┤
+            │ PokeAPIStat(                          │
+            │   id: Tagged(rawValue: 4),            │
+            │   identifier: "special-attack",       │
+            │   damageClassId: Tagged(rawValue: 3), │
+            │   isBattleOnly: false,                │
+            │   gameIndex: 5                        │
+            │ )                                     │
+            ├───────────────────────────────────────┤
+            │ PokeAPIStat(                          │
+            │   id: Tagged(rawValue: 5),            │
+            │   identifier: "special-defense",      │
+            │   damageClassId: Tagged(rawValue: 3), │
+            │   isBattleOnly: false,                │
+            │   gameIndex: 6                        │
+            │ )                                     │
+            └───────────────────────────────────────┘
             """
         }
     }
@@ -1519,42 +1519,42 @@ struct SnapshotTests {
             """
         } results: {
             """
-            ┌───────────────────────────┐
-            │ PokeAPIType(              │
-            │   id: 1,                  │
-            │   identifier: "normal",   │
-            │   generationId: 1,        │
-            │   damageClassId: 2        │
-            │ )                         │
-            ├───────────────────────────┤
-            │ PokeAPIType(              │
-            │   id: 2,                  │
-            │   identifier: "fighting", │
-            │   generationId: 1,        │
-            │   damageClassId: 2        │
-            │ )                         │
-            ├───────────────────────────┤
-            │ PokeAPIType(              │
-            │   id: 3,                  │
-            │   identifier: "flying",   │
-            │   generationId: 1,        │
-            │   damageClassId: 2        │
-            │ )                         │
-            ├───────────────────────────┤
-            │ PokeAPIType(              │
-            │   id: 4,                  │
-            │   identifier: "poison",   │
-            │   generationId: 1,        │
-            │   damageClassId: 2        │
-            │ )                         │
-            ├───────────────────────────┤
-            │ PokeAPIType(              │
-            │   id: 5,                  │
-            │   identifier: "ground",   │
-            │   generationId: 1,        │
-            │   damageClassId: 2        │
-            │ )                         │
-            └───────────────────────────┘
+            ┌──────────────────────────────────────┐
+            │ PokeAPIType(                         │
+            │   id: Tagged(rawValue: 1),           │
+            │   identifier: "normal",              │
+            │   generationId: Tagged(rawValue: 1), │
+            │   damageClassId: Tagged(rawValue: 2) │
+            │ )                                    │
+            ├──────────────────────────────────────┤
+            │ PokeAPIType(                         │
+            │   id: Tagged(rawValue: 2),           │
+            │   identifier: "fighting",            │
+            │   generationId: Tagged(rawValue: 1), │
+            │   damageClassId: Tagged(rawValue: 2) │
+            │ )                                    │
+            ├──────────────────────────────────────┤
+            │ PokeAPIType(                         │
+            │   id: Tagged(rawValue: 3),           │
+            │   identifier: "flying",              │
+            │   generationId: Tagged(rawValue: 1), │
+            │   damageClassId: Tagged(rawValue: 2) │
+            │ )                                    │
+            ├──────────────────────────────────────┤
+            │ PokeAPIType(                         │
+            │   id: Tagged(rawValue: 4),           │
+            │   identifier: "poison",              │
+            │   generationId: Tagged(rawValue: 1), │
+            │   damageClassId: Tagged(rawValue: 2) │
+            │ )                                    │
+            ├──────────────────────────────────────┤
+            │ PokeAPIType(                         │
+            │   id: Tagged(rawValue: 5),           │
+            │   identifier: "ground",              │
+            │   generationId: Tagged(rawValue: 1), │
+            │   damageClassId: Tagged(rawValue: 2) │
+            │ )                                    │
+            └──────────────────────────────────────┘
             """
         }
     }
@@ -1571,37 +1571,37 @@ struct SnapshotTests {
             """
         } results: {
             """
-            ┌──────────────────────┐
-            │ PokeAPITypeEfficacy( │
-            │   damageTypeId: 1,   │
-            │   targetTypeId: 1,   │
-            │   damageFactor: 100  │
-            │ )                    │
-            ├──────────────────────┤
-            │ PokeAPITypeEfficacy( │
-            │   damageTypeId: 1,   │
-            │   targetTypeId: 2,   │
-            │   damageFactor: 100  │
-            │ )                    │
-            ├──────────────────────┤
-            │ PokeAPITypeEfficacy( │
-            │   damageTypeId: 1,   │
-            │   targetTypeId: 3,   │
-            │   damageFactor: 100  │
-            │ )                    │
-            ├──────────────────────┤
-            │ PokeAPITypeEfficacy( │
-            │   damageTypeId: 1,   │
-            │   targetTypeId: 4,   │
-            │   damageFactor: 100  │
-            │ )                    │
-            ├──────────────────────┤
-            │ PokeAPITypeEfficacy( │
-            │   damageTypeId: 1,   │
-            │   targetTypeId: 5,   │
-            │   damageFactor: 100  │
-            │ )                    │
-            └──────────────────────┘
+            ┌──────────────────────────────────────┐
+            │ PokeAPITypeEfficacy(                 │
+            │   damageTypeId: Tagged(rawValue: 1), │
+            │   targetTypeId: Tagged(rawValue: 1), │
+            │   damageFactor: 100                  │
+            │ )                                    │
+            ├──────────────────────────────────────┤
+            │ PokeAPITypeEfficacy(                 │
+            │   damageTypeId: Tagged(rawValue: 1), │
+            │   targetTypeId: Tagged(rawValue: 2), │
+            │   damageFactor: 100                  │
+            │ )                                    │
+            ├──────────────────────────────────────┤
+            │ PokeAPITypeEfficacy(                 │
+            │   damageTypeId: Tagged(rawValue: 1), │
+            │   targetTypeId: Tagged(rawValue: 3), │
+            │   damageFactor: 100                  │
+            │ )                                    │
+            ├──────────────────────────────────────┤
+            │ PokeAPITypeEfficacy(                 │
+            │   damageTypeId: Tagged(rawValue: 1), │
+            │   targetTypeId: Tagged(rawValue: 4), │
+            │   damageFactor: 100                  │
+            │ )                                    │
+            ├──────────────────────────────────────┤
+            │ PokeAPITypeEfficacy(                 │
+            │   damageTypeId: Tagged(rawValue: 1), │
+            │   targetTypeId: Tagged(rawValue: 5), │
+            │   damageFactor: 100                  │
+            │ )                                    │
+            └──────────────────────────────────────┘
             """
         }
     }
@@ -1618,37 +1618,37 @@ struct SnapshotTests {
             """
         }results: {
             """
-            ┌─────────────────────────┐
-            │ PokeAPIVersion(         │
-            │   id: 1,                │
-            │   identifier: "red",    │
-            │   versionGroupId: 1     │
-            │ )                       │
-            ├─────────────────────────┤
-            │ PokeAPIVersion(         │
-            │   id: 2,                │
-            │   identifier: "blue",   │
-            │   versionGroupId: 1     │
-            │ )                       │
-            ├─────────────────────────┤
-            │ PokeAPIVersion(         │
-            │   id: 3,                │
-            │   identifier: "yellow", │
-            │   versionGroupId: 2     │
-            │ )                       │
-            ├─────────────────────────┤
-            │ PokeAPIVersion(         │
-            │   id: 4,                │
-            │   identifier: "gold",   │
-            │   versionGroupId: 3     │
-            │ )                       │
-            ├─────────────────────────┤
-            │ PokeAPIVersion(         │
-            │   id: 5,                │
-            │   identifier: "silver", │
-            │   versionGroupId: 3     │
-            │ )                       │
-            └─────────────────────────┘
+            ┌───────────────────────────────────────┐
+            │ PokeAPIVersion(                       │
+            │   id: Tagged(rawValue: 1),            │
+            │   identifier: "red",                  │
+            │   versionGroupId: Tagged(rawValue: 1) │
+            │ )                                     │
+            ├───────────────────────────────────────┤
+            │ PokeAPIVersion(                       │
+            │   id: Tagged(rawValue: 2),            │
+            │   identifier: "blue",                 │
+            │   versionGroupId: Tagged(rawValue: 1) │
+            │ )                                     │
+            ├───────────────────────────────────────┤
+            │ PokeAPIVersion(                       │
+            │   id: Tagged(rawValue: 3),            │
+            │   identifier: "yellow",               │
+            │   versionGroupId: Tagged(rawValue: 2) │
+            │ )                                     │
+            ├───────────────────────────────────────┤
+            │ PokeAPIVersion(                       │
+            │   id: Tagged(rawValue: 4),            │
+            │   identifier: "gold",                 │
+            │   versionGroupId: Tagged(rawValue: 3) │
+            │ )                                     │
+            ├───────────────────────────────────────┤
+            │ PokeAPIVersion(                       │
+            │   id: Tagged(rawValue: 5),            │
+            │   identifier: "silver",               │
+            │   versionGroupId: Tagged(rawValue: 3) │
+            │ )                                     │
+            └───────────────────────────────────────┘
             """
         }
     }
@@ -1665,42 +1665,42 @@ struct SnapshotTests {
             """
         } results: {
             """
-            ┌────────────────────────────────┐
-            │ PokeAPIVersionGroup(           │
-            │   id: 1,                       │
-            │   identifier: "red-blue",      │
-            │   generationId: 1,             │
-            │   order: 3                     │
-            │ )                              │
-            ├────────────────────────────────┤
-            │ PokeAPIVersionGroup(           │
-            │   id: 2,                       │
-            │   identifier: "yellow",        │
-            │   generationId: 1,             │
-            │   order: 4                     │
-            │ )                              │
-            ├────────────────────────────────┤
-            │ PokeAPIVersionGroup(           │
-            │   id: 3,                       │
-            │   identifier: "gold-silver",   │
-            │   generationId: 2,             │
-            │   order: 5                     │
-            │ )                              │
-            ├────────────────────────────────┤
-            │ PokeAPIVersionGroup(           │
-            │   id: 4,                       │
-            │   identifier: "crystal",       │
-            │   generationId: 2,             │
-            │   order: 6                     │
-            │ )                              │
-            ├────────────────────────────────┤
-            │ PokeAPIVersionGroup(           │
-            │   id: 5,                       │
-            │   identifier: "ruby-sapphire", │
-            │   generationId: 3,             │
-            │   order: 7                     │
-            │ )                              │
-            └────────────────────────────────┘
+            ┌──────────────────────────────────────┐
+            │ PokeAPIVersionGroup(                 │
+            │   id: Tagged(rawValue: 1),           │
+            │   identifier: "red-blue",            │
+            │   generationId: Tagged(rawValue: 1), │
+            │   order: 3                           │
+            │ )                                    │
+            ├──────────────────────────────────────┤
+            │ PokeAPIVersionGroup(                 │
+            │   id: Tagged(rawValue: 2),           │
+            │   identifier: "yellow",              │
+            │   generationId: Tagged(rawValue: 1), │
+            │   order: 4                           │
+            │ )                                    │
+            ├──────────────────────────────────────┤
+            │ PokeAPIVersionGroup(                 │
+            │   id: Tagged(rawValue: 3),           │
+            │   identifier: "gold-silver",         │
+            │   generationId: Tagged(rawValue: 2), │
+            │   order: 5                           │
+            │ )                                    │
+            ├──────────────────────────────────────┤
+            │ PokeAPIVersionGroup(                 │
+            │   id: Tagged(rawValue: 4),           │
+            │   identifier: "crystal",             │
+            │   generationId: Tagged(rawValue: 2), │
+            │   order: 6                           │
+            │ )                                    │
+            ├──────────────────────────────────────┤
+            │ PokeAPIVersionGroup(                 │
+            │   id: Tagged(rawValue: 5),           │
+            │   identifier: "ruby-sapphire",       │
+            │   generationId: Tagged(rawValue: 3), │
+            │   order: 7                           │
+            │ )                                    │
+            └──────────────────────────────────────┘
             """
         }
     }

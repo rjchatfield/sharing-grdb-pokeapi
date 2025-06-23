@@ -1,11 +1,12 @@
 import StructuredQueries
+import Tagged
 
 /// Represents subdivisions of locations where different Pokemon encounters can occur.
 /// For example, a cave location might have different areas like "1F", "B1F", or "entrance",
 /// each with their own unique encounter tables and Pokemon availability.
 @Table("location_areas")
 public struct PokeAPILocationArea: Decodable, Hashable, Identifiable, Sendable {
-    public typealias ID = Int
+    public typealias ID = Tagged<Self, Int>
     public typealias Identifier = String
 
     /// Unique location area identifier

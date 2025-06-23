@@ -1,11 +1,12 @@
 import StructuredQueries
+import Tagged
 
 /// Represents the 18 Pokemon types (Normal, Fire, Water, Electric, etc.).
 /// Types determine move effectiveness, resistances, and STAB (Same Type Attack Bonus).
 /// Each type has unique interactions with other types in the type effectiveness chart.
 @Table("types")
 public struct PokeAPIType: Decodable, Equatable, Identifiable, Sendable {
-    public typealias ID = Int
+    public typealias ID = Tagged<Self, Int>
     public typealias Identifier = String
     
     /// Unique type identifier (1-18 for main types)

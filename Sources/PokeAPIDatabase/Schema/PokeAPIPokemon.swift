@@ -1,12 +1,13 @@
 import Foundation
 import StructuredQueries
+import Tagged
 
 /// Represents specific Pokemon forms (e.g., regular Pikachu vs. different regional forms).
 /// Each entry corresponds to a unique Pokemon form that can appear in battle,
 /// with its own stats, appearance, and battle characteristics.
 @Table("pokemon")
 public struct PokeAPIPokemon: Decodable, Hashable, Identifiable, Sendable {
-    public typealias ID = Int
+    public typealias ID = Tagged<Self, Int>
     public typealias Identifier = String
 
     /// Unique identifier for this Pokemon form
@@ -45,7 +46,7 @@ public struct PokeAPIPokemon: Decodable, Hashable, Identifiable, Sendable {
     // MARK: - Helpers
 
     public var nationalDexNumber: Int {
-        return id
+        return id.rawValue
     }
 
     public var localizedName: String {

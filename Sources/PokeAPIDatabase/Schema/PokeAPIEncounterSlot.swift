@@ -1,11 +1,12 @@
 import StructuredQueries
+import Tagged
 
 /// Defines probability slots for Pokemon encounters within specific methods and game versions.
 /// Each slot represents a different rarity tier (common, uncommon, rare) with different
 /// encounter rates. Multiple Pokemon can share the same slot, creating encounter tables.
 @Table("encounter_slots")
 public struct PokeAPIEncounterSlot: Decodable, Hashable, Identifiable, Sendable {
-    public typealias ID = Int
+    public typealias ID = Tagged<Self, Int>
 
     /// Unique encounter slot identifier
     @Column("id", primaryKey: true) public var id: ID

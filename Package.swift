@@ -19,7 +19,14 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/pointfreeco/swift-structured-queries", from: "0.7.0"),
+        .package(
+            url: "https://github.com/pointfreeco/swift-structured-queries",
+            from: "0.7.0",
+            traits: [
+                "StructuredQueriesTagged",
+            ]
+        ),
+        .package(url: "https://github.com/pointfreeco/swift-tagged", from: "0.10.0"),
         .package(url: "https://github.com/groue/GRDB.swift", from: "7.4.0"),
     ],
     targets: [
@@ -27,6 +34,7 @@ let package = Package(
             name: "PokeAPIDatabase",
             dependencies: [
                 .product(name: "StructuredQueries", package: "swift-structured-queries"),
+                .product(name: "Tagged", package: "swift-tagged"),
                 .product(name: "GRDB", package: "GRDB.swift"),
             ],
             resources: [

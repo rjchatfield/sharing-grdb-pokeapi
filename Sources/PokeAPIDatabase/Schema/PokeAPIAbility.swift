@@ -1,11 +1,12 @@
 import StructuredQueries
+import Tagged
 
 /// Pokemon abilities provide passive effects during battle or in the overworld.
 /// Each Pokemon can have multiple possible abilities, but only one active at a time.
 /// Examples include Static (paralysis chance), Levitate (Ground immunity), etc.
 @Table("abilities")
 public struct PokeAPIAbility: Decodable, Hashable, Identifiable, Sendable {
-    public typealias ID = Int
+    public typealias ID = Tagged<Self, Int>
     public typealias Identifier = String
 
     /// Unique ability identifier
