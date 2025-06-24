@@ -28,8 +28,9 @@ let package = Package(
             name: "PokeAPIDatabase",
             dependencies: [
                 .product(name: "StructuredQueries", package: "swift-structured-queries"),
-                .product(name: "Tagged", package: "swift-tagged"),
                 .product(name: "GRDB", package: "GRDB.swift"),
+                .product(name: "Tagged", package: "swift-tagged"),
+                .product(name: "_StructuredQueriesSQLite", package: "swift-structured-queries"),
             ],
             resources: [
                 .copy("Resources/pokemon.db"),
@@ -41,8 +42,8 @@ let package = Package(
             dependencies: [
                 "PokeAPIDatabase",
                 .product(name: "StructuredQueries", package: "swift-structured-queries"),
-                .product(name: "_StructuredQueriesSQLite", package: "swift-structured-queries"),
                 .product(name: "StructuredQueriesTestSupport", package: "swift-structured-queries"),
+                .product(name: "_StructuredQueriesSQLite", package: "swift-structured-queries"),
             ]
         ),
     ],
