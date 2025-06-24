@@ -8,8 +8,6 @@ import Tagged
 public struct PokeAPIPokemonSpecies: Codable, Equatable, Identifiable, Sendable {
     public typealias ID = Tagged<Self, Int>
     public typealias Identifier = String
-    public typealias ColorID = Tagged<Self, Int>
-    public typealias HabitatID = Tagged<Self, Int>
 
     /// National Pokedex number and unique species identifier
     @Column("id", primaryKey: true) public var id: ID
@@ -30,14 +28,14 @@ public struct PokeAPIPokemonSpecies: Codable, Equatable, Identifiable, Sendable 
 
     /// Primary color classification for this Pokemon
     /// Used for Pokedex filtering and organization
-    @Column("color_id") public var colorId: ColorID
+    @Column("color_id") public var colorId: PokeAPIPokemonColor.ID
 
     /// Body shape category (humanoid, quadruped, serpentine, etc.)
-    @Column("shape_id") public var shapeId: Int
+    @Column("shape_id") public var shapeId: PokeAPIPokemonShape.ID
     
     /// Natural habitat where this Pokemon can typically be found
     /// Nil for Pokemon without a specific natural habitat
-    @Column("habitat_id") public var habitatId: HabitatID?
+    @Column("habitat_id") public var habitatId: PokeAPIPokemonHabitat.ID?
 
     /// Gender distribution ratio: -1 = genderless, 0 = always male, 8 = always female
     /// Values 1-7 represent increasing likelihood of being female (1/8 to 7/8)
@@ -68,7 +66,7 @@ public struct PokeAPIPokemonSpecies: Codable, Equatable, Identifiable, Sendable 
     
     /// Experience growth rate category (slow, medium, fast, etc.)
     /// Determines how much EXP is needed to reach each level
-    @Column("growth_rate_id") public var growthRateId: Int
+    @Column("growth_rate_id") public var growthRateId: PokeAPIGrowthRate.ID
     
     /// Whether this Pokemon can switch between different forms
     /// True for Pokemon like Rotom, Deoxys, Shaymin, etc.

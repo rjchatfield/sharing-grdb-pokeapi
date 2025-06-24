@@ -16,6 +16,21 @@ struct SnapshotTests {
     @Test
     func testAbilityBasicQuery() {
         Helper.assertQuery(
+            PokeAPIAbility.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "abilities"
+            """
+        } results: {
+            """
+            ┌─────┐
+            │ 367 │
+            └─────┘
+            """
+        }
+
+        Helper.assertQuery(
             PokeAPIAbility.limit(5)
         ) {
             """
@@ -67,6 +82,21 @@ struct SnapshotTests {
     
     @Test
     func testBerryBasicQuery() {
+        Helper.assertQuery(
+            PokeAPIBerry.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "berries"
+            """
+        } results: {
+            """
+            ┌────┐
+            │ 64 │
+            └────┘
+            """
+        }
+
         Helper.assertQuery(
             PokeAPIBerry.limit(5)
         ) {
@@ -148,7 +178,159 @@ struct SnapshotTests {
     }
     
     @Test
+    func testCharacteristicBasicQuery() {
+        Helper.assertQuery(
+            PokeAPICharacteristic.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "characteristics"
+            """
+        } results: {
+            """
+            ┌────┐
+            │ 30 │
+            └────┘
+            """
+        }
+
+        Helper.assertQuery(
+            PokeAPICharacteristic.limit(5)
+        ) {
+            """
+            SELECT "characteristics"."id", "characteristics"."stat_id", "characteristics"."gene_mod_5"
+            FROM "characteristics"
+            LIMIT 5
+            """
+        } results: {
+            """
+            ┌────────────────────────────────┐
+            │ PokeAPICharacteristic(         │
+            │   id: Tagged(rawValue: 1),     │
+            │   statId: Tagged(rawValue: 1), │
+            │   geneMod5: 0                  │
+            │ )                              │
+            ├────────────────────────────────┤
+            │ PokeAPICharacteristic(         │
+            │   id: Tagged(rawValue: 2),     │
+            │   statId: Tagged(rawValue: 2), │
+            │   geneMod5: 0                  │
+            │ )                              │
+            ├────────────────────────────────┤
+            │ PokeAPICharacteristic(         │
+            │   id: Tagged(rawValue: 3),     │
+            │   statId: Tagged(rawValue: 3), │
+            │   geneMod5: 0                  │
+            │ )                              │
+            ├────────────────────────────────┤
+            │ PokeAPICharacteristic(         │
+            │   id: Tagged(rawValue: 4),     │
+            │   statId: Tagged(rawValue: 4), │
+            │   geneMod5: 0                  │
+            │ )                              │
+            ├────────────────────────────────┤
+            │ PokeAPICharacteristic(         │
+            │   id: Tagged(rawValue: 5),     │
+            │   statId: Tagged(rawValue: 5), │
+            │   geneMod5: 0                  │
+            │ )                              │
+            └────────────────────────────────┘
+            """
+        }
+
+        Helper.assertQuery(
+            PokeAPICharacteristic
+                .where { $0.geneMod5 != 0 }
+                .count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "characteristics"
+            WHERE ("characteristics"."gene_mod_5" <> 0)
+            """
+        } results: {
+            """
+            ┌────┐
+            │ 24 │
+            └────┘
+            """
+        }
+    }
+    
+    @Test
+    func testEggGroupBasicQuery() {
+        Helper.assertQuery(
+            PokeAPIEggGroup.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "egg_groups"
+            """
+        } results: {
+            """
+            ┌────┐
+            │ 15 │
+            └────┘
+            """
+        }
+
+        Helper.assertQuery(
+            PokeAPIEggGroup.limit(5)
+        ) {
+            """
+            SELECT "egg_groups"."id", "egg_groups"."identifier"
+            FROM "egg_groups"
+            LIMIT 5
+            """
+        } results: {
+            """
+            ┌────────────────────────────┐
+            │ PokeAPIEggGroup(           │
+            │   id: Tagged(rawValue: 1), │
+            │   identifier: "monster"    │
+            │ )                          │
+            ├────────────────────────────┤
+            │ PokeAPIEggGroup(           │
+            │   id: Tagged(rawValue: 2), │
+            │   identifier: "water1"     │
+            │ )                          │
+            ├────────────────────────────┤
+            │ PokeAPIEggGroup(           │
+            │   id: Tagged(rawValue: 3), │
+            │   identifier: "bug"        │
+            │ )                          │
+            ├────────────────────────────┤
+            │ PokeAPIEggGroup(           │
+            │   id: Tagged(rawValue: 4), │
+            │   identifier: "flying"     │
+            │ )                          │
+            ├────────────────────────────┤
+            │ PokeAPIEggGroup(           │
+            │   id: Tagged(rawValue: 5), │
+            │   identifier: "ground"     │
+            │ )                          │
+            └────────────────────────────┘
+            """
+        }
+    }
+    
+    @Test
     func testEncounterBasicQuery() {
+        Helper.assertQuery(
+            PokeAPIEncounter.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "encounters"
+            """
+        } results: {
+            """
+            ┌───────┐
+            │ 61519 │
+            └───────┘
+            """
+        }
+
         Helper.assertQuery(
             PokeAPIEncounter.limit(5)
         ) {
@@ -217,6 +399,21 @@ struct SnapshotTests {
     @Test
     func testEncounterMethodBasicQuery() {
         Helper.assertQuery(
+            PokeAPIEncounterMethod.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "encounter_methods"
+            """
+        } results: {
+            """
+            ┌────┐
+            │ 37 │
+            └────┘
+            """
+        }
+
+        Helper.assertQuery(
             PokeAPIEncounterMethod.limit(5)
         ) {
             """
@@ -263,6 +460,21 @@ struct SnapshotTests {
     
     @Test
     func testEncounterSlotBasicQuery() {
+        Helper.assertQuery(
+            PokeAPIEncounterSlot.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "encounter_slots"
+            """
+        } results: {
+            """
+            ┌──────┐
+            │ 1140 │
+            └──────┘
+            """
+        }
+
         Helper.assertQuery(
             PokeAPIEncounterSlot.limit(5)
         ) {
@@ -321,6 +533,21 @@ struct SnapshotTests {
     @Test
     func testEvolutionChainBasicQuery() {
         Helper.assertQuery(
+            PokeAPIEvolutionChain.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "evolution_chains"
+            """
+        } results: {
+            """
+            ┌─────┐
+            │ 541 │
+            └─────┘
+            """
+        }
+
+        Helper.assertQuery(
             PokeAPIEvolutionChain.limit(5)
         ) {
             """
@@ -358,36 +585,162 @@ struct SnapshotTests {
             └────────────────────────────┘
             """
         }
+
         Helper.assertQuery(
             PokeAPIEvolutionChain
-                .where({ $0.babyTriggerItemId != nil })
-                .limit(2)
+                .where { $0.babyTriggerItemId != nil }
+                .count()
         ) {
             """
-            SELECT "evolution_chains"."id", "evolution_chains"."baby_trigger_item_id"
+            SELECT count(*)
             FROM "evolution_chains"
             WHERE ("evolution_chains"."baby_trigger_item_id" IS NOT NULL)
-            LIMIT 2
             """
         } results: {
             """
-            ┌────────────────────────────────────────────┐
-            │ PokeAPIEvolutionChain(                     │
-            │   id: Tagged(rawValue: 51),                │
-            │   babyTriggerItemId: Tagged(rawValue: 296) │
-            │ )                                          │
-            ├────────────────────────────────────────────┤
-            │ PokeAPIEvolutionChain(                     │
-            │   id: Tagged(rawValue: 57),                │
-            │   babyTriggerItemId: Tagged(rawValue: 291) │
-            │ )                                          │
-            └────────────────────────────────────────────┘
+            ┌───┐
+            │ 9 │
+            └───┘
+            """
+        }
+    }
+    
+    @Test
+    func testEvolutionTriggerBasicQuery() {
+        Helper.assertQuery(
+            PokeAPIEvolutionTrigger.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "evolution_triggers"
+            """
+        } results: {
+            """
+            ┌────┐
+            │ 13 │
+            └────┘
+            """
+        }
+
+        Helper.assertQuery(
+            PokeAPIEvolutionTrigger.limit(5)
+        ) {
+            """
+            SELECT "evolution_triggers"."id", "evolution_triggers"."identifier"
+            FROM "evolution_triggers"
+            LIMIT 5
+            """
+        } results: {
+            """
+            ┌────────────────────────────┐
+            │ PokeAPIEvolutionTrigger(   │
+            │   id: Tagged(rawValue: 1), │
+            │   identifier: "level-up"   │
+            │ )                          │
+            ├────────────────────────────┤
+            │ PokeAPIEvolutionTrigger(   │
+            │   id: Tagged(rawValue: 2), │
+            │   identifier: "trade"      │
+            │ )                          │
+            ├────────────────────────────┤
+            │ PokeAPIEvolutionTrigger(   │
+            │   id: Tagged(rawValue: 3), │
+            │   identifier: "use-item"   │
+            │ )                          │
+            ├────────────────────────────┤
+            │ PokeAPIEvolutionTrigger(   │
+            │   id: Tagged(rawValue: 4), │
+            │   identifier: "shed"       │
+            │ )                          │
+            ├────────────────────────────┤
+            │ PokeAPIEvolutionTrigger(   │
+            │   id: Tagged(rawValue: 5), │
+            │   identifier: "spin"       │
+            │ )                          │
+            └────────────────────────────┘
+            """
+        }
+    }
+    
+    @Test
+    func testExperienceBasicQuery() {
+        Helper.assertQuery(
+            PokeAPIExperience.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "experience"
+            """
+        } results: {
+            """
+            ┌─────┐
+            │ 600 │
+            └─────┘
+            """
+        }
+
+        Helper.assertQuery(
+            PokeAPIExperience.limit(5)
+        ) {
+            """
+            SELECT "experience"."growth_rate_id", "experience"."level", "experience"."experience"
+            FROM "experience"
+            LIMIT 5
+            """
+        } results: {
+            """
+            ┌──────────────────────────────────────┐
+            │ PokeAPIExperience(                   │
+            │   growthRateId: Tagged(rawValue: 1), │
+            │   level: 1,                          │
+            │   experience: 0                      │
+            │ )                                    │
+            ├──────────────────────────────────────┤
+            │ PokeAPIExperience(                   │
+            │   growthRateId: Tagged(rawValue: 1), │
+            │   level: 2,                          │
+            │   experience: 10                     │
+            │ )                                    │
+            ├──────────────────────────────────────┤
+            │ PokeAPIExperience(                   │
+            │   growthRateId: Tagged(rawValue: 1), │
+            │   level: 3,                          │
+            │   experience: 33                     │
+            │ )                                    │
+            ├──────────────────────────────────────┤
+            │ PokeAPIExperience(                   │
+            │   growthRateId: Tagged(rawValue: 1), │
+            │   level: 4,                          │
+            │   experience: 80                     │
+            │ )                                    │
+            ├──────────────────────────────────────┤
+            │ PokeAPIExperience(                   │
+            │   growthRateId: Tagged(rawValue: 1), │
+            │   level: 5,                          │
+            │   experience: 156                    │
+            │ )                                    │
+            └──────────────────────────────────────┘
             """
         }
     }
     
     @Test
     func testGenerationBasicQuery() {
+        Helper.assertQuery(
+            PokeAPIGeneration.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "generations"
+            """
+        } results: {
+            """
+            ┌───┐
+            │ 9 │
+            └───┘
+            """
+        }
+
         Helper.assertQuery(
             PokeAPIGeneration.limit(5)
         ) {
@@ -396,7 +749,7 @@ struct SnapshotTests {
             FROM "generations"
             LIMIT 5
             """
-        }results: {
+        } results: {
             """
             ┌─────────────────────────────────────┐
             │ PokeAPIGeneration(                  │
@@ -434,7 +787,91 @@ struct SnapshotTests {
     }
     
     @Test
+    func testGrowthRateBasicQuery() {
+        Helper.assertQuery(
+            PokeAPIGrowthRate.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "growth_rates"
+            """
+        } results: {
+            """
+            ┌───┐
+            │ 6 │
+            └───┘
+            """
+        }
+
+        Helper.assertQuery(
+            PokeAPIGrowthRate.limit(5)
+        ) {
+            """
+            SELECT "growth_rates"."id", "growth_rates"."identifier", "growth_rates"."formula"
+            FROM "growth_rates"
+            LIMIT 5
+            """
+        } results: {
+            #"""
+            ┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+            │ PokeAPIGrowthRate(                                                                                                                                      │
+            │   id: Tagged(rawValue: 1),                                                                                                                              │
+            │   identifier: "slow",                                                                                                                                   │
+            │   formula: #"\frac{5x^3}{4}"#                                                                                                                           │
+            │ )                                                                                                                                                       │
+            ├─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+            │ PokeAPIGrowthRate(                                                                                                                                      │
+            │   id: Tagged(rawValue: 2),                                                                                                                              │
+            │   identifier: "medium",                                                                                                                                 │
+            │   formula: "x^3"                                                                                                                                        │
+            │ )                                                                                                                                                       │
+            ├─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+            │ PokeAPIGrowthRate(                                                                                                                                      │
+            │   id: Tagged(rawValue: 3),                                                                                                                              │
+            │   identifier: "fast",                                                                                                                                   │
+            │   formula: #"\frac{4x^3}{5}"#                                                                                                                           │
+            │ )                                                                                                                                                       │
+            ├─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+            │ PokeAPIGrowthRate(                                                                                                                                      │
+            │   id: Tagged(rawValue: 4),                                                                                                                              │
+            │   identifier: "medium-slow",                                                                                                                            │
+            │   formula: #"\frac{6x^3}{5} - 15x^2 + 100x - 140"#                                                                                                      │
+            │ )                                                                                                                                                       │
+            ├─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+            │ PokeAPIGrowthRate(                                                                                                                                      │
+            │   id: Tagged(rawValue: 5),                                                                                                                              │
+            │   identifier: "slow-then-very-fast",                                                                                                                    │
+            │   formula: """                                                                                                                                          │
+            │     \begin{cases}                                                                                                                                       │
+            │     \frac{ x^3 \left( 100 - x \right) }{50},    & \text{if } x \leq 50  \\                                                                              │
+            │     \frac{ x^3 \left( 150 - x \right) }{100},   & \text{if } 50 < x \leq 68  \\                                                                         │
+            │     \frac{ x^3 \left( 1274 + (x \bmod 3)^2 - 9 (x \bmod 3) - 20 \left\lfloor \frac{x}{3} \right\rfloor \right) }{1000}, & \text{if } 68 < x \leq 98  \\ │
+            │     \frac{ x^3 \left( 160 - x \right) }{100},   & \text{if } x > 98  \\                                                                                 │
+            │     \end{cases}                                                                                                                                         │
+            │     """                                                                                                                                                 │
+            │ )                                                                                                                                                       │
+            └─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+            """#
+        }
+    }
+    
+    @Test
     func testItemBasicQuery() {
+        Helper.assertQuery(
+            PokeAPIItem.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "items"
+            """
+        } results: {
+            """
+            ┌──────┐
+            │ 2180 │
+            └──────┘
+            """
+        }
+
         Helper.assertQuery(
             PokeAPIItem.limit(5)
         ) {
@@ -493,10 +930,77 @@ struct SnapshotTests {
             └─────────────────────────────────────┘
             """
         }
+
+        Helper.assertQuery(
+            PokeAPIItem
+                .where { $0.flingPower != nil }
+                .limit(1)
+        ) {
+            """
+            SELECT "items"."id", "items"."identifier", "items"."category_id", "items"."cost", "items"."fling_power", "items"."fling_effect_id"
+            FROM "items"
+            WHERE ("items"."fling_power" IS NOT NULL)
+            LIMIT 1
+            """
+        } results: {
+            """
+            ┌─────────────────────────────────────┐
+            │ PokeAPIItem(                        │
+            │   id: Tagged(rawValue: 17),         │
+            │   identifier: "potion",             │
+            │   categoryId: Tagged(rawValue: 27), │
+            │   cost: 200,                        │
+            │   flingPower: 30,                   │
+            │   flingEffectId: nil                │
+            │ )                                   │
+            └─────────────────────────────────────┘
+            """
+        }
+
+        Helper.assertQuery(
+            PokeAPIItem
+                .where { $0.flingEffectId != nil }
+                .limit(1)
+        ) {
+            """
+            SELECT "items"."id", "items"."identifier", "items"."category_id", "items"."cost", "items"."fling_power", "items"."fling_effect_id"
+            FROM "items"
+            WHERE ("items"."fling_effect_id" IS NOT NULL)
+            LIMIT 1
+            """
+        } results: {
+            """
+            ┌────────────────────────────────────┐
+            │ PokeAPIItem(                       │
+            │   id: Tagged(rawValue: 126),       │
+            │   identifier: "cheri-berry",       │
+            │   categoryId: Tagged(rawValue: 3), │
+            │   cost: 80,                        │
+            │   flingPower: 10,                  │
+            │   flingEffectId: 3                 │
+            │ )                                  │
+            └────────────────────────────────────┘
+            """
+        }
     }
     
     @Test
     func testItemCategoryBasicQuery() {
+        Helper.assertQuery(
+            PokeAPIItemCategory.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "item_categories"
+            """
+        } results: {
+            """
+            ┌────┐
+            │ 54 │
+            └────┘
+            """
+        }
+
         Helper.assertQuery(
             PokeAPIItemCategory.limit(5)
         ) {
@@ -505,7 +1009,7 @@ struct SnapshotTests {
             FROM "item_categories"
             LIMIT 5
             """
-        }results: {
+        } results: {
             """
             ┌──────────────────────────────┐
             │ PokeAPIItemCategory(         │
@@ -545,6 +1049,21 @@ struct SnapshotTests {
     @Test
     func testLocationBasicQuery() {
         Helper.assertQuery(
+            PokeAPILocation.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "locations"
+            """
+        } results: {
+            """
+            ┌──────┐
+            │ 1070 │
+            └──────┘
+            """
+        }
+
+        Helper.assertQuery(
             PokeAPILocation.limit(5)
         ) {
             """
@@ -552,7 +1071,7 @@ struct SnapshotTests {
             FROM "locations"
             LIMIT 5
             """
-        }results: {
+        } results: {
             """
             ┌────────────────────────────────────────┐
             │ PokeAPILocation(                       │
@@ -592,6 +1111,21 @@ struct SnapshotTests {
     @Test
     func testLocationAreaBasicQuery() {
         Helper.assertQuery(
+            PokeAPILocationArea.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "location_areas"
+            """
+        } results: {
+            """
+            ┌──────┐
+            │ 1089 │
+            └──────┘
+            """
+        }
+
+        Helper.assertQuery(
             PokeAPILocationArea.limit(5)
         ) {
             """
@@ -599,15 +1133,97 @@ struct SnapshotTests {
             FROM "location_areas"
             LIMIT 5
             """
-        }results: {
+        } results: {
             """
             The operation couldn’t be completed. (StructuredQueriesCore.QueryDecodingError error 0.)
+            """
+        }
+    }
+
+    @Test
+    func testMachineBasicQuery() {
+        Helper.assertQuery(
+            PokeAPIMachine.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "machines"
+            """
+        } results: {
+            """
+            ┌──────┐
+            │ 2102 │
+            └──────┘
+            """
+        }
+
+        Helper.assertQuery(
+            PokeAPIMachine.limit(5)
+        ) {
+            """
+            SELECT "machines"."machine_number", "machines"."version_group_id", "machines"."item_id", "machines"."move_id"
+            FROM "machines"
+            LIMIT 5
+            """
+        } results: {
+            """
+            ┌─────────────────────────────────────────┐
+            │ PokeAPIMachine(                         │
+            │   machineNumber: 0,                     │
+            │   versionGroupId: Tagged(rawValue: 20), │
+            │   itemId: Tagged(rawValue: 1288),       │
+            │   moveId: Tagged(rawValue: 5)           │
+            │ )                                       │
+            ├─────────────────────────────────────────┤
+            │ PokeAPIMachine(                         │
+            │   machineNumber: 1,                     │
+            │   versionGroupId: Tagged(rawValue: 1),  │
+            │   itemId: Tagged(rawValue: 305),        │
+            │   moveId: Tagged(rawValue: 5)           │
+            │ )                                       │
+            ├─────────────────────────────────────────┤
+            │ PokeAPIMachine(                         │
+            │   machineNumber: 1,                     │
+            │   versionGroupId: Tagged(rawValue: 2),  │
+            │   itemId: Tagged(rawValue: 305),        │
+            │   moveId: Tagged(rawValue: 5)           │
+            │ )                                       │
+            ├─────────────────────────────────────────┤
+            │ PokeAPIMachine(                         │
+            │   machineNumber: 1,                     │
+            │   versionGroupId: Tagged(rawValue: 3),  │
+            │   itemId: Tagged(rawValue: 305),        │
+            │   moveId: Tagged(rawValue: 223)         │
+            │ )                                       │
+            ├─────────────────────────────────────────┤
+            │ PokeAPIMachine(                         │
+            │   machineNumber: 1,                     │
+            │   versionGroupId: Tagged(rawValue: 4),  │
+            │   itemId: Tagged(rawValue: 305),        │
+            │   moveId: Tagged(rawValue: 223)         │
+            │ )                                       │
+            └─────────────────────────────────────────┘
             """
         }
     }
     
     @Test
     func testMoveBasicQuery() {
+        Helper.assertQuery(
+            PokeAPIMove.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "moves"
+            """
+        } results: {
+            """
+            ┌─────┐
+            │ 937 │
+            └─────┘
+            """
+        }
+
         Helper.assertQuery(
             PokeAPIMove.limit(5)
         ) {
@@ -711,10 +1327,43 @@ struct SnapshotTests {
             └───────────────────────────────────────┘
             """
         }
+
+        Helper.assertQuery(
+            PokeAPIMove
+                .where { $0.effectChance != nil }
+                .count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "moves"
+            WHERE ("moves"."effect_chance" IS NOT NULL)
+            """
+        } results: {
+            """
+            ┌─────┐
+            │ 218 │
+            └─────┘
+            """
+        }
     }
     
     @Test
     func testMoveDamageClassBasicQuery() {
+        Helper.assertQuery(
+            PokeAPIMoveDamageClass.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "move_damage_classes"
+            """
+        } results: {
+            """
+            ┌───┐
+            │ 3 │
+            └───┘
+            """
+        }
+
         Helper.assertQuery(
             PokeAPIMoveDamageClass.limit(5)
         ) {
@@ -746,7 +1395,74 @@ struct SnapshotTests {
     }
     
     @Test
+    func testMoveEffecBasicQuery() {
+        Helper.assertQuery(
+            PokeAPIMoveEffect.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "move_effects"
+            """
+        } results: {
+            """
+            ┌─────┐
+            │ 431 │
+            └─────┘
+            """
+        }
+
+        Helper.assertQuery(
+            PokeAPIMoveEffect.limit(5)
+        ) {
+            """
+            SELECT "move_effects"."id"
+            FROM "move_effects"
+            LIMIT 5
+            """
+        } results: {
+            """
+            ┌───────────────────────────┐
+            │ PokeAPIMoveEffect(        │
+            │   id: Tagged(rawValue: 1) │
+            │ )                         │
+            ├───────────────────────────┤
+            │ PokeAPIMoveEffect(        │
+            │   id: Tagged(rawValue: 2) │
+            │ )                         │
+            ├───────────────────────────┤
+            │ PokeAPIMoveEffect(        │
+            │   id: Tagged(rawValue: 3) │
+            │ )                         │
+            ├───────────────────────────┤
+            │ PokeAPIMoveEffect(        │
+            │   id: Tagged(rawValue: 4) │
+            │ )                         │
+            ├───────────────────────────┤
+            │ PokeAPIMoveEffect(        │
+            │   id: Tagged(rawValue: 5) │
+            │ )                         │
+            └───────────────────────────┘
+            """
+        }
+    }
+    
+    @Test
     func testMoveTargetBasicQuery() {
+        Helper.assertQuery(
+            PokeAPIMoveTarget.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "move_targets"
+            """
+        } results: {
+            """
+            ┌────┐
+            │ 16 │
+            └────┘
+            """
+        }
+
         Helper.assertQuery(
             PokeAPIMoveTarget.limit(5)
         ) {
@@ -789,6 +1505,21 @@ struct SnapshotTests {
     
     @Test
     func testNatureBasicQuery() {
+        Helper.assertQuery(
+            PokeAPINature.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "natures"
+            """
+        } results: {
+            """
+            ┌────┐
+            │ 25 │
+            └────┘
+            """
+        }
+
         Helper.assertQuery(
             PokeAPINature.limit(5)
         ) {
@@ -855,7 +1586,89 @@ struct SnapshotTests {
     }
     
     @Test
+    func testPokedexBasicQuery() {
+        Helper.assertQuery(
+            PokeAPIPokedex.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "pokedexes"
+            """
+        } results: {
+            """
+            ┌────┐
+            │ 32 │
+            └────┘
+            """
+        }
+
+        Helper.assertQuery(
+            PokeAPIPokedex.limit(5)
+        ) {
+            """
+            SELECT "pokedexes"."id", "pokedexes"."identifier", "pokedexes"."region_id", "pokedexes"."is_main_series"
+            FROM "pokedexes"
+            LIMIT 5
+            """
+        } results: {
+            """
+            ┌──────────────────────────────────┐
+            │ PokeAPIPokedex(                  │
+            │   id: Tagged(rawValue: 1),       │
+            │   identifier: "national",        │
+            │   regionId: nil,                 │
+            │   isMainSeries: 1                │
+            │ )                                │
+            ├──────────────────────────────────┤
+            │ PokeAPIPokedex(                  │
+            │   id: Tagged(rawValue: 2),       │
+            │   identifier: "kanto",           │
+            │   regionId: Tagged(rawValue: 1), │
+            │   isMainSeries: 1                │
+            │ )                                │
+            ├──────────────────────────────────┤
+            │ PokeAPIPokedex(                  │
+            │   id: Tagged(rawValue: 3),       │
+            │   identifier: "original-johto",  │
+            │   regionId: Tagged(rawValue: 2), │
+            │   isMainSeries: 1                │
+            │ )                                │
+            ├──────────────────────────────────┤
+            │ PokeAPIPokedex(                  │
+            │   id: Tagged(rawValue: 4),       │
+            │   identifier: "hoenn",           │
+            │   regionId: Tagged(rawValue: 3), │
+            │   isMainSeries: 1                │
+            │ )                                │
+            ├──────────────────────────────────┤
+            │ PokeAPIPokedex(                  │
+            │   id: Tagged(rawValue: 5),       │
+            │   identifier: "original-sinnoh", │
+            │   regionId: Tagged(rawValue: 4), │
+            │   isMainSeries: 1                │
+            │ )                                │
+            └──────────────────────────────────┘
+            """
+        }
+    }
+
+    @Test
     func testPokemonBasicQuery() {
+        Helper.assertQuery(
+            PokeAPIPokemon.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "pokemon"
+            """
+        } results: {
+            """
+            ┌──────┐
+            │ 1302 │
+            └──────┘
+            """
+        }
+
         Helper.assertQuery(
             PokeAPIPokemon.limit(5)
         ) {
@@ -924,10 +1737,43 @@ struct SnapshotTests {
             └───────────────────────────────────┘
             """
         }
+
+        Helper.assertQuery(
+            PokeAPIPokemon
+                .where { !$0.isDefault }
+                .count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "pokemon"
+            WHERE NOT ("pokemon"."is_default")
+            """
+        } results: {
+            """
+            ┌─────┐
+            │ 276 │
+            └─────┘
+            """
+        }
     }
     
     @Test
     func testPokemonAbilityBasicQuery() {
+        Helper.assertQuery(
+            PokeAPIPokemonAbility.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "pokemon_abilities"
+            """
+        } results: {
+            """
+            ┌──────┐
+            │ 2917 │
+            └──────┘
+            """
+        }
+
         Helper.assertQuery(
             PokeAPIPokemonAbility.limit(5)
         ) {
@@ -979,7 +1825,141 @@ struct SnapshotTests {
     }
     
     @Test
+    func testPokemonColorBasicQuery() {
+        Helper.assertQuery(
+            PokeAPIPokemonColor.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "pokemon_colors"
+            """
+        } results: {
+            """
+            ┌────┐
+            │ 10 │
+            └────┘
+            """
+        }
+
+        Helper.assertQuery(
+            PokeAPIPokemonColor.limit(5)
+        ) {
+            """
+            SELECT "pokemon_colors"."id", "pokemon_colors"."identifier"
+            FROM "pokemon_colors"
+            LIMIT 5
+            """
+        } results: {
+            """
+            ┌────────────────────────────┐
+            │ PokeAPIPokemonColor(       │
+            │   id: Tagged(rawValue: 1), │
+            │   identifier: "black"      │
+            │ )                          │
+            ├────────────────────────────┤
+            │ PokeAPIPokemonColor(       │
+            │   id: Tagged(rawValue: 2), │
+            │   identifier: "blue"       │
+            │ )                          │
+            ├────────────────────────────┤
+            │ PokeAPIPokemonColor(       │
+            │   id: Tagged(rawValue: 3), │
+            │   identifier: "brown"      │
+            │ )                          │
+            ├────────────────────────────┤
+            │ PokeAPIPokemonColor(       │
+            │   id: Tagged(rawValue: 4), │
+            │   identifier: "gray"       │
+            │ )                          │
+            ├────────────────────────────┤
+            │ PokeAPIPokemonColor(       │
+            │   id: Tagged(rawValue: 5), │
+            │   identifier: "green"      │
+            │ )                          │
+            └────────────────────────────┘
+            """
+        }
+    }
+    
+    @Test
+    func testPokemonDexNumberBasicQuery() {
+        Helper.assertQuery(
+            PokeAPIPokemonDexNumber.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "pokemon_dex_numbers"
+            """
+        } results: {
+            """
+            ┌──────┐
+            │ 7412 │
+            └──────┘
+            """
+        }
+
+        Helper.assertQuery(
+            PokeAPIPokemonDexNumber.limit(5)
+        ) {
+            """
+            SELECT "pokemon_dex_numbers"."species_id", "pokemon_dex_numbers"."pokedex_id", "pokemon_dex_numbers"."pokedex_number"
+            FROM "pokemon_dex_numbers"
+            LIMIT 5
+            """
+        } results: {
+            """
+            ┌────────────────────────────────────┐
+            │ PokeAPIPokemonDexNumber(           │
+            │   speciesId: Tagged(rawValue: 1),  │
+            │   pokedexId: Tagged(rawValue: 1),  │
+            │   pokedexNumber: 1                 │
+            │ )                                  │
+            ├────────────────────────────────────┤
+            │ PokeAPIPokemonDexNumber(           │
+            │   speciesId: Tagged(rawValue: 1),  │
+            │   pokedexId: Tagged(rawValue: 2),  │
+            │   pokedexNumber: 1                 │
+            │ )                                  │
+            ├────────────────────────────────────┤
+            │ PokeAPIPokemonDexNumber(           │
+            │   speciesId: Tagged(rawValue: 1),  │
+            │   pokedexId: Tagged(rawValue: 3),  │
+            │   pokedexNumber: 226               │
+            │ )                                  │
+            ├────────────────────────────────────┤
+            │ PokeAPIPokemonDexNumber(           │
+            │   speciesId: Tagged(rawValue: 1),  │
+            │   pokedexId: Tagged(rawValue: 7),  │
+            │   pokedexNumber: 231               │
+            │ )                                  │
+            ├────────────────────────────────────┤
+            │ PokeAPIPokemonDexNumber(           │
+            │   speciesId: Tagged(rawValue: 1),  │
+            │   pokedexId: Tagged(rawValue: 12), │
+            │   pokedexNumber: 80                │
+            │ )                                  │
+            └────────────────────────────────────┘
+            """
+        }
+    }
+    
+    @Test
     func testPokemonEvolutionBasicQuery() {
+        Helper.assertQuery(
+            PokeAPIPokemonEvolution.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "pokemon_evolution"
+            """
+        } results: {
+            """
+            ┌─────┐
+            │ 507 │
+            └─────┘
+            """
+        }
+
         Helper.assertQuery(
             PokeAPIPokemonEvolution.limit(5)
         ) {
@@ -990,128 +1970,267 @@ struct SnapshotTests {
             """
         } results: {
             """
-            ┌──────────────────────────────────────────┐
-            │ PokeAPIPokemonEvolution(                 │
-            │   id: Tagged(rawValue: 1),               │
-            │   evolvedSpeciesId: Tagged(rawValue: 2), │
-            │   evolutionTriggerId: 1,                 │
-            │   triggerItemId: nil,                    │
-            │   minimumLevel: "16",                    │
-            │   genderId: nil,                         │
-            │   locationId: nil,                       │
-            │   heldItemId: nil,                       │
-            │   timeOfDay: nil,                        │
-            │   knownMoveId: nil,                      │
-            │   knownMoveTypeId: nil,                  │
-            │   minimumHappiness: nil,                 │
-            │   minimumBeauty: nil,                    │
-            │   minimumAffection: nil,                 │
-            │   relativePhysicalStats: nil,            │
-            │   partySpeciesId: nil,                   │
-            │   partyTypeId: nil,                      │
-            │   tradeSpeciesId: nil,                   │
-            │   needsOverworldRain: false,             │
-            │   turnUpsideDown: "0"                    │
-            │ )                                        │
-            ├──────────────────────────────────────────┤
-            │ PokeAPIPokemonEvolution(                 │
-            │   id: Tagged(rawValue: 2),               │
-            │   evolvedSpeciesId: Tagged(rawValue: 3), │
-            │   evolutionTriggerId: 1,                 │
-            │   triggerItemId: nil,                    │
-            │   minimumLevel: "32",                    │
-            │   genderId: nil,                         │
-            │   locationId: nil,                       │
-            │   heldItemId: nil,                       │
-            │   timeOfDay: nil,                        │
-            │   knownMoveId: nil,                      │
-            │   knownMoveTypeId: nil,                  │
-            │   minimumHappiness: nil,                 │
-            │   minimumBeauty: nil,                    │
-            │   minimumAffection: nil,                 │
-            │   relativePhysicalStats: nil,            │
-            │   partySpeciesId: nil,                   │
-            │   partyTypeId: nil,                      │
-            │   tradeSpeciesId: nil,                   │
-            │   needsOverworldRain: false,             │
-            │   turnUpsideDown: "0"                    │
-            │ )                                        │
-            ├──────────────────────────────────────────┤
-            │ PokeAPIPokemonEvolution(                 │
-            │   id: Tagged(rawValue: 3),               │
-            │   evolvedSpeciesId: Tagged(rawValue: 5), │
-            │   evolutionTriggerId: 1,                 │
-            │   triggerItemId: nil,                    │
-            │   minimumLevel: "16",                    │
-            │   genderId: nil,                         │
-            │   locationId: nil,                       │
-            │   heldItemId: nil,                       │
-            │   timeOfDay: nil,                        │
-            │   knownMoveId: nil,                      │
-            │   knownMoveTypeId: nil,                  │
-            │   minimumHappiness: nil,                 │
-            │   minimumBeauty: nil,                    │
-            │   minimumAffection: nil,                 │
-            │   relativePhysicalStats: nil,            │
-            │   partySpeciesId: nil,                   │
-            │   partyTypeId: nil,                      │
-            │   tradeSpeciesId: nil,                   │
-            │   needsOverworldRain: false,             │
-            │   turnUpsideDown: "0"                    │
-            │ )                                        │
-            ├──────────────────────────────────────────┤
-            │ PokeAPIPokemonEvolution(                 │
-            │   id: Tagged(rawValue: 4),               │
-            │   evolvedSpeciesId: Tagged(rawValue: 6), │
-            │   evolutionTriggerId: 1,                 │
-            │   triggerItemId: nil,                    │
-            │   minimumLevel: "36",                    │
-            │   genderId: nil,                         │
-            │   locationId: nil,                       │
-            │   heldItemId: nil,                       │
-            │   timeOfDay: nil,                        │
-            │   knownMoveId: nil,                      │
-            │   knownMoveTypeId: nil,                  │
-            │   minimumHappiness: nil,                 │
-            │   minimumBeauty: nil,                    │
-            │   minimumAffection: nil,                 │
-            │   relativePhysicalStats: nil,            │
-            │   partySpeciesId: nil,                   │
-            │   partyTypeId: nil,                      │
-            │   tradeSpeciesId: nil,                   │
-            │   needsOverworldRain: false,             │
-            │   turnUpsideDown: "0"                    │
-            │ )                                        │
-            ├──────────────────────────────────────────┤
-            │ PokeAPIPokemonEvolution(                 │
-            │   id: Tagged(rawValue: 5),               │
-            │   evolvedSpeciesId: Tagged(rawValue: 8), │
-            │   evolutionTriggerId: 1,                 │
-            │   triggerItemId: nil,                    │
-            │   minimumLevel: "16",                    │
-            │   genderId: nil,                         │
-            │   locationId: nil,                       │
-            │   heldItemId: nil,                       │
-            │   timeOfDay: nil,                        │
-            │   knownMoveId: nil,                      │
-            │   knownMoveTypeId: nil,                  │
-            │   minimumHappiness: nil,                 │
-            │   minimumBeauty: nil,                    │
-            │   minimumAffection: nil,                 │
-            │   relativePhysicalStats: nil,            │
-            │   partySpeciesId: nil,                   │
-            │   partyTypeId: nil,                      │
-            │   tradeSpeciesId: nil,                   │
-            │   needsOverworldRain: false,             │
-            │   turnUpsideDown: "0"                    │
-            │ )                                        │
-            └──────────────────────────────────────────┘
+            ┌────────────────────────────────────────────┐
+            │ PokeAPIPokemonEvolution(                   │
+            │   id: Tagged(rawValue: 1),                 │
+            │   evolvedSpeciesId: Tagged(rawValue: 2),   │
+            │   evolutionTriggerId: Tagged(rawValue: 1), │
+            │   triggerItemId: nil,                      │
+            │   minimumLevel: "16",                      │
+            │   genderId: nil,                           │
+            │   locationId: nil,                         │
+            │   heldItemId: nil,                         │
+            │   timeOfDay: nil,                          │
+            │   knownMoveId: nil,                        │
+            │   knownMoveTypeId: nil,                    │
+            │   minimumHappiness: nil,                   │
+            │   minimumBeauty: nil,                      │
+            │   minimumAffection: nil,                   │
+            │   relativePhysicalStats: nil,              │
+            │   partySpeciesId: nil,                     │
+            │   partyTypeId: nil,                        │
+            │   tradeSpeciesId: nil,                     │
+            │   needsOverworldRain: false,               │
+            │   turnUpsideDown: "0"                      │
+            │ )                                          │
+            ├────────────────────────────────────────────┤
+            │ PokeAPIPokemonEvolution(                   │
+            │   id: Tagged(rawValue: 2),                 │
+            │   evolvedSpeciesId: Tagged(rawValue: 3),   │
+            │   evolutionTriggerId: Tagged(rawValue: 1), │
+            │   triggerItemId: nil,                      │
+            │   minimumLevel: "32",                      │
+            │   genderId: nil,                           │
+            │   locationId: nil,                         │
+            │   heldItemId: nil,                         │
+            │   timeOfDay: nil,                          │
+            │   knownMoveId: nil,                        │
+            │   knownMoveTypeId: nil,                    │
+            │   minimumHappiness: nil,                   │
+            │   minimumBeauty: nil,                      │
+            │   minimumAffection: nil,                   │
+            │   relativePhysicalStats: nil,              │
+            │   partySpeciesId: nil,                     │
+            │   partyTypeId: nil,                        │
+            │   tradeSpeciesId: nil,                     │
+            │   needsOverworldRain: false,               │
+            │   turnUpsideDown: "0"                      │
+            │ )                                          │
+            ├────────────────────────────────────────────┤
+            │ PokeAPIPokemonEvolution(                   │
+            │   id: Tagged(rawValue: 3),                 │
+            │   evolvedSpeciesId: Tagged(rawValue: 5),   │
+            │   evolutionTriggerId: Tagged(rawValue: 1), │
+            │   triggerItemId: nil,                      │
+            │   minimumLevel: "16",                      │
+            │   genderId: nil,                           │
+            │   locationId: nil,                         │
+            │   heldItemId: nil,                         │
+            │   timeOfDay: nil,                          │
+            │   knownMoveId: nil,                        │
+            │   knownMoveTypeId: nil,                    │
+            │   minimumHappiness: nil,                   │
+            │   minimumBeauty: nil,                      │
+            │   minimumAffection: nil,                   │
+            │   relativePhysicalStats: nil,              │
+            │   partySpeciesId: nil,                     │
+            │   partyTypeId: nil,                        │
+            │   tradeSpeciesId: nil,                     │
+            │   needsOverworldRain: false,               │
+            │   turnUpsideDown: "0"                      │
+            │ )                                          │
+            ├────────────────────────────────────────────┤
+            │ PokeAPIPokemonEvolution(                   │
+            │   id: Tagged(rawValue: 4),                 │
+            │   evolvedSpeciesId: Tagged(rawValue: 6),   │
+            │   evolutionTriggerId: Tagged(rawValue: 1), │
+            │   triggerItemId: nil,                      │
+            │   minimumLevel: "36",                      │
+            │   genderId: nil,                           │
+            │   locationId: nil,                         │
+            │   heldItemId: nil,                         │
+            │   timeOfDay: nil,                          │
+            │   knownMoveId: nil,                        │
+            │   knownMoveTypeId: nil,                    │
+            │   minimumHappiness: nil,                   │
+            │   minimumBeauty: nil,                      │
+            │   minimumAffection: nil,                   │
+            │   relativePhysicalStats: nil,              │
+            │   partySpeciesId: nil,                     │
+            │   partyTypeId: nil,                        │
+            │   tradeSpeciesId: nil,                     │
+            │   needsOverworldRain: false,               │
+            │   turnUpsideDown: "0"                      │
+            │ )                                          │
+            ├────────────────────────────────────────────┤
+            │ PokeAPIPokemonEvolution(                   │
+            │   id: Tagged(rawValue: 5),                 │
+            │   evolvedSpeciesId: Tagged(rawValue: 8),   │
+            │   evolutionTriggerId: Tagged(rawValue: 1), │
+            │   triggerItemId: nil,                      │
+            │   minimumLevel: "16",                      │
+            │   genderId: nil,                           │
+            │   locationId: nil,                         │
+            │   heldItemId: nil,                         │
+            │   timeOfDay: nil,                          │
+            │   knownMoveId: nil,                        │
+            │   knownMoveTypeId: nil,                    │
+            │   minimumHappiness: nil,                   │
+            │   minimumBeauty: nil,                      │
+            │   minimumAffection: nil,                   │
+            │   relativePhysicalStats: nil,              │
+            │   partySpeciesId: nil,                     │
+            │   partyTypeId: nil,                        │
+            │   tradeSpeciesId: nil,                     │
+            │   needsOverworldRain: false,               │
+            │   turnUpsideDown: "0"                      │
+            │ )                                          │
+            └────────────────────────────────────────────┘
+            """
+        }
+    }
+    
+    @Test
+    func testPokeAPIPokemonHabitatBasicQuery() {
+        Helper.assertQuery(
+            PokeAPIPokemonHabitat.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "pokemon_habitats"
+            """
+        } results: {
+            """
+            ┌───┐
+            │ 9 │
+            └───┘
+            """
+        }
+
+        Helper.assertQuery(
+            PokeAPIPokemonHabitat.limit(5)
+        ) {
+            """
+            SELECT "pokemon_habitats"."id", "pokemon_habitats"."identifier"
+            FROM "pokemon_habitats"
+            LIMIT 5
+            """
+        } results: {
+            """
+            ┌────────────────────────────┐
+            │ PokeAPIPokemonHabitat(     │
+            │   id: Tagged(rawValue: 1), │
+            │   identifier: "cave"       │
+            │ )                          │
+            ├────────────────────────────┤
+            │ PokeAPIPokemonHabitat(     │
+            │   id: Tagged(rawValue: 2), │
+            │   identifier: "forest"     │
+            │ )                          │
+            ├────────────────────────────┤
+            │ PokeAPIPokemonHabitat(     │
+            │   id: Tagged(rawValue: 3), │
+            │   identifier: "grassland"  │
+            │ )                          │
+            ├────────────────────────────┤
+            │ PokeAPIPokemonHabitat(     │
+            │   id: Tagged(rawValue: 4), │
+            │   identifier: "mountain"   │
+            │ )                          │
+            ├────────────────────────────┤
+            │ PokeAPIPokemonHabitat(     │
+            │   id: Tagged(rawValue: 5), │
+            │   identifier: "rare"       │
+            │ )                          │
+            └────────────────────────────┘
+            """
+        }
+    }
+    
+    @Test
+    func testPokemonItemBasicQuery() {
+        Helper.assertQuery(
+            PokeAPIPokemonItem.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "pokemon_items"
+            """
+        } results: {
+            """
+            ┌──────┐
+            │ 5413 │
+            └──────┘
+            """
+        }
+
+        Helper.assertQuery(
+            PokeAPIPokemonItem.limit(5)
+        ) {
+            """
+            SELECT "pokemon_items"."pokemon_id", "pokemon_items"."version_id", "pokemon_items"."item_id", "pokemon_items"."rarity"
+            FROM "pokemon_items"
+            LIMIT 5
+            """
+        } results: {
+            """
+            ┌────────────────────────────────────┐
+            │ PokeAPIPokemonItem(                │
+            │   pokemonId: Tagged(rawValue: 12), │
+            │   versionId: Tagged(rawValue: 7),  │
+            │   itemId: Tagged(rawValue: 199),   │
+            │   rarity: 5                        │
+            │ )                                  │
+            ├────────────────────────────────────┤
+            │ PokeAPIPokemonItem(                │
+            │   pokemonId: Tagged(rawValue: 12), │
+            │   versionId: Tagged(rawValue: 8),  │
+            │   itemId: Tagged(rawValue: 199),   │
+            │   rarity: 5                        │
+            │ )                                  │
+            ├────────────────────────────────────┤
+            │ PokeAPIPokemonItem(                │
+            │   pokemonId: Tagged(rawValue: 12), │
+            │   versionId: Tagged(rawValue: 9),  │
+            │   itemId: Tagged(rawValue: 199),   │
+            │   rarity: 5                        │
+            │ )                                  │
+            ├────────────────────────────────────┤
+            │ PokeAPIPokemonItem(                │
+            │   pokemonId: Tagged(rawValue: 12), │
+            │   versionId: Tagged(rawValue: 10), │
+            │   itemId: Tagged(rawValue: 199),   │
+            │   rarity: 5                        │
+            │ )                                  │
+            ├────────────────────────────────────┤
+            │ PokeAPIPokemonItem(                │
+            │   pokemonId: Tagged(rawValue: 12), │
+            │   versionId: Tagged(rawValue: 11), │
+            │   itemId: Tagged(rawValue: 199),   │
+            │   rarity: 5                        │
+            │ )                                  │
+            └────────────────────────────────────┘
             """
         }
     }
     
     @Test
     func testPokemonMoveBasicQuery() {
+        Helper.assertQuery(
+            PokeAPIPokemonMove.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "pokemon_moves"
+            """
+        } results: {
+            """
+            ┌────────┐
+            │ 609926 │
+            └────────┘
+            """
+        }
+
         Helper.assertQuery(
             PokeAPIPokemonMove.limit(5)
         ) {
@@ -1178,7 +2297,79 @@ struct SnapshotTests {
     }
     
     @Test
+    func testPokemonShapeBasicQuery() {
+        Helper.assertQuery(
+            PokeAPIPokemonShape.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "pokemon_shapes"
+            """
+        } results: {
+            """
+            ┌────┐
+            │ 14 │
+            └────┘
+            """
+        }
+
+        Helper.assertQuery(
+            PokeAPIPokemonShape.limit(5)
+        ) {
+            """
+            SELECT "pokemon_shapes"."id", "pokemon_shapes"."identifier"
+            FROM "pokemon_shapes"
+            LIMIT 5
+            """
+        } results: {
+            """
+            ┌────────────────────────────┐
+            │ PokeAPIPokemonShape(       │
+            │   id: Tagged(rawValue: 1), │
+            │   identifier: "ball"       │
+            │ )                          │
+            ├────────────────────────────┤
+            │ PokeAPIPokemonShape(       │
+            │   id: Tagged(rawValue: 2), │
+            │   identifier: "squiggle"   │
+            │ )                          │
+            ├────────────────────────────┤
+            │ PokeAPIPokemonShape(       │
+            │   id: Tagged(rawValue: 3), │
+            │   identifier: "fish"       │
+            │ )                          │
+            ├────────────────────────────┤
+            │ PokeAPIPokemonShape(       │
+            │   id: Tagged(rawValue: 4), │
+            │   identifier: "arms"       │
+            │ )                          │
+            ├────────────────────────────┤
+            │ PokeAPIPokemonShape(       │
+            │   id: Tagged(rawValue: 5), │
+            │   identifier: "blob"       │
+            │ )                          │
+            └────────────────────────────┘
+            """
+        }
+    }
+
+    @Test
     func testPokemonSpeciesBasicQuery() {
+        Helper.assertQuery(
+            PokeAPIPokemonSpecies.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "pokemon_species"
+            """
+        } results: {
+            """
+            ┌──────┐
+            │ 1025 │
+            └──────┘
+            """
+        }
+
         Helper.assertQuery(
             PokeAPIPokemonSpecies.limit(5)
         ) {
@@ -1197,7 +2388,7 @@ struct SnapshotTests {
             │   evolvesFromSpeciesId: nil,                 │
             │   evolutionChainId: Tagged(rawValue: 1),     │
             │   colorId: Tagged(rawValue: 5),              │
-            │   shapeId: 8,                                │
+            │   shapeId: Tagged(rawValue: 8),              │
             │   habitatId: Tagged(rawValue: 3),            │
             │   genderRate: 1,                             │
             │   captureRate: 45,                           │
@@ -1205,7 +2396,7 @@ struct SnapshotTests {
             │   isBaby: false,                             │
             │   hatchCounter: 20,                          │
             │   hasGenderDifferences: false,               │
-            │   growthRateId: 4,                           │
+            │   growthRateId: Tagged(rawValue: 4),         │
             │   formsSwitchable: false,                    │
             │   isLegendary: false,                        │
             │   isMythical: false,                         │
@@ -1220,7 +2411,7 @@ struct SnapshotTests {
             │   evolvesFromSpeciesId: Tagged(rawValue: 1), │
             │   evolutionChainId: Tagged(rawValue: 1),     │
             │   colorId: Tagged(rawValue: 5),              │
-            │   shapeId: 8,                                │
+            │   shapeId: Tagged(rawValue: 8),              │
             │   habitatId: Tagged(rawValue: 3),            │
             │   genderRate: 1,                             │
             │   captureRate: 45,                           │
@@ -1228,7 +2419,7 @@ struct SnapshotTests {
             │   isBaby: false,                             │
             │   hatchCounter: 20,                          │
             │   hasGenderDifferences: false,               │
-            │   growthRateId: 4,                           │
+            │   growthRateId: Tagged(rawValue: 4),         │
             │   formsSwitchable: false,                    │
             │   isLegendary: false,                        │
             │   isMythical: false,                         │
@@ -1243,7 +2434,7 @@ struct SnapshotTests {
             │   evolvesFromSpeciesId: Tagged(rawValue: 2), │
             │   evolutionChainId: Tagged(rawValue: 1),     │
             │   colorId: Tagged(rawValue: 5),              │
-            │   shapeId: 8,                                │
+            │   shapeId: Tagged(rawValue: 8),              │
             │   habitatId: Tagged(rawValue: 3),            │
             │   genderRate: 1,                             │
             │   captureRate: 45,                           │
@@ -1251,7 +2442,7 @@ struct SnapshotTests {
             │   isBaby: false,                             │
             │   hatchCounter: 20,                          │
             │   hasGenderDifferences: true,                │
-            │   growthRateId: 4,                           │
+            │   growthRateId: Tagged(rawValue: 4),         │
             │   formsSwitchable: true,                     │
             │   isLegendary: false,                        │
             │   isMythical: false,                         │
@@ -1266,7 +2457,7 @@ struct SnapshotTests {
             │   evolvesFromSpeciesId: nil,                 │
             │   evolutionChainId: Tagged(rawValue: 2),     │
             │   colorId: Tagged(rawValue: 8),              │
-            │   shapeId: 6,                                │
+            │   shapeId: Tagged(rawValue: 6),              │
             │   habitatId: Tagged(rawValue: 4),            │
             │   genderRate: 1,                             │
             │   captureRate: 45,                           │
@@ -1274,7 +2465,7 @@ struct SnapshotTests {
             │   isBaby: false,                             │
             │   hatchCounter: 20,                          │
             │   hasGenderDifferences: false,               │
-            │   growthRateId: 4,                           │
+            │   growthRateId: Tagged(rawValue: 4),         │
             │   formsSwitchable: false,                    │
             │   isLegendary: false,                        │
             │   isMythical: false,                         │
@@ -1289,7 +2480,7 @@ struct SnapshotTests {
             │   evolvesFromSpeciesId: Tagged(rawValue: 4), │
             │   evolutionChainId: Tagged(rawValue: 2),     │
             │   colorId: Tagged(rawValue: 8),              │
-            │   shapeId: 6,                                │
+            │   shapeId: Tagged(rawValue: 6),              │
             │   habitatId: Tagged(rawValue: 4),            │
             │   genderRate: 1,                             │
             │   captureRate: 45,                           │
@@ -1297,7 +2488,7 @@ struct SnapshotTests {
             │   isBaby: false,                             │
             │   hatchCounter: 20,                          │
             │   hasGenderDifferences: false,               │
-            │   growthRateId: 4,                           │
+            │   growthRateId: Tagged(rawValue: 4),         │
             │   formsSwitchable: false,                    │
             │   isLegendary: false,                        │
             │   isMythical: false,                         │
@@ -1311,6 +2502,21 @@ struct SnapshotTests {
     
     @Test
     func testPokemonStatBasicQuery() {
+        Helper.assertQuery(
+            PokeAPIPokemonStat.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "pokemon_stats"
+            """
+        } results: {
+            """
+            ┌──────┐
+            │ 7812 │
+            └──────┘
+            """
+        }
+
         Helper.assertQuery(
             PokeAPIPokemonStat.limit(5)
         ) {
@@ -1364,6 +2570,21 @@ struct SnapshotTests {
     @Test
     func testPokemonTypeBasicQuery() {
         Helper.assertQuery(
+            PokeAPIPokemonType.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "pokemon_types"
+            """
+        } results: {
+            """
+            ┌──────┐
+            │ 2028 │
+            └──────┘
+            """
+        }
+
+        Helper.assertQuery(
             PokeAPIPokemonType.limit(5)
         ) {
             """
@@ -1411,6 +2632,21 @@ struct SnapshotTests {
     @Test
     func testRegionBasicQuery() {
         Helper.assertQuery(
+            PokeAPIRegion.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "regions"
+            """
+        } results: {
+            """
+            ┌────┐
+            │ 10 │
+            └────┘
+            """
+        }
+
+        Helper.assertQuery(
             PokeAPIRegion.limit(5)
         ) {
             """
@@ -1453,6 +2689,21 @@ struct SnapshotTests {
     @Test
     func testStatBasicQuery() {
         Helper.assertQuery(
+            PokeAPIStat.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "stats"
+            """
+        } results: {
+            """
+            ┌───┐
+            │ 8 │
+            └───┘
+            """
+        }
+
+        Helper.assertQuery(
             PokeAPIStat.limit(5)
         ) {
             """
@@ -1460,7 +2711,7 @@ struct SnapshotTests {
             FROM "stats"
             LIMIT 5
             """
-        }results: {
+        } results: {
             """
             ┌───────────────────────────────────────┐
             │ PokeAPIStat(                          │
@@ -1509,6 +2760,21 @@ struct SnapshotTests {
     
     @Test
     func testTypeBasicQuery() {
+        Helper.assertQuery(
+            PokeAPIType.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "types"
+            """
+        } results: {
+            """
+            ┌────┐
+            │ 21 │
+            └────┘
+            """
+        }
+
         Helper.assertQuery(
             PokeAPIType.limit(5)
         ) {
@@ -1562,6 +2828,21 @@ struct SnapshotTests {
     @Test
     func testTypeEfficacyBasicQuery() {
         Helper.assertQuery(
+            PokeAPITypeEfficacy.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "type_efficacy"
+            """
+        } results: {
+            """
+            ┌─────┐
+            │ 324 │
+            └─────┘
+            """
+        }
+
+        Helper.assertQuery(
             PokeAPITypeEfficacy.limit(5)
         ) {
             """
@@ -1609,6 +2890,21 @@ struct SnapshotTests {
     @Test
     func testVersionBasicQuery() {
         Helper.assertQuery(
+            PokeAPIVersion.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "versions"
+            """
+        } results: {
+            """
+            ┌────┐
+            │ 46 │
+            └────┘
+            """
+        }
+
+        Helper.assertQuery(
             PokeAPIVersion.limit(5)
         ) {
             """
@@ -1616,7 +2912,7 @@ struct SnapshotTests {
             FROM "versions"
             LIMIT 5
             """
-        }results: {
+        } results: {
             """
             ┌───────────────────────────────────────┐
             │ PokeAPIVersion(                       │
@@ -1655,6 +2951,21 @@ struct SnapshotTests {
     
     @Test
     func testVersionGroupBasicQuery() {
+        Helper.assertQuery(
+            PokeAPIVersionGroup.count()
+        ) {
+            """
+            SELECT count(*)
+            FROM "version_groups"
+            """
+        } results: {
+            """
+            ┌────┐
+            │ 29 │
+            └────┘
+            """
+        }
+
         Helper.assertQuery(
             PokeAPIVersionGroup.limit(5)
         ) {

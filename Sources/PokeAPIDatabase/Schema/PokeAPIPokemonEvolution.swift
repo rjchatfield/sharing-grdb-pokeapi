@@ -15,7 +15,7 @@ public struct PokeAPIPokemonEvolution: Decodable, Hashable, Identifiable, Sendab
     @Column("evolved_species_id") public var evolvedSpeciesId: PokeAPIPokemonSpecies.ID
 
     /// Primary evolution method (level-up, use-item, trade, etc.)
-    @Column("evolution_trigger_id") public var evolutionTriggerId: Int
+    @Column("evolution_trigger_id") public var evolutionTriggerId: PokeAPIEvolutionTrigger.ID
 
     /// Item required to trigger evolution (evolution stones, etc.)
     /// Nil if no item is required

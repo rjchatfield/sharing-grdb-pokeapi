@@ -97,14 +97,14 @@ public enum PokeAPIStrings {
     /// Returns the localized name for a Pokemon color by its ID.
     /// - Parameter id: The color ID (1-10)
     /// - Returns: Localized color name, or the identifier as fallback
-    public static func color(id: PokeAPIPokemonSpecies.ColorID) -> String? {
+    public static func color(id: PokeAPIPokemonColor.ID) -> String? {
         return localizedString(key: "color.\(id).name", table: "Colors")
     }
     
     /// Returns the localized name for a Pokemon habitat by its ID.
     /// - Parameter id: The habitat ID (1-9)
     /// - Returns: Localized habitat name, or the identifier as fallback
-    public static func habitat(id: PokeAPIPokemonSpecies.HabitatID) -> String? {
+    public static func habitat(id: PokeAPIPokemonHabitat.ID) -> String? {
         return localizedString(key: "habitat.\(id).name", table: "Habitats")
     }
 
