@@ -14,7 +14,7 @@ public struct PokeAPILocationArea: Decodable, Hashable, Identifiable, Sendable {
     
     /// Machine-readable area name (e.g., "area", "1f", "b1f", "entrance", "summit")
     /// Examples: different floors of buildings, sections of routes, cave depths
-    @Column("identifier") public var identifier: Identifier
+    @Column("identifier") public var identifier: Identifier?
     
     /// Parent location this area belongs to
     @Column("location_id") public var locationId: PokeAPILocation.ID
@@ -26,7 +26,8 @@ public struct PokeAPILocationArea: Decodable, Hashable, Identifiable, Sendable {
 
     // MARK: - Helpers
 
-    public var formattedName: String {
+    public var formattedName: String? {
+        guard let identifier else { return nil }
         return PokeAPIStrings.formatted(identifier: identifier)
     }
 }
