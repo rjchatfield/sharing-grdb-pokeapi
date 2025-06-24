@@ -13,37 +13,14 @@ extension PokeAPIPokemon {
     /// ```
     public struct WithEvolutions {
         public let pokemon: PokeAPIPokemon
-        public let evolutions: [EvolutionData]
+        public let evolutions: [PokeAPIPokemonEvolution]
 
         public init(
             pokemon: PokeAPIPokemon,
-            evolutions: [EvolutionData]
+            evolutions: [PokeAPIPokemonEvolution]
         ) {
             self.pokemon = pokemon
             self.evolutions = evolutions
-        }
-
-        /// Contains evolution requirement information.
-        public struct EvolutionData {
-            public let evolution: PokeAPIPokemonEvolution
-            public let evolvedSpeciesId: PokeAPIPokemonSpecies.ID
-            public let evolutionTriggerId: PokeAPIEvolutionTrigger.ID
-            public let minimumLevel: String?
-            public let triggerItemId: PokeAPIItem.ID?
-
-            public init(
-                evolution: PokeAPIPokemonEvolution,
-                evolvedSpeciesId: PokeAPIPokemonSpecies.ID,
-                evolutionTriggerId: PokeAPIEvolutionTrigger.ID,
-                minimumLevel: String? = nil,
-                triggerItemId: PokeAPIItem.ID? = nil
-            ) {
-                self.evolution = evolution
-                self.evolvedSpeciesId = evolvedSpeciesId
-                self.evolutionTriggerId = evolutionTriggerId
-                self.minimumLevel = minimumLevel
-                self.triggerItemId = triggerItemId
-            }
         }
 
         // MARK: -
@@ -108,14 +85,7 @@ extension PokeAPIPokemon {
                 .reduce(into: [PokeAPIPokemon.ID: WithEvolutions]()) { acc, next in
                     let (pokemon, _, _, evolution) = next
                     let existing = acc[pokemon.id]?.evolutions ?? []
-                    let evolutionData = EvolutionData(
-                        evolution: evolution,
-                        evolvedSpeciesId: evolution.evolvedSpeciesId,
-                        evolutionTriggerId: evolution.evolutionTriggerId,
-                        minimumLevel: evolution.minimumLevel,
-                        triggerItemId: evolution.triggerItemId
-                    )
-                    let newEvolutions = existing + [evolutionData]
+                    let newEvolutions = existing + [evolution]
                     acc[pokemon.id] = WithEvolutions(
                         pokemon: pokemon,
                         evolutions: newEvolutions

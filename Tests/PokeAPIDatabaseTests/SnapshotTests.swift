@@ -2057,7 +2057,7 @@ struct SnapshotTests {
             │   partyTypeId: nil,                        │
             │   tradeSpeciesId: nil,                     │
             │   needsOverworldRain: false,               │
-            │   turnUpsideDown: "0"                      │
+            │   turnUpsideDown: false                    │
             │ )                                          │
             ├────────────────────────────────────────────┤
             │ PokeAPIPokemonEvolution(                   │
@@ -2080,7 +2080,7 @@ struct SnapshotTests {
             │   partyTypeId: nil,                        │
             │   tradeSpeciesId: nil,                     │
             │   needsOverworldRain: false,               │
-            │   turnUpsideDown: "0"                      │
+            │   turnUpsideDown: false                    │
             │ )                                          │
             ├────────────────────────────────────────────┤
             │ PokeAPIPokemonEvolution(                   │
@@ -2103,7 +2103,7 @@ struct SnapshotTests {
             │   partyTypeId: nil,                        │
             │   tradeSpeciesId: nil,                     │
             │   needsOverworldRain: false,               │
-            │   turnUpsideDown: "0"                      │
+            │   turnUpsideDown: false                    │
             │ )                                          │
             ├────────────────────────────────────────────┤
             │ PokeAPIPokemonEvolution(                   │
@@ -2126,7 +2126,7 @@ struct SnapshotTests {
             │   partyTypeId: nil,                        │
             │   tradeSpeciesId: nil,                     │
             │   needsOverworldRain: false,               │
-            │   turnUpsideDown: "0"                      │
+            │   turnUpsideDown: false                    │
             │ )                                          │
             ├────────────────────────────────────────────┤
             │ PokeAPIPokemonEvolution(                   │
@@ -2149,7 +2149,7 @@ struct SnapshotTests {
             │   partyTypeId: nil,                        │
             │   tradeSpeciesId: nil,                     │
             │   needsOverworldRain: false,               │
-            │   turnUpsideDown: "0"                      │
+            │   turnUpsideDown: false                    │
             │ )                                          │
             └────────────────────────────────────────────┘
             """

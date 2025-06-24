@@ -81,6 +81,5 @@ public struct PokeAPIPokemonEvolution: Decodable, Hashable, Identifiable, Sendab
     @Column("needs_overworld_rain") public var needsOverworldRain: Bool
     
     /// Whether game system must be turned upside down (Inkay -> Malamar)
-    /// Nil if orientation doesn't matter
-    @Column("turn_upside_down") public var turnUpsideDown: String?
+    @Column("turn_upside_down") public var turnUpsideDown: Bool
 }
