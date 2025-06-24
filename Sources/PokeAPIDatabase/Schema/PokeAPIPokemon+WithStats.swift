@@ -52,12 +52,17 @@ extension PokeAPIPokemon {
             _ database: StructuredQueriesSQLite.Database,
             limit: Int? = 10
         ) throws -> [PokeAPIPokemon.WithStats] {
-            let query = PokeAPIPokemon
-                .limit(limit ?? 10_000)
-                .join(PokeAPIPokemonStat.all, on: joinOn(pokemon:junction:))
-                .join(PokeAPIStat.all, on: joinOn(pokemon:junction:stat:))
-                .select(makeColumns(pokemon:junction:stat:))
-            let fetchResults: [(PokeAPIPokemon, PokeAPIPokemonStat, PokeAPIStat)] = try database.execute(query)
+            let query = With {
+                PokeAPIPokemon
+                    .select(PokeAPIPokemon.TableSelection.Columns.init(pokemon:))
+                    .limit(limit ?? 10_000)
+            } query: {
+                PokeAPIPokemon.TableSelection
+                    .join(PokeAPIPokemonStat.all, on: joinOn(pokemon:junction:))
+                    .join(PokeAPIStat.all, on: joinOn(pokemon:junction:stat:))
+                    .select(makeColumns(pokemon:junction:stat:))
+            }
+            let fetchResults: [(PokeAPIPokemon.TableSelection, PokeAPIPokemonStat, PokeAPIStat)] = try database.execute(query)
             return process(fetchResults: fetchResults)
         }
 
@@ -72,12 +77,17 @@ extension PokeAPIPokemon {
             _ database: StructuredQueriesSQLite.Database,
             pokemonId: PokeAPIPokemon.ID
         ) throws -> PokeAPIPokemon.WithStats {
-            let query = PokeAPIPokemon
-                .where { $0.id == pokemonId }
-                .join(PokeAPIPokemonStat.all, on: joinOn(pokemon:junction:))
-                .join(PokeAPIStat.all, on: joinOn(pokemon:junction:stat:))
-                .select(makeColumns(pokemon:junction:stat:))
-            let fetchResults: [(PokeAPIPokemon, PokeAPIPokemonStat, PokeAPIStat)] = try database.execute(query)
+            let query = With {
+                PokeAPIPokemon
+                    .select(PokeAPIPokemon.TableSelection.Columns.init(pokemon:))
+                    .where { $0.id == pokemonId }
+            } query: {
+                PokeAPIPokemon.TableSelection
+                    .join(PokeAPIPokemonStat.all, on: joinOn(pokemon:junction:))
+                    .join(PokeAPIStat.all, on: joinOn(pokemon:junction:stat:))
+                    .select(makeColumns(pokemon:junction:stat:))
+            }
+            let fetchResults: [(PokeAPIPokemon.TableSelection, PokeAPIPokemonStat, PokeAPIStat)] = try database.execute(query)
             guard let result = process(fetchResults: fetchResults).first else {
                 throw WithStatsError.pokemonNotFound(pokemonId)
             }
@@ -87,11 +97,12 @@ extension PokeAPIPokemon {
         // MARK: -
 
         private static func process(
-            fetchResults: [(PokeAPIPokemon, PokeAPIPokemonStat, PokeAPIStat)]
+            fetchResults: [(PokeAPIPokemon.TableSelection, PokeAPIPokemonStat, PokeAPIStat)]
         ) -> [WithStats] {
             fetchResults
                 .reduce(into: [PokeAPIPokemon.ID: WithStats]()) { acc, next in
-                    let (pokemon, junction, stat) = next
+                    let (pokemonLimited, junction, stat) = next
+                    let pokemon = pokemonLimited.pokemon
                     let existing = acc[pokemon.id]?.stats ?? []
                     let statData = StatData(
                         stat: stat,
@@ -112,14 +123,14 @@ extension PokeAPIPokemon {
         }
 
         private static func joinOn(
-            pokemon: PokeAPIPokemon.TableColumns,
+            pokemon: PokeAPIPokemon.TableSelection.TableColumns,
             junction: PokeAPIPokemonStat.TableColumns
         ) -> some QueryExpression<Bool> {
             return pokemon.id.eq(junction.pokemonId)
         }
 
         private static func joinOn(
-            pokemon: PokeAPIPokemon.TableColumns,
+            pokemon: PokeAPIPokemon.TableSelection.TableColumns,
             junction: PokeAPIPokemonStat.TableColumns,
             stat: PokeAPIStat.TableColumns
         ) -> some QueryExpression<Bool> {
@@ -127,11 +138,11 @@ extension PokeAPIPokemon {
         }
 
         private static func makeColumns(
-            pokemon: PokeAPIPokemon.TableColumns,
+            pokemon: PokeAPIPokemon.TableSelection.TableColumns,
             junction: PokeAPIPokemonStat.TableColumns,
             stat: PokeAPIStat.TableColumns
         ) -> (
-            PokeAPIPokemon.TableColumns,
+            PokeAPIPokemon.TableSelection.TableColumns,
             PokeAPIPokemonStat.TableColumns,
             PokeAPIStat.TableColumns
         ) {
@@ -149,3 +160,4 @@ extension PokeAPIPokemon {
         }
     }
 }
+
