@@ -55,12 +55,11 @@ extension PokeAPIPokemon {
             let query = With {
                 PokeAPIPokemon
                     .select(PokeAPIPokemon.TableSelection.Columns.init(pokemon:))
-                    .limit(limit ?? 10_000)
+                    .limit(limit ?? 10_000) // higher than total number of pokemon
             } query: {
                 PokeAPIPokemon.TableSelection
                     .join(PokeAPIPokemonStat.all, on: joinOn(pokemon:junction:))
                     .join(PokeAPIStat.all, on: joinOn(pokemon:junction:stat:))
-                    .select(makeColumns(pokemon:junction:stat:))
             }
             let fetchResults: [(PokeAPIPokemon.TableSelection, PokeAPIPokemonStat, PokeAPIStat)] = try database.execute(query)
             return process(fetchResults: fetchResults)
@@ -85,7 +84,6 @@ extension PokeAPIPokemon {
                 PokeAPIPokemon.TableSelection
                     .join(PokeAPIPokemonStat.all, on: joinOn(pokemon:junction:))
                     .join(PokeAPIStat.all, on: joinOn(pokemon:junction:stat:))
-                    .select(makeColumns(pokemon:junction:stat:))
             }
             let fetchResults: [(PokeAPIPokemon.TableSelection, PokeAPIPokemonStat, PokeAPIStat)] = try database.execute(query)
             guard let result = process(fetchResults: fetchResults).first else {
@@ -101,8 +99,8 @@ extension PokeAPIPokemon {
         ) -> [WithStats] {
             fetchResults
                 .reduce(into: [PokeAPIPokemon.ID: WithStats]()) { acc, next in
-                    let (pokemonLimited, junction, stat) = next
-                    let pokemon = pokemonLimited.pokemon
+                    let (tableSelection, junction, stat) = next
+                    let pokemon = tableSelection.pokemon
                     let existing = acc[pokemon.id]?.stats ?? []
                     let statData = StatData(
                         stat: stat,
@@ -135,22 +133,6 @@ extension PokeAPIPokemon {
             stat: PokeAPIStat.TableColumns
         ) -> some QueryExpression<Bool> {
             return junction.statId.eq(stat.id)
-        }
-
-        private static func makeColumns(
-            pokemon: PokeAPIPokemon.TableSelection.TableColumns,
-            junction: PokeAPIPokemonStat.TableColumns,
-            stat: PokeAPIStat.TableColumns
-        ) -> (
-            PokeAPIPokemon.TableSelection.TableColumns,
-            PokeAPIPokemonStat.TableColumns,
-            PokeAPIStat.TableColumns
-        ) {
-            return (
-                pokemon,
-                junction,
-                stat
-            )
         }
 
         // MARK: -

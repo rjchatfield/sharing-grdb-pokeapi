@@ -64,12 +64,16 @@ extension PokeAPIPokemon {
             versionGroupId: PokeAPIVersionGroup.ID,
             limit: Int? = 10
         ) throws -> [PokeAPIPokemon.WithMoves] {
-            let query = PokeAPIPokemon
-                .limit(limit ?? 10_000)
-                .join(PokeAPIPokemonMove.all.where { $0.versionGroupId == versionGroupId }, on: joinOn(pokemon:junction:))
-                .join(PokeAPIMove.all, on: joinOn(pokemon:junction:move:))
-                .select(makeColumns(pokemon:junction:move:))
-            let fetchResults: [(PokeAPIPokemon, PokeAPIPokemonMove, PokeAPIMove)] = try database.execute(query)
+            let query = With {
+                PokeAPIPokemon
+                    .select(PokeAPIPokemon.TableSelection.Columns.init(pokemon:))
+                    .limit(limit ?? 10_000) // higher than total number of pokemon
+            } query: {
+                PokeAPIPokemon.TableSelection
+                    .join(PokeAPIPokemonMove.all.where { $0.versionGroupId == versionGroupId }, on: joinOn(pokemon:junction:))
+                    .join(PokeAPIMove.all, on: joinOn(pokemon:junction:move:))
+            }
+            let fetchResults: [(PokeAPIPokemon.TableSelection, PokeAPIPokemonMove, PokeAPIMove)] = try database.execute(query)
             return process(fetchResults: fetchResults)
         }
 
@@ -86,12 +90,16 @@ extension PokeAPIPokemon {
             pokemonId: PokeAPIPokemon.ID,
             versionGroupId: PokeAPIVersionGroup.ID
         ) throws -> PokeAPIPokemon.WithMoves {
-            let query = PokeAPIPokemon
-                .where { $0.id == pokemonId }
-                .join(PokeAPIPokemonMove.all.where { $0.versionGroupId == versionGroupId }, on: joinOn(pokemon:junction:))
-                .join(PokeAPIMove.all, on: joinOn(pokemon:junction:move:))
-                .select(makeColumns(pokemon:junction:move:))
-            let fetchResults: [(PokeAPIPokemon, PokeAPIPokemonMove, PokeAPIMove)] = try database.execute(query)
+            let query = With {
+                PokeAPIPokemon
+                    .select(PokeAPIPokemon.TableSelection.Columns.init(pokemon:))
+                    .where { $0.id == pokemonId }
+            } query: {
+                PokeAPIPokemon.TableSelection
+                    .join(PokeAPIPokemonMove.all.where { $0.versionGroupId == versionGroupId }, on: joinOn(pokemon:junction:))
+                    .join(PokeAPIMove.all, on: joinOn(pokemon:junction:move:))
+            }
+            let fetchResults: [(PokeAPIPokemon.TableSelection, PokeAPIPokemonMove, PokeAPIMove)] = try database.execute(query)
             guard let result = process(fetchResults: fetchResults).first else {
                 throw WithMovesError.pokemonNotFound(pokemonId)
             }
@@ -101,11 +109,12 @@ extension PokeAPIPokemon {
         // MARK: -
 
         private static func process(
-            fetchResults: [(PokeAPIPokemon, PokeAPIPokemonMove, PokeAPIMove)]
+            fetchResults: [(PokeAPIPokemon.TableSelection, PokeAPIPokemonMove, PokeAPIMove)]
         ) -> [WithMoves] {
             fetchResults
                 .reduce(into: [PokeAPIPokemon.ID: WithMoves]()) { acc, next in
-                    let (pokemon, junction, move) = next
+                    let (tableSelection, junction, move) = next
+                    let pokemon = tableSelection.pokemon
                     let existing = acc[pokemon.id]?.moves ?? []
                     let moveData = MoveData(
                         move: move,
@@ -131,34 +140,18 @@ extension PokeAPIPokemon {
         }
 
         private static func joinOn(
-            pokemon: PokeAPIPokemon.TableColumns,
+            pokemon: PokeAPIPokemon.TableSelection.TableColumns,
             junction: PokeAPIPokemonMove.TableColumns
         ) -> some QueryExpression<Bool> {
             return pokemon.id.eq(junction.pokemonId)
         }
 
         private static func joinOn(
-            pokemon: PokeAPIPokemon.TableColumns,
+            pokemon: PokeAPIPokemon.TableSelection.TableColumns,
             junction: PokeAPIPokemonMove.TableColumns,
             move: PokeAPIMove.TableColumns
         ) -> some QueryExpression<Bool> {
             return junction.moveId.eq(move.id)
-        }
-
-        private static func makeColumns(
-            pokemon: PokeAPIPokemon.TableColumns,
-            junction: PokeAPIPokemonMove.TableColumns,
-            move: PokeAPIMove.TableColumns
-        ) -> (
-            PokeAPIPokemon.TableColumns,
-            PokeAPIPokemonMove.TableColumns,
-            PokeAPIMove.TableColumns
-        ) {
-            return (
-                pokemon,
-                junction,
-                move
-            )
         }
 
         // MARK: -

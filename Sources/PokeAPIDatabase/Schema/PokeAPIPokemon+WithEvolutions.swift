@@ -35,13 +35,17 @@ extension PokeAPIPokemon {
             _ database: StructuredQueriesSQLite.Database,
             limit: Int? = 10
         ) throws -> [PokeAPIPokemon.WithEvolutions] {
-            let query = PokeAPIPokemon
-                .limit(limit ?? 10_000)
-                .join(PokeAPIPokemonSpecies.all, on: joinOn(pokemon:species:))
-                .join(PokeAPIEvolutionChain.all, on: joinOn(pokemon:species:chain:))
-                .join(PokeAPIPokemonEvolution.all, on: joinOn(pokemon:species:chain:evolution:))
-                .select(makeColumns(pokemon:species:chain:evolution:))
-            let fetchResults: [(PokeAPIPokemon, PokeAPIPokemonSpecies, PokeAPIEvolutionChain, PokeAPIPokemonEvolution)] = try database.execute(query)
+            let query = With {
+                PokeAPIPokemon
+                    .select(PokeAPIPokemon.TableSelection.Columns.init(pokemon:))
+                    .limit(limit ?? 10_000) // higher than total number of pokemon
+            } query: {
+                PokeAPIPokemon.TableSelection
+                    .join(PokeAPIPokemonSpecies.all, on: joinOn(pokemon:species:))
+                    .join(PokeAPIEvolutionChain.all, on: joinOn(pokemon:species:chain:))
+                    .join(PokeAPIPokemonEvolution.all, on: joinOn(pokemon:species:chain:evolution:))
+            }
+            let fetchResults: [(PokeAPIPokemon.TableSelection, PokeAPIPokemonSpecies, PokeAPIEvolutionChain, PokeAPIPokemonEvolution)] = try database.execute(query)
             return process(fetchResults: fetchResults)
         }
 
@@ -55,14 +59,18 @@ extension PokeAPIPokemon {
             _ database: StructuredQueriesSQLite.Database,
             pokemonId: PokeAPIPokemon.ID
         ) throws -> PokeAPIPokemon.WithEvolutions {
-            let query = PokeAPIPokemon
-                .where { $0.id == pokemonId }
-                .join(PokeAPIPokemonSpecies.all, on: joinOn(pokemon:species:))
-                .join(PokeAPIEvolutionChain.all, on: joinOn(pokemon:species:chain:))
-                .join(PokeAPIPokemonEvolution.all, on: joinOn(pokemon:species:chain:evolution:))
-                .select(makeColumns(pokemon:species:chain:evolution:))
-            let fetchResults: [(PokeAPIPokemon, PokeAPIPokemonSpecies, PokeAPIEvolutionChain, PokeAPIPokemonEvolution)] = try database.execute(query)
-            
+            let query = With {
+                PokeAPIPokemon
+                    .select(PokeAPIPokemon.TableSelection.Columns.init(pokemon:))
+                    .where { $0.id == pokemonId }
+            } query: {
+                PokeAPIPokemon.TableSelection
+                    .join(PokeAPIPokemonSpecies.all, on: joinOn(pokemon:species:))
+                    .join(PokeAPIEvolutionChain.all, on: joinOn(pokemon:species:chain:))
+                    .join(PokeAPIPokemonEvolution.all, on: joinOn(pokemon:species:chain:evolution:))
+            }
+            let fetchResults: [(PokeAPIPokemon.TableSelection, PokeAPIPokemonSpecies, PokeAPIEvolutionChain, PokeAPIPokemonEvolution)] = try database.execute(query)
+
             // If no evolution data found, try to get just the Pokemon
             if fetchResults.isEmpty {
                 let pokemonQuery = PokeAPIPokemon.where { $0.id == pokemonId }
@@ -79,11 +87,12 @@ extension PokeAPIPokemon {
         // MARK: -
 
         private static func process(
-            fetchResults: [(PokeAPIPokemon, PokeAPIPokemonSpecies, PokeAPIEvolutionChain, PokeAPIPokemonEvolution)]
+            fetchResults: [(PokeAPIPokemon.TableSelection, PokeAPIPokemonSpecies, PokeAPIEvolutionChain, PokeAPIPokemonEvolution)]
         ) -> [WithEvolutions] {
             fetchResults
                 .reduce(into: [PokeAPIPokemon.ID: WithEvolutions]()) { acc, next in
-                    let (pokemon, _, _, evolution) = next
+                    let (selectionTable, _, _, evolution) = next
+                    let pokemon = selectionTable.pokemon
                     let existing = acc[pokemon.id]?.evolutions ?? []
                     let newEvolutions = existing + [evolution]
                     acc[pokemon.id] = WithEvolutions(
@@ -96,14 +105,14 @@ extension PokeAPIPokemon {
         }
 
         private static func joinOn(
-            pokemon: PokeAPIPokemon.TableColumns,
+            pokemon: PokeAPIPokemon.TableSelection.TableColumns,
             species: PokeAPIPokemonSpecies.TableColumns
         ) -> some QueryExpression<Bool> {
             return pokemon.speciesId.eq(species.id)
         }
 
         private static func joinOn(
-            pokemon: PokeAPIPokemon.TableColumns,
+            pokemon: PokeAPIPokemon.TableSelection.TableColumns,
             species: PokeAPIPokemonSpecies.TableColumns,
             chain: PokeAPIEvolutionChain.TableColumns
         ) -> some QueryExpression<Bool> {
@@ -111,32 +120,13 @@ extension PokeAPIPokemon {
         }
 
         private static func joinOn(
-            pokemon: PokeAPIPokemon.TableColumns,
+            pokemon: PokeAPIPokemon.TableSelection.TableColumns,
             species: PokeAPIPokemonSpecies.TableColumns,
             chain: PokeAPIEvolutionChain.TableColumns,
             evolution: PokeAPIPokemonEvolution.TableColumns
         ) -> some QueryExpression<Bool> {
             // This is a simplified join - in reality evolution relationships are more complex
             return species.id.eq(evolution.evolvedSpeciesId)
-        }
-
-        private static func makeColumns(
-            pokemon: PokeAPIPokemon.TableColumns,
-            species: PokeAPIPokemonSpecies.TableColumns,
-            chain: PokeAPIEvolutionChain.TableColumns,
-            evolution: PokeAPIPokemonEvolution.TableColumns
-        ) -> (
-            PokeAPIPokemon.TableColumns,
-            PokeAPIPokemonSpecies.TableColumns,
-            PokeAPIEvolutionChain.TableColumns,
-            PokeAPIPokemonEvolution.TableColumns
-        ) {
-            return (
-                pokemon,
-                species,
-                chain,
-                evolution
-            )
         }
 
         // MARK: -

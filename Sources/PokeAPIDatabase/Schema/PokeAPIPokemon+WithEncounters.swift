@@ -27,6 +27,9 @@ extension PokeAPIPokemon {
         public struct EncounterData {
             public let encounter: PokeAPIEncounter
             public let locationArea: PokeAPILocationArea
+            // TODO: let method: PokeAPIEncounterMethod <- EncounterSlot.encounterMethodId
+            // TODO: let slot: EncounterSlot.slot // maybe not. Perhaps this just sorts the encounters array?
+            // TODO: let rarity: EncounterSlot.rarity
             public let minLevel: Int
             public let maxLevel: Int
 
@@ -57,12 +60,16 @@ extension PokeAPIPokemon {
             versionId: PokeAPIVersion.ID,
             limit: Int? = 10
         ) throws -> [PokeAPIPokemon.WithEncounters] {
-            let query = PokeAPIPokemon
-                .limit(limit ?? 10_000)
-                .join(PokeAPIEncounter.all.where { $0.versionId == versionId }, on: joinOn(pokemon:encounter:))
-                .join(PokeAPILocationArea.all, on: joinOn(pokemon:encounter:locationArea:))
-                .select(makeColumns(pokemon:encounter:locationArea:))
-            let fetchResults: [(PokeAPIPokemon, PokeAPIEncounter, PokeAPILocationArea)] = try database.execute(query)
+            let query = With {
+                PokeAPIPokemon
+                    .select(PokeAPIPokemon.TableSelection.Columns.init(pokemon:))
+                    .limit(limit ?? 10_000) // higher than total number of pokemon
+            } query: {
+                PokeAPIPokemon.TableSelection
+                    .join(PokeAPIEncounter.all.where { $0.versionId == versionId }, on: joinOn(pokemon:encounter:))
+                    .join(PokeAPILocationArea.all, on: joinOn(pokemon:encounter:locationArea:))
+            }
+            let fetchResults: [(PokeAPIPokemon.TableSelection, PokeAPIEncounter, PokeAPILocationArea)] = try database.execute(query)
             return process(fetchResults: fetchResults)
         }
 
@@ -78,13 +85,17 @@ extension PokeAPIPokemon {
             pokemonId: PokeAPIPokemon.ID,
             versionId: PokeAPIVersion.ID
         ) throws -> PokeAPIPokemon.WithEncounters {
-            let query = PokeAPIPokemon
-                .where { $0.id == pokemonId }
-                .join(PokeAPIEncounter.all.where { $0.versionId == versionId }, on: joinOn(pokemon:encounter:))
-                .join(PokeAPILocationArea.all, on: joinOn(pokemon:encounter:locationArea:))
-                .select(makeColumns(pokemon:encounter:locationArea:))
-            let fetchResults: [(PokeAPIPokemon, PokeAPIEncounter, PokeAPILocationArea)] = try database.execute(query)
-            
+            let query = With {
+                PokeAPIPokemon
+                    .select(PokeAPIPokemon.TableSelection.Columns.init(pokemon:))
+                    .where { $0.id == pokemonId }
+            } query: {
+                PokeAPIPokemon.TableSelection
+                    .join(PokeAPIEncounter.all.where { $0.versionId == versionId }, on: joinOn(pokemon:encounter:))
+                    .join(PokeAPILocationArea.all, on: joinOn(pokemon:encounter:locationArea:))
+            }
+            let fetchResults: [(PokeAPIPokemon.TableSelection, PokeAPIEncounter, PokeAPILocationArea)] = try database.execute(query)
+
             // If no encounter data found, try to get just the Pokemon
             if fetchResults.isEmpty {
                 let pokemonQuery = PokeAPIPokemon.where { $0.id == pokemonId }
@@ -101,11 +112,12 @@ extension PokeAPIPokemon {
         // MARK: -
 
         private static func process(
-            fetchResults: [(PokeAPIPokemon, PokeAPIEncounter, PokeAPILocationArea)]
+            fetchResults: [(PokeAPIPokemon.TableSelection, PokeAPIEncounter, PokeAPILocationArea)]
         ) -> [WithEncounters] {
             fetchResults
                 .reduce(into: [PokeAPIPokemon.ID: WithEncounters]()) { acc, next in
-                    let (pokemon, encounter, locationArea) = next
+                    let (tableSelection, encounter, locationArea) = next
+                    let pokemon = tableSelection.pokemon
                     let existing = acc[pokemon.id]?.encounters ?? []
                     let encounterData = EncounterData(
                         encounter: encounter,
@@ -127,34 +139,18 @@ extension PokeAPIPokemon {
         }
 
         private static func joinOn(
-            pokemon: PokeAPIPokemon.TableColumns,
+            pokemon: PokeAPIPokemon.TableSelection.TableColumns,
             encounter: PokeAPIEncounter.TableColumns
         ) -> some QueryExpression<Bool> {
             return pokemon.id.eq(encounter.pokemonId)
         }
 
         private static func joinOn(
-            pokemon: PokeAPIPokemon.TableColumns,
+            pokemon: PokeAPIPokemon.TableSelection.TableColumns,
             encounter: PokeAPIEncounter.TableColumns,
             locationArea: PokeAPILocationArea.TableColumns
         ) -> some QueryExpression<Bool> {
             return encounter.locationAreaId.eq(locationArea.id)
-        }
-
-        private static func makeColumns(
-            pokemon: PokeAPIPokemon.TableColumns,
-            encounter: PokeAPIEncounter.TableColumns,
-            locationArea: PokeAPILocationArea.TableColumns
-        ) -> (
-            PokeAPIPokemon.TableColumns,
-            PokeAPIEncounter.TableColumns,
-            PokeAPILocationArea.TableColumns
-        ) {
-            return (
-                pokemon,
-                encounter,
-                locationArea
-            )
         }
 
         // MARK: -

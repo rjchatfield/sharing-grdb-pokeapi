@@ -35,12 +35,16 @@ extension PokeAPIPokemon {
             _ database: StructuredQueriesSQLite.Database,
             limit: Int? = 10,
         ) throws -> [PokeAPIPokemon.WithTypes] {
-            let query = PokeAPIPokemon
-                .limit(limit ?? 10_000) // higher than total number of pokemon
-                .join(PokeAPIPokemonType.all, on: joinOn(pokemon:junction:))
-                .join(PokeAPIType.all, on: joinOn(pokemon:junction:type:))
-                .select(makeColumns(pokemon:junction:type:))
-            let fetchResults: [(PokeAPIPokemon, Int?, PokeAPIType)] = try database.execute(query)
+            let query = With {
+                PokeAPIPokemon
+                    .select(PokeAPIPokemon.TableSelection.Columns.init(pokemon:))
+                    .limit(limit ?? 10_000) // higher than total number of pokemon
+            } query: {
+                PokeAPIPokemon.TableSelection
+                    .join(PokeAPIPokemonType.all, on: joinOn(pokemon:junction:))
+                    .join(PokeAPIType.all, on: joinOn(pokemon:junction:type:))
+            }
+            let fetchResults: [(PokeAPIPokemon.TableSelection, PokeAPIPokemonType, PokeAPIType)] = try database.execute(query)
             return process(fetchResults: fetchResults)
         }
 
@@ -55,12 +59,16 @@ extension PokeAPIPokemon {
             _ database: StructuredQueriesSQLite.Database,
             pokemonId: PokeAPIPokemon.ID,
         ) throws -> PokeAPIPokemon.WithTypes {
-            let query = PokeAPIPokemon
-                .where { $0.id == pokemonId }
-                .join(PokeAPIPokemonType.all, on: joinOn(pokemon:junction:))
-                .join(PokeAPIType.all, on: joinOn(pokemon:junction:type:))
-                .select(makeColumns(pokemon:junction:type:))
-            let fetchResults: [(PokeAPIPokemon, Int?, PokeAPIType)] = try database.execute(query)
+            let query = With {
+                PokeAPIPokemon
+                    .select(PokeAPIPokemon.TableSelection.Columns.init(pokemon:))
+                    .where { $0.id == pokemonId }
+            } query: {
+                PokeAPIPokemon.TableSelection
+                    .join(PokeAPIPokemonType.all, on: joinOn(pokemon:junction:))
+                    .join(PokeAPIType.all, on: joinOn(pokemon:junction:type:))
+            }
+            let fetchResults: [(PokeAPIPokemon.TableSelection, PokeAPIPokemonType, PokeAPIType)] = try database.execute(query)
             guard let result = process(fetchResults: fetchResults).first else {
                 throw WithTypesError.pokemonNotFound(pokemonId)
             }
@@ -70,13 +78,14 @@ extension PokeAPIPokemon {
         // MARK: -
 
         private static func process(
-            fetchResults: [(PokeAPIPokemon, Int?, PokeAPIType)],
+            fetchResults: [(PokeAPIPokemon.TableSelection, PokeAPIPokemonType, PokeAPIType)],
         ) -> [WithTypes] {
             fetchResults
                 .reduce(into: [PokeAPIPokemon.ID: WithTypes]()) { acc, next in
-                    let (pokemon, slot, type) = next
+                    let (tableSelection, junction, type) = next
+                    let pokemon = tableSelection.pokemon
                     let existing = acc[pokemon.id]?.types ?? []
-                    let newTypes = switch slot {
+                    let newTypes = switch junction.slot {
                     case 1: // first slow
                         [type] + existing
                     default: // nil assumes existing is empty, 2 means it is the second
@@ -92,34 +101,18 @@ extension PokeAPIPokemon {
         }
 
         private static func joinOn(
-            pokemon: PokeAPIPokemon.TableColumns,
+            pokemon: PokeAPIPokemon.TableSelection.TableColumns,
             junction: PokeAPIPokemonType.TableColumns,
         ) -> some QueryExpression<Bool> {
             return pokemon.id.eq(junction.pokemonId)
         }
 
         private static func joinOn(
-            pokemon: PokeAPIPokemon.TableColumns,
+            pokemon: PokeAPIPokemon.TableSelection.TableColumns,
             junction: PokeAPIPokemonType.TableColumns,
             type: PokeAPIType.TableColumns
         ) -> some QueryExpression<Bool> {
             return junction.typeId.eq(type.id)
-        }
-
-        private static func makeColumns(
-            pokemon: PokeAPIPokemon.TableColumns,
-            junction: PokeAPIPokemonType.TableColumns,
-            type: PokeAPIType.TableColumns,
-        ) -> (
-            PokeAPIPokemon.TableColumns,
-            TableColumn<PokeAPIPokemonType.TableColumns.QueryValue, Int?>,
-            PokeAPIType.TableColumns
-        ) {
-            return (
-                pokemon,
-                junction.slot,
-                type,
-            )
         }
 
         // MARK: -

@@ -34,7 +34,15 @@ struct AggregateRelationshipTests {
               [1]: (
                 "ivysaur",
                 [
-                  [0]: "overgrow(slot:1,hidden:false)"
+                  [0]: "overgrow(slot:1,hidden:false)",
+                  [1]: "chlorophyll(slot:3,hidden:true)"
+                ]
+              ),
+              [2]: (
+                "venusaur",
+                [
+                  [0]: "overgrow(slot:1,hidden:false)",
+                  [1]: "chlorophyll(slot:3,hidden:true)"
                 ]
               )
             ]
@@ -63,6 +71,7 @@ struct AggregateRelationshipTests {
 
     @Test
     func testPokemonWithEncounters_fetchAll() throws {
+        // TODO: Seems odd that `limit: 3` returned only one result
         let database = Helper.sqlDB()
         let allPokemonWithEncounters = try PokeAPIPokemon.WithEncounters.fetchAll(database, versionId: 1, limit: 3)
         assertInlineSnapshot(of: allPokemonWithEncounters, as: .customDump) {
@@ -70,86 +79,34 @@ struct AggregateRelationshipTests {
             [
               [0]: PokeAPIPokemon.WithEncounters(
                 pokemon: PokeAPIPokemon(
-                  id: Tagged(rawValue: 16),
-                  identifier: "pidgey",
-                  speciesId: Tagged(rawValue: 16),
-                  heightInDecimeters: 3,
-                  weightInHectograms: 18,
-                  baseExperience: 50,
-                  order: 21,
+                  id: Tagged(rawValue: 1),
+                  identifier: "bulbasaur",
+                  speciesId: Tagged(rawValue: 1),
+                  heightInDecimeters: 7,
+                  weightInHectograms: 69,
+                  baseExperience: 64,
+                  order: 1,
                   isDefault: true
                 ),
                 encounters: [
                   [0]: PokeAPIPokemon.WithEncounters.EncounterData(
                     encounter: PokeAPIEncounter(
-                      id: Tagged(rawValue: 23999),
+                      id: Tagged(rawValue: 50290),
                       versionId: Tagged(rawValue: 1),
-                      locationAreaId: Tagged(rawValue: 295),
-                      encounterSlotId: Tagged(rawValue: 67),
-                      pokemonId: Tagged(rawValue: 16),
-                      minLevel: 3,
-                      maxLevel: 3
+                      locationAreaId: Tagged(rawValue: 285),
+                      encounterSlotId: Tagged(rawValue: 490),
+                      pokemonId: Tagged(rawValue: 1),
+                      minLevel: 5,
+                      maxLevel: 5
                     ),
                     locationArea: PokeAPILocationArea(
-                      id: Tagged(rawValue: 295),
+                      id: Tagged(rawValue: 285),
                       identifier: nil,
-                      locationId: Tagged(rawValue: 88),
-                      gameIndex: 112
+                      locationId: Tagged(rawValue: 86),
+                      gameIndex: 102
                     ),
-                    minLevel: 3,
-                    maxLevel: 3
-                  )
-                ]
-              ),
-              [1]: PokeAPIPokemon.WithEncounters(
-                pokemon: PokeAPIPokemon(
-                  id: Tagged(rawValue: 19),
-                  identifier: "rattata",
-                  speciesId: Tagged(rawValue: 19),
-                  heightInDecimeters: 3,
-                  weightInHectograms: 35,
-                  baseExperience: 51,
-                  order: 25,
-                  isDefault: true
-                ),
-                encounters: [
-                  [0]: PokeAPIPokemon.WithEncounters.EncounterData(
-                    encounter: PokeAPIEncounter(
-                      id: Tagged(rawValue: 24000),
-                      versionId: Tagged(rawValue: 1),
-                      locationAreaId: Tagged(rawValue: 295),
-                      encounterSlotId: Tagged(rawValue: 68),
-                      pokemonId: Tagged(rawValue: 19),
-                      minLevel: 3,
-                      maxLevel: 3
-                    ),
-                    locationArea: PokeAPILocationArea(
-                      id: Tagged(rawValue: 295),
-                      identifier: nil,
-                      locationId: Tagged(rawValue: 88),
-                      gameIndex: 112
-                    ),
-                    minLevel: 3,
-                    maxLevel: 3
-                  ),
-                  [1]: PokeAPIPokemon.WithEncounters.EncounterData(
-                    encounter: PokeAPIEncounter(
-                      id: Tagged(rawValue: 24001),
-                      versionId: Tagged(rawValue: 1),
-                      locationAreaId: Tagged(rawValue: 295),
-                      encounterSlotId: Tagged(rawValue: 69),
-                      pokemonId: Tagged(rawValue: 19),
-                      minLevel: 3,
-                      maxLevel: 3
-                    ),
-                    locationArea: PokeAPILocationArea(
-                      id: Tagged(rawValue: 295),
-                      identifier: nil,
-                      locationId: Tagged(rawValue: 88),
-                      gameIndex: 112
-                    ),
-                    minLevel: 3,
-                    maxLevel: 3
+                    minLevel: 5,
+                    maxLevel: 5
                   )
                 ]
               )
@@ -232,6 +189,7 @@ struct AggregateRelationshipTests {
 
     @Test
     func testPokemonWithEvolutions_fetchAll() throws {
+        // TODO: Seems odd that `limit: 3` returned only two results
         let database = Helper.sqlDB()
         let allPokemonWithEvolutions = try PokeAPIPokemon.WithEvolutions.fetchAll(database, limit: 3)
         assertInlineSnapshot(of: allPokemonWithEvolutions, as: .customDump) {
@@ -308,42 +266,6 @@ struct AggregateRelationshipTests {
                     turnUpsideDown: false
                   )
                 ]
-              ),
-              [2]: PokeAPIPokemon.WithEvolutions(
-                pokemon: PokeAPIPokemon(
-                  id: Tagged(rawValue: 10033),
-                  identifier: "venusaur-mega",
-                  speciesId: Tagged(rawValue: 3),
-                  heightInDecimeters: 24,
-                  weightInHectograms: 1555,
-                  baseExperience: 281,
-                  order: 4,
-                  isDefault: false
-                ),
-                evolutions: [
-                  [0]: PokeAPIPokemonEvolution(
-                    id: Tagged(rawValue: 2),
-                    evolvedSpeciesId: Tagged(rawValue: 3),
-                    evolutionTriggerId: Tagged(rawValue: 1),
-                    triggerItemId: nil,
-                    minimumLevel: "32",
-                    genderId: nil,
-                    locationId: nil,
-                    heldItemId: nil,
-                    timeOfDay: nil,
-                    knownMoveId: nil,
-                    knownMoveTypeId: nil,
-                    minimumHappiness: nil,
-                    minimumBeauty: nil,
-                    minimumAffection: nil,
-                    relativePhysicalStats: nil,
-                    partySpeciesId: nil,
-                    partyTypeId: nil,
-                    tradeSpeciesId: nil,
-                    needsOverworldRain: false,
-                    turnUpsideDown: false
-                  )
-                ]
               )
             ]
             """
@@ -370,70 +292,576 @@ struct AggregateRelationshipTests {
     func testPokemonWithMoves_fetchAll() throws {
         let database = Helper.sqlDB()
         let allPokemonWithMoves = try PokeAPIPokemon.WithMoves.fetchAll(database, versionGroupId: 1, limit: 2)
-        assertInlineSnapshot(of: allPokemonWithMoves, as: .customDump) {
+        #expect(allPokemonWithMoves.count == 2)
+        #expect(allPokemonWithMoves.map(\.moves.count) == [24, 25])
+        assertInlineSnapshot(of: allPokemonWithMoves.first, as: .customDump) {
             """
-            [
-              [0]: PokeAPIPokemon.WithMoves(
-                pokemon: PokeAPIPokemon(
-                  id: Tagged(rawValue: 1),
-                  identifier: "bulbasaur",
-                  speciesId: Tagged(rawValue: 1),
-                  heightInDecimeters: 7,
-                  weightInHectograms: 69,
-                  baseExperience: 64,
-                  order: 1,
-                  isDefault: true
-                ),
-                moves: [
-                  [0]: PokeAPIPokemon.WithMoves.MoveData(
-                    move: PokeAPIMove(
-                      id: Tagged(rawValue: 33),
-                      identifier: "tackle",
-                      generationId: Tagged(rawValue: 1),
-                      typeId: Tagged(rawValue: 1),
-                      power: 40,
-                      pp: 35,
-                      accuracy: 100,
-                      priority: 0,
-                      targetId: 10,
-                      damageClassId: Tagged(rawValue: 2),
-                      effectId: 1,
-                      effectChance: nil,
-                      contestTypeId: 5,
-                      contestEffectId: 1,
-                      superContestEffectId: 5
-                    ),
-                    level: 1,
-                    methodId: 1,
-                    order: 1,
-                    mastery: nil
+            PokeAPIPokemon.WithMoves(
+              pokemon: PokeAPIPokemon(
+                id: Tagged(rawValue: 1),
+                identifier: "bulbasaur",
+                speciesId: Tagged(rawValue: 1),
+                heightInDecimeters: 7,
+                weightInHectograms: 69,
+                baseExperience: 64,
+                order: 1,
+                isDefault: true
+              ),
+              moves: [
+                [0]: PokeAPIPokemon.WithMoves.MoveData(
+                  move: PokeAPIMove(
+                    id: Tagged(rawValue: 14),
+                    identifier: "swords-dance",
+                    generationId: Tagged(rawValue: 1),
+                    typeId: Tagged(rawValue: 1),
+                    power: nil,
+                    pp: 20,
+                    accuracy: nil,
+                    priority: 0,
+                    targetId: 7,
+                    damageClassId: Tagged(rawValue: 1),
+                    effectId: 51,
+                    effectChance: nil,
+                    contestTypeId: 2,
+                    contestEffectId: 32,
+                    superContestEffectId: 11
                   ),
-                  [1]: PokeAPIPokemon.WithMoves.MoveData(
-                    move: PokeAPIMove(
-                      id: Tagged(rawValue: 45),
-                      identifier: "growl",
-                      generationId: Tagged(rawValue: 1),
-                      typeId: Tagged(rawValue: 1),
-                      power: nil,
-                      pp: 40,
-                      accuracy: 100,
-                      priority: 0,
-                      targetId: 11,
-                      damageClassId: Tagged(rawValue: 1),
-                      effectId: 19,
-                      effectChance: nil,
-                      contestTypeId: 3,
-                      contestEffectId: 28,
-                      superContestEffectId: 19
-                    ),
-                    level: 1,
-                    methodId: 1,
-                    order: 2,
-                    mastery: nil
-                  )
-                ]
-              )
-            ]
+                  level: 0,
+                  methodId: 4,
+                  order: nil,
+                  mastery: nil
+                ),
+                [1]: PokeAPIPokemon.WithMoves.MoveData(
+                  move: PokeAPIMove(
+                    id: Tagged(rawValue: 15),
+                    identifier: "cut",
+                    generationId: Tagged(rawValue: 1),
+                    typeId: Tagged(rawValue: 1),
+                    power: 50,
+                    pp: 30,
+                    accuracy: 95,
+                    priority: 0,
+                    targetId: 10,
+                    damageClassId: Tagged(rawValue: 2),
+                    effectId: 1,
+                    effectChance: nil,
+                    contestTypeId: 1,
+                    contestEffectId: 14,
+                    superContestEffectId: 5
+                  ),
+                  level: 0,
+                  methodId: 4,
+                  order: nil,
+                  mastery: nil
+                ),
+                [2]: PokeAPIPokemon.WithMoves.MoveData(
+                  move: PokeAPIMove(
+                    id: Tagged(rawValue: 34),
+                    identifier: "body-slam",
+                    generationId: Tagged(rawValue: 1),
+                    typeId: Tagged(rawValue: 1),
+                    power: 85,
+                    pp: 15,
+                    accuracy: 100,
+                    priority: 0,
+                    targetId: 10,
+                    damageClassId: Tagged(rawValue: 2),
+                    effectId: 7,
+                    effectChance: 30,
+                    contestTypeId: 5,
+                    contestEffectId: 4,
+                    superContestEffectId: 5
+                  ),
+                  level: 0,
+                  methodId: 4,
+                  order: nil,
+                  mastery: nil
+                ),
+                [3]: PokeAPIPokemon.WithMoves.MoveData(
+                  move: PokeAPIMove(
+                    id: Tagged(rawValue: 36),
+                    identifier: "take-down",
+                    generationId: Tagged(rawValue: 1),
+                    typeId: Tagged(rawValue: 1),
+                    power: 90,
+                    pp: 20,
+                    accuracy: 85,
+                    priority: 0,
+                    targetId: 10,
+                    damageClassId: Tagged(rawValue: 2),
+                    effectId: 49,
+                    effectChance: nil,
+                    contestTypeId: 5,
+                    contestEffectId: 3,
+                    superContestEffectId: 5
+                  ),
+                  level: 0,
+                  methodId: 4,
+                  order: nil,
+                  mastery: nil
+                ),
+                [4]: PokeAPIPokemon.WithMoves.MoveData(
+                  move: PokeAPIMove(
+                    id: Tagged(rawValue: 38),
+                    identifier: "double-edge",
+                    generationId: Tagged(rawValue: 1),
+                    typeId: Tagged(rawValue: 1),
+                    power: 120,
+                    pp: 15,
+                    accuracy: 100,
+                    priority: 0,
+                    targetId: 10,
+                    damageClassId: Tagged(rawValue: 2),
+                    effectId: 199,
+                    effectChance: nil,
+                    contestTypeId: 5,
+                    contestEffectId: 3,
+                    superContestEffectId: 9
+                  ),
+                  level: 0,
+                  methodId: 4,
+                  order: nil,
+                  mastery: nil
+                ),
+                [5]: PokeAPIPokemon.WithMoves.MoveData(
+                  move: PokeAPIMove(
+                    id: Tagged(rawValue: 72),
+                    identifier: "mega-drain",
+                    generationId: Tagged(rawValue: 1),
+                    typeId: Tagged(rawValue: 12),
+                    power: 40,
+                    pp: 15,
+                    accuracy: 100,
+                    priority: 0,
+                    targetId: 10,
+                    damageClassId: Tagged(rawValue: 3),
+                    effectId: 4,
+                    effectChance: nil,
+                    contestTypeId: 4,
+                    contestEffectId: 4,
+                    superContestEffectId: 20
+                  ),
+                  level: 0,
+                  methodId: 4,
+                  order: nil,
+                  mastery: nil
+                ),
+                [6]: PokeAPIPokemon.WithMoves.MoveData(
+                  move: PokeAPIMove(
+                    id: Tagged(rawValue: 76),
+                    identifier: "solar-beam",
+                    generationId: Tagged(rawValue: 1),
+                    typeId: Tagged(rawValue: 12),
+                    power: 120,
+                    pp: 10,
+                    accuracy: 100,
+                    priority: 0,
+                    targetId: 10,
+                    damageClassId: Tagged(rawValue: 3),
+                    effectId: 152,
+                    effectChance: nil,
+                    contestTypeId: 1,
+                    contestEffectId: 1,
+                    superContestEffectId: 6
+                  ),
+                  level: 0,
+                  methodId: 4,
+                  order: nil,
+                  mastery: nil
+                ),
+                [7]: PokeAPIPokemon.WithMoves.MoveData(
+                  move: PokeAPIMove(
+                    id: Tagged(rawValue: 92),
+                    identifier: "toxic",
+                    generationId: Tagged(rawValue: 1),
+                    typeId: Tagged(rawValue: 4),
+                    power: nil,
+                    pp: 10,
+                    accuracy: 90,
+                    priority: 0,
+                    targetId: 10,
+                    damageClassId: Tagged(rawValue: 1),
+                    effectId: 34,
+                    effectChance: nil,
+                    contestTypeId: 4,
+                    contestEffectId: 33,
+                    superContestEffectId: 19
+                  ),
+                  level: 0,
+                  methodId: 4,
+                  order: nil,
+                  mastery: nil
+                ),
+                [8]: PokeAPIPokemon.WithMoves.MoveData(
+                  move: PokeAPIMove(
+                    id: Tagged(rawValue: 99),
+                    identifier: "rage",
+                    generationId: Tagged(rawValue: 1),
+                    typeId: Tagged(rawValue: 1),
+                    power: 20,
+                    pp: 20,
+                    accuracy: 100,
+                    priority: 0,
+                    targetId: 10,
+                    damageClassId: Tagged(rawValue: 2),
+                    effectId: 82,
+                    effectChance: nil,
+                    contestTypeId: 1,
+                    contestEffectId: 17,
+                    superContestEffectId: 11
+                  ),
+                  level: 0,
+                  methodId: 4,
+                  order: nil,
+                  mastery: nil
+                ),
+                [9]: PokeAPIPokemon.WithMoves.MoveData(
+                  move: PokeAPIMove(
+                    id: Tagged(rawValue: 102),
+                    identifier: "mimic",
+                    generationId: Tagged(rawValue: 1),
+                    typeId: Tagged(rawValue: 1),
+                    power: nil,
+                    pp: 10,
+                    accuracy: nil,
+                    priority: 0,
+                    targetId: 10,
+                    damageClassId: Tagged(rawValue: 1),
+                    effectId: 83,
+                    effectChance: nil,
+                    contestTypeId: 3,
+                    contestEffectId: 19,
+                    superContestEffectId: 12
+                  ),
+                  level: 0,
+                  methodId: 4,
+                  order: nil,
+                  mastery: nil
+                ),
+                [10]: PokeAPIPokemon.WithMoves.MoveData(
+                  move: PokeAPIMove(
+                    id: Tagged(rawValue: 104),
+                    identifier: "double-team",
+                    generationId: Tagged(rawValue: 1),
+                    typeId: Tagged(rawValue: 1),
+                    power: nil,
+                    pp: 15,
+                    accuracy: nil,
+                    priority: 0,
+                    targetId: 7,
+                    damageClassId: Tagged(rawValue: 1),
+                    effectId: 17,
+                    effectChance: nil,
+                    contestTypeId: 1,
+                    contestEffectId: 16,
+                    superContestEffectId: 1
+                  ),
+                  level: 0,
+                  methodId: 4,
+                  order: nil,
+                  mastery: nil
+                ),
+                [11]: PokeAPIPokemon.WithMoves.MoveData(
+                  move: PokeAPIMove(
+                    id: Tagged(rawValue: 115),
+                    identifier: "reflect",
+                    generationId: Tagged(rawValue: 1),
+                    typeId: Tagged(rawValue: 14),
+                    power: nil,
+                    pp: 20,
+                    accuracy: nil,
+                    priority: 0,
+                    targetId: 4,
+                    damageClassId: Tagged(rawValue: 1),
+                    effectId: 66,
+                    effectChance: nil,
+                    contestTypeId: 4,
+                    contestEffectId: 15,
+                    superContestEffectId: 13
+                  ),
+                  level: 0,
+                  methodId: 4,
+                  order: nil,
+                  mastery: nil
+                ),
+                [12]: PokeAPIPokemon.WithMoves.MoveData(
+                  move: PokeAPIMove(
+                    id: Tagged(rawValue: 117),
+                    identifier: "bide",
+                    generationId: Tagged(rawValue: 1),
+                    typeId: Tagged(rawValue: 1),
+                    power: nil,
+                    pp: 10,
+                    accuracy: nil,
+                    priority: 1,
+                    targetId: 7,
+                    damageClassId: Tagged(rawValue: 2),
+                    effectId: 27,
+                    effectChance: nil,
+                    contestTypeId: 5,
+                    contestEffectId: 15,
+                    superContestEffectId: 15
+                  ),
+                  level: 0,
+                  methodId: 4,
+                  order: nil,
+                  mastery: nil
+                ),
+                [13]: PokeAPIPokemon.WithMoves.MoveData(
+                  move: PokeAPIMove(
+                    id: Tagged(rawValue: 156),
+                    identifier: "rest",
+                    generationId: Tagged(rawValue: 1),
+                    typeId: Tagged(rawValue: 14),
+                    power: nil,
+                    pp: 5,
+                    accuracy: nil,
+                    priority: 0,
+                    targetId: 7,
+                    damageClassId: Tagged(rawValue: 1),
+                    effectId: 38,
+                    effectChance: nil,
+                    contestTypeId: 3,
+                    contestEffectId: 16,
+                    superContestEffectId: 8
+                  ),
+                  level: 0,
+                  methodId: 4,
+                  order: nil,
+                  mastery: nil
+                ),
+                [14]: PokeAPIPokemon.WithMoves.MoveData(
+                  move: PokeAPIMove(
+                    id: Tagged(rawValue: 164),
+                    identifier: "substitute",
+                    generationId: Tagged(rawValue: 1),
+                    typeId: Tagged(rawValue: 1),
+                    power: nil,
+                    pp: 10,
+                    accuracy: nil,
+                    priority: 0,
+                    targetId: 7,
+                    damageClassId: Tagged(rawValue: 1),
+                    effectId: 80,
+                    effectChance: nil,
+                    contestTypeId: 4,
+                    contestEffectId: 16,
+                    superContestEffectId: 23
+                  ),
+                  level: 0,
+                  methodId: 4,
+                  order: nil,
+                  mastery: nil
+                ),
+                [15]: PokeAPIPokemon.WithMoves.MoveData(
+                  move: PokeAPIMove(
+                    id: Tagged(rawValue: 33),
+                    identifier: "tackle",
+                    generationId: Tagged(rawValue: 1),
+                    typeId: Tagged(rawValue: 1),
+                    power: 40,
+                    pp: 35,
+                    accuracy: 100,
+                    priority: 0,
+                    targetId: 10,
+                    damageClassId: Tagged(rawValue: 2),
+                    effectId: 1,
+                    effectChance: nil,
+                    contestTypeId: 5,
+                    contestEffectId: 1,
+                    superContestEffectId: 5
+                  ),
+                  level: 1,
+                  methodId: 1,
+                  order: 1,
+                  mastery: nil
+                ),
+                [16]: PokeAPIPokemon.WithMoves.MoveData(
+                  move: PokeAPIMove(
+                    id: Tagged(rawValue: 45),
+                    identifier: "growl",
+                    generationId: Tagged(rawValue: 1),
+                    typeId: Tagged(rawValue: 1),
+                    power: nil,
+                    pp: 40,
+                    accuracy: 100,
+                    priority: 0,
+                    targetId: 11,
+                    damageClassId: Tagged(rawValue: 1),
+                    effectId: 19,
+                    effectChance: nil,
+                    contestTypeId: 3,
+                    contestEffectId: 28,
+                    superContestEffectId: 19
+                  ),
+                  level: 1,
+                  methodId: 1,
+                  order: 2,
+                  mastery: nil
+                ),
+                [17]: PokeAPIPokemon.WithMoves.MoveData(
+                  move: PokeAPIMove(
+                    id: Tagged(rawValue: 73),
+                    identifier: "leech-seed",
+                    generationId: Tagged(rawValue: 1),
+                    typeId: Tagged(rawValue: 12),
+                    power: nil,
+                    pp: 10,
+                    accuracy: 90,
+                    priority: 0,
+                    targetId: 10,
+                    damageClassId: Tagged(rawValue: 1),
+                    effectId: 85,
+                    effectChance: nil,
+                    contestTypeId: 4,
+                    contestEffectId: 8,
+                    superContestEffectId: 21
+                  ),
+                  level: 7,
+                  methodId: 1,
+                  order: nil,
+                  mastery: nil
+                ),
+                [18]: PokeAPIPokemon.WithMoves.MoveData(
+                  move: PokeAPIMove(
+                    id: Tagged(rawValue: 22),
+                    identifier: "vine-whip",
+                    generationId: Tagged(rawValue: 1),
+                    typeId: Tagged(rawValue: 12),
+                    power: 45,
+                    pp: 25,
+                    accuracy: 100,
+                    priority: 0,
+                    targetId: 10,
+                    damageClassId: Tagged(rawValue: 2),
+                    effectId: 1,
+                    effectChance: nil,
+                    contestTypeId: 1,
+                    contestEffectId: 1,
+                    superContestEffectId: 5
+                  ),
+                  level: 13,
+                  methodId: 1,
+                  order: nil,
+                  mastery: nil
+                ),
+                [19]: PokeAPIPokemon.WithMoves.MoveData(
+                  move: PokeAPIMove(
+                    id: Tagged(rawValue: 77),
+                    identifier: "poison-powder",
+                    generationId: Tagged(rawValue: 1),
+                    typeId: Tagged(rawValue: 4),
+                    power: nil,
+                    pp: 35,
+                    accuracy: 75,
+                    priority: 0,
+                    targetId: 10,
+                    damageClassId: Tagged(rawValue: 1),
+                    effectId: 67,
+                    effectChance: nil,
+                    contestTypeId: 4,
+                    contestEffectId: 33,
+                    superContestEffectId: 19
+                  ),
+                  level: 20,
+                  methodId: 1,
+                  order: nil,
+                  mastery: nil
+                ),
+                [20]: PokeAPIPokemon.WithMoves.MoveData(
+                  move: PokeAPIMove(
+                    id: Tagged(rawValue: 75),
+                    identifier: "razor-leaf",
+                    generationId: Tagged(rawValue: 1),
+                    typeId: Tagged(rawValue: 12),
+                    power: 55,
+                    pp: 25,
+                    accuracy: 95,
+                    priority: 0,
+                    targetId: 11,
+                    damageClassId: Tagged(rawValue: 2),
+                    effectId: 44,
+                    effectChance: nil,
+                    contestTypeId: 1,
+                    contestEffectId: 2,
+                    superContestEffectId: 5
+                  ),
+                  level: 27,
+                  methodId: 1,
+                  order: nil,
+                  mastery: nil
+                ),
+                [21]: PokeAPIPokemon.WithMoves.MoveData(
+                  move: PokeAPIMove(
+                    id: Tagged(rawValue: 74),
+                    identifier: "growth",
+                    generationId: Tagged(rawValue: 1),
+                    typeId: Tagged(rawValue: 1),
+                    power: nil,
+                    pp: 20,
+                    accuracy: nil,
+                    priority: 0,
+                    targetId: 7,
+                    damageClassId: Tagged(rawValue: 1),
+                    effectId: 317,
+                    effectChance: nil,
+                    contestTypeId: 2,
+                    contestEffectId: 32,
+                    superContestEffectId: 11
+                  ),
+                  level: 34,
+                  methodId: 1,
+                  order: nil,
+                  mastery: nil
+                ),
+                [22]: PokeAPIPokemon.WithMoves.MoveData(
+                  move: PokeAPIMove(
+                    id: Tagged(rawValue: 79),
+                    identifier: "sleep-powder",
+                    generationId: Tagged(rawValue: 1),
+                    typeId: Tagged(rawValue: 12),
+                    power: nil,
+                    pp: 15,
+                    accuracy: 75,
+                    priority: 0,
+                    targetId: 10,
+                    damageClassId: Tagged(rawValue: 1),
+                    effectId: 2,
+                    effectChance: nil,
+                    contestTypeId: 4,
+                    contestEffectId: 5,
+                    superContestEffectId: 19
+                  ),
+                  level: 41,
+                  methodId: 1,
+                  order: nil,
+                  mastery: nil
+                ),
+                [23]: PokeAPIPokemon.WithMoves.MoveData(
+                  move: PokeAPIMove(
+                    id: Tagged(rawValue: 76),
+                    identifier: "solar-beam",
+                    generationId: Tagged(rawValue: 1),
+                    typeId: Tagged(rawValue: 12),
+                    power: 120,
+                    pp: 10,
+                    accuracy: 100,
+                    priority: 0,
+                    targetId: 10,
+                    damageClassId: Tagged(rawValue: 3),
+                    effectId: 152,
+                    effectChance: nil,
+                    contestTypeId: 1,
+                    contestEffectId: 1,
+                    superContestEffectId: 6
+                  ),
+                  level: 48,
+                  methodId: 1,
+                  order: nil,
+                  mastery: nil
+                )
+              ]
+            )
             """
         }
     }
@@ -609,6 +1037,52 @@ struct AggregateRelationshipTests {
                   [0]: PokeAPIType(
                     id: Tagged(rawValue: 12),
                     identifier: "grass",
+                    generationId: Tagged(rawValue: 1),
+                    damageClassId: Tagged(rawValue: 3)
+                  ),
+                  [1]: PokeAPIType(
+                    id: Tagged(rawValue: 4),
+                    identifier: "poison",
+                    generationId: Tagged(rawValue: 1),
+                    damageClassId: Tagged(rawValue: 2)
+                  )
+                ]
+              ),
+              [3]: PokeAPIPokemon.WithTypes(
+                pokemon: PokeAPIPokemon(
+                  id: Tagged(rawValue: 4),
+                  identifier: "charmander",
+                  speciesId: Tagged(rawValue: 4),
+                  heightInDecimeters: 6,
+                  weightInHectograms: 85,
+                  baseExperience: 62,
+                  order: 5,
+                  isDefault: true
+                ),
+                types: [
+                  [0]: PokeAPIType(
+                    id: Tagged(rawValue: 10),
+                    identifier: "fire",
+                    generationId: Tagged(rawValue: 1),
+                    damageClassId: Tagged(rawValue: 3)
+                  )
+                ]
+              ),
+              [4]: PokeAPIPokemon.WithTypes(
+                pokemon: PokeAPIPokemon(
+                  id: Tagged(rawValue: 5),
+                  identifier: "charmeleon",
+                  speciesId: Tagged(rawValue: 5),
+                  heightInDecimeters: 11,
+                  weightInHectograms: 190,
+                  baseExperience: 142,
+                  order: 6,
+                  isDefault: true
+                ),
+                types: [
+                  [0]: PokeAPIType(
+                    id: Tagged(rawValue: 10),
+                    identifier: "fire",
                     generationId: Tagged(rawValue: 1),
                     damageClassId: Tagged(rawValue: 3)
                   )
