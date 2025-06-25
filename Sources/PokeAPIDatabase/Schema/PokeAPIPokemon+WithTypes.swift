@@ -17,7 +17,7 @@ extension PokeAPIPokemon {
 
         public init(
             pokemon: PokeAPIPokemon,
-            types: [PokeAPIType],
+            types: [PokeAPIType]
         ) {
             self.pokemon = pokemon
             self.types = types
@@ -33,19 +33,20 @@ extension PokeAPIPokemon {
         /// - Returns: Array of Pokemon with their types, ordered by Pokemon ID
         public static func fetchAll(
             _ database: StructuredQueriesSQLite.Database,
-            limit: Int? = 10,
+            limit: Int? = 10
         ) throws -> [PokeAPIPokemon.WithTypes] {
-            let query = With {
-                PokeAPIPokemon
-                    .select(PokeAPIPokemon.TableSelection.Columns.init(pokemon:))
-                    .limit(limit ?? 10_000) // higher than total number of pokemon
-            } query: {
-                PokeAPIPokemon.TableSelection
-                    .join(PokeAPIPokemonType.all, on: joinOn(pokemon:junction:))
-                    .join(PokeAPIType.all, on: joinOn(pokemon:junction:type:))
+            // Get all Pokemon
+            let allPokemon: [PokeAPIPokemon] = try database.execute(
+                PokeAPIPokemon.all.limit(limit ?? 10_000)
+            )
+            
+            var results: [WithTypes] = []
+            for pokemon in allPokemon {
+                let types = try fetchTypesForPokemon(database, pokemonId: pokemon.id)
+                results.append(WithTypes(pokemon: pokemon, types: types))
             }
-            let fetchResults: [(PokeAPIPokemon.TableSelection, PokeAPIPokemonType, PokeAPIType)] = try database.execute(query)
-            return process(fetchResults: fetchResults)
+            
+            return results.sorted(by: { $0.pokemon.id < $1.pokemon.id })
         }
 
         /// Fetches a single Pokemon with its types.
@@ -57,62 +58,52 @@ extension PokeAPIPokemon {
         /// - Throws: `WithTypesError.pokemonNotFound` if no Pokemon exists with the given ID
         public static func fetchOne(
             _ database: StructuredQueriesSQLite.Database,
-            pokemonId: PokeAPIPokemon.ID,
+            pokemonId: PokeAPIPokemon.ID
         ) throws -> PokeAPIPokemon.WithTypes {
-            let query = With {
-                PokeAPIPokemon
-                    .select(PokeAPIPokemon.TableSelection.Columns.init(pokemon:))
-                    .where { $0.id == pokemonId }
-            } query: {
-                PokeAPIPokemon.TableSelection
-                    .join(PokeAPIPokemonType.all, on: joinOn(pokemon:junction:))
-                    .join(PokeAPIType.all, on: joinOn(pokemon:junction:type:))
-            }
-            let fetchResults: [(PokeAPIPokemon.TableSelection, PokeAPIPokemonType, PokeAPIType)] = try database.execute(query)
-            guard let result = process(fetchResults: fetchResults).first else {
+            // Get the Pokemon
+            let pokemonResults: [PokeAPIPokemon] = try database.execute(
+                PokeAPIPokemon.all.where { $0.id == pokemonId }
+            )
+            guard let pokemon = pokemonResults.first else {
                 throw WithTypesError.pokemonNotFound(pokemonId)
             }
-            return result
+            
+            // Get its types
+            let types = try fetchTypesForPokemon(database, pokemonId: pokemonId)
+            
+            return WithTypes(pokemon: pokemon, types: types)
         }
 
-        // MARK: -
+        // MARK: - Private Helpers
 
-        private static func process(
-            fetchResults: [(PokeAPIPokemon.TableSelection, PokeAPIPokemonType, PokeAPIType)],
-        ) -> [WithTypes] {
-            fetchResults
-                .reduce(into: [PokeAPIPokemon.ID: WithTypes]()) { acc, next in
-                    let (tableSelection, junction, type) = next
-                    let pokemon = tableSelection.pokemon
-                    let existing = acc[pokemon.id]?.types ?? []
-                    let newTypes = switch junction.slot {
-                    case 1: // first slow
-                        [type] + existing
-                    default: // nil assumes existing is empty, 2 means it is the second
-                        existing + [type]
-                    }
-                    acc[pokemon.id] = WithTypes(
-                        pokemon: pokemon,
-                        types: newTypes
-                    )
-                }
-                .sorted(by: { $0.key < $1.key })
-                .map(\.value)
-        }
-
-        private static func joinOn(
-            pokemon: PokeAPIPokemon.TableSelection.TableColumns,
-            junction: PokeAPIPokemonType.TableColumns,
-        ) -> some QueryExpression<Bool> {
-            return pokemon.id.eq(junction.pokemonId)
-        }
-
-        private static func joinOn(
-            pokemon: PokeAPIPokemon.TableSelection.TableColumns,
-            junction: PokeAPIPokemonType.TableColumns,
-            type: PokeAPIType.TableColumns
-        ) -> some QueryExpression<Bool> {
-            return junction.typeId.eq(type.id)
+        /// Fetches all type data for a specific Pokemon.
+        private static func fetchTypesForPokemon(
+            _ database: StructuredQueriesSQLite.Database,
+            pokemonId: PokeAPIPokemon.ID
+        ) throws -> [PokeAPIType] {
+            // 1. Get Pokemon-type relationships for this Pokemon
+            let pokemonTypes: [PokeAPIPokemonType] = try database.execute(
+                PokeAPIPokemonType.all.where { $0.pokemonId == pokemonId }
+            )
+            
+            var typeArray: [PokeAPIType] = []
+            
+            for pokemonType in pokemonTypes {
+                // 2. Get the actual type data
+                let type: PokeAPIType = try database.execute(
+                    PokeAPIType.all.where { $0.id == pokemonType.typeId }
+                ).first!
+                
+                typeArray.append(type)
+            }
+            
+            // Sort types by slot (primary type first, secondary type second)
+            return typeArray.sorted { lhs, rhs in
+                // Find the slots for these types
+                let lhsSlot = pokemonTypes.first { $0.typeId == lhs.id }?.slot ?? 1
+                let rhsSlot = pokemonTypes.first { $0.typeId == rhs.id }?.slot ?? 1
+                return lhsSlot < rhsSlot
+            }
         }
 
         // MARK: -

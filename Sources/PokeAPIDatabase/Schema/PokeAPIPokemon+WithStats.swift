@@ -52,17 +52,18 @@ extension PokeAPIPokemon {
             _ database: StructuredQueriesSQLite.Database,
             limit: Int? = 10
         ) throws -> [PokeAPIPokemon.WithStats] {
-            let query = With {
-                PokeAPIPokemon
-                    .select(PokeAPIPokemon.TableSelection.Columns.init(pokemon:))
-                    .limit(limit ?? 10_000) // higher than total number of pokemon
-            } query: {
-                PokeAPIPokemon.TableSelection
-                    .join(PokeAPIPokemonStat.all, on: joinOn(pokemon:junction:))
-                    .join(PokeAPIStat.all, on: joinOn(pokemon:junction:stat:))
+            // Get all Pokemon
+            let allPokemon: [PokeAPIPokemon] = try database.execute(
+                PokeAPIPokemon.all.limit(limit ?? 10_000)
+            )
+            
+            var results: [WithStats] = []
+            for pokemon in allPokemon {
+                let stats = try fetchStatsForPokemon(database, pokemonId: pokemon.id)
+                results.append(WithStats(pokemon: pokemon, stats: stats))
             }
-            let fetchResults: [(PokeAPIPokemon.TableSelection, PokeAPIPokemonStat, PokeAPIStat)] = try database.execute(query)
-            return process(fetchResults: fetchResults)
+            
+            return results.sorted(by: { $0.pokemon.id < $1.pokemon.id })
         }
 
         /// Fetches a single Pokemon with its base stats.
@@ -76,63 +77,54 @@ extension PokeAPIPokemon {
             _ database: StructuredQueriesSQLite.Database,
             pokemonId: PokeAPIPokemon.ID
         ) throws -> PokeAPIPokemon.WithStats {
-            let query = With {
-                PokeAPIPokemon
-                    .select(PokeAPIPokemon.TableSelection.Columns.init(pokemon:))
-                    .where { $0.id == pokemonId }
-            } query: {
-                PokeAPIPokemon.TableSelection
-                    .join(PokeAPIPokemonStat.all, on: joinOn(pokemon:junction:))
-                    .join(PokeAPIStat.all, on: joinOn(pokemon:junction:stat:))
-            }
-            let fetchResults: [(PokeAPIPokemon.TableSelection, PokeAPIPokemonStat, PokeAPIStat)] = try database.execute(query)
-            guard let result = process(fetchResults: fetchResults).first else {
+            // Get the Pokemon
+            let pokemonResults: [PokeAPIPokemon] = try database.execute(
+                PokeAPIPokemon.all.where { $0.id == pokemonId }
+            )
+            guard let pokemon = pokemonResults.first else {
                 throw WithStatsError.pokemonNotFound(pokemonId)
             }
-            return result
+            
+            // Get its stats
+            let stats = try fetchStatsForPokemon(database, pokemonId: pokemonId)
+            
+            return WithStats(pokemon: pokemon, stats: stats)
         }
 
-        // MARK: -
+        // MARK: - Private Helpers
 
-        private static func process(
-            fetchResults: [(PokeAPIPokemon.TableSelection, PokeAPIPokemonStat, PokeAPIStat)]
-        ) -> [WithStats] {
-            fetchResults
-                .reduce(into: [PokeAPIPokemon.ID: WithStats]()) { acc, next in
-                    let (tableSelection, junction, stat) = next
-                    let pokemon = tableSelection.pokemon
-                    let existing = acc[pokemon.id]?.stats ?? []
-                    let statData = StatData(
-                        stat: stat,
-                        baseStat: junction.baseStat,
-                        effort: junction.effort
-                    )
-                    let newStats = existing + [statData]
-                    acc[pokemon.id] = WithStats(
-                        pokemon: pokemon,
-                        stats: newStats.sorted { lhs, rhs in
-                            // Sort by stat ID (standard game order: HP, Atk, Def, SpA, SpD, Spe)
-                            lhs.stat.id.rawValue < rhs.stat.id.rawValue
-                        }
-                    )
-                }
-                .sorted(by: { $0.key < $1.key })
-                .map(\.value)
-        }
-
-        private static func joinOn(
-            pokemon: PokeAPIPokemon.TableSelection.TableColumns,
-            junction: PokeAPIPokemonStat.TableColumns
-        ) -> some QueryExpression<Bool> {
-            return pokemon.id.eq(junction.pokemonId)
-        }
-
-        private static func joinOn(
-            pokemon: PokeAPIPokemon.TableSelection.TableColumns,
-            junction: PokeAPIPokemonStat.TableColumns,
-            stat: PokeAPIStat.TableColumns
-        ) -> some QueryExpression<Bool> {
-            return junction.statId.eq(stat.id)
+        /// Fetches all stat data for a specific Pokemon.
+        private static func fetchStatsForPokemon(
+            _ database: StructuredQueriesSQLite.Database,
+            pokemonId: PokeAPIPokemon.ID
+        ) throws -> [StatData] {
+            // 1. Get Pokemon-stat relationships for this Pokemon
+            let pokemonStats: [PokeAPIPokemonStat] = try database.execute(
+                PokeAPIPokemonStat.all.where { $0.pokemonId == pokemonId }
+            )
+            
+            var statDataArray: [StatData] = []
+            
+            for pokemonStat in pokemonStats {
+                // 2. Get the actual stat data
+                let stat: PokeAPIStat = try database.execute(
+                    PokeAPIStat.all.where { $0.id == pokemonStat.statId }
+                ).first!
+                
+                // 3. Create the stat data
+                let statData = StatData(
+                    stat: stat,
+                    baseStat: pokemonStat.baseStat,
+                    effort: pokemonStat.effort
+                )
+                
+                statDataArray.append(statData)
+            }
+            
+            // Sort stats by stat ID (HP, Attack, Defense, Sp.Attack, Sp.Defense, Speed)
+            return statDataArray.sorted { lhs, rhs in
+                return lhs.stat.id < rhs.stat.id
+            }
         }
 
         // MARK: -
@@ -142,4 +134,3 @@ extension PokeAPIPokemon {
         }
     }
 }
-

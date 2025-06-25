@@ -20,8 +20,8 @@ public struct PokeAPIEncounterSlot: Decodable, Hashable, Identifiable, Sendable 
     
     /// Slot number within the encounter method (typically 1-12)
     /// Lower slot numbers are usually more common encounters
-    /// Range: 0-25
-    @Column("slot") public var slot: Int
+    /// Range: 0-25, null values are possible
+    @Column("slot") public var slot: Int?
     
     /// Encounter rate/rarity percentage (0-100)
     /// Higher values mean more common encounters

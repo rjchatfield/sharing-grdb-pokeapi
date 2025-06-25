@@ -52,17 +52,18 @@ extension PokeAPIPokemon {
             _ database: StructuredQueriesSQLite.Database,
             limit: Int? = 10
         ) throws -> [PokeAPIPokemon.WithAbilities] {
-            let query = With {
-                PokeAPIPokemon
-                    .select(PokeAPIPokemon.TableSelection.Columns.init(pokemon:))
-                    .limit(limit ?? 10_000) // higher than total number of pokemon
-            } query: {
-                PokeAPIPokemon.TableSelection
-                    .join(PokeAPIPokemonAbility.all, on: joinOn(pokemon:junction:))
-                    .join(PokeAPIAbility.all, on: joinOn(pokemon:junction:ability:))
+            // Get all Pokemon
+            let allPokemon: [PokeAPIPokemon] = try database.execute(
+                PokeAPIPokemon.all.limit(limit ?? 10_000)
+            )
+            
+            var results: [WithAbilities] = []
+            for pokemon in allPokemon {
+                let abilities = try fetchAbilitiesForPokemon(database, pokemonId: pokemon.id)
+                results.append(WithAbilities(pokemon: pokemon, abilities: abilities))
             }
-            let fetchResults: [(PokeAPIPokemon.TableSelection, PokeAPIPokemonAbility, PokeAPIAbility)] = try database.execute(query)
-            return process(fetchResults: fetchResults)
+            
+            return results.sorted(by: { $0.pokemon.id < $1.pokemon.id })
         }
 
         /// Fetches a single Pokemon with its abilities.
@@ -76,63 +77,54 @@ extension PokeAPIPokemon {
             _ database: StructuredQueriesSQLite.Database,
             pokemonId: PokeAPIPokemon.ID
         ) throws -> PokeAPIPokemon.WithAbilities {
-            let query = With {
-                PokeAPIPokemon
-                    .select(PokeAPIPokemon.TableSelection.Columns.init(pokemon:))
-                    .where { $0.id == pokemonId }
-            } query: {
-                PokeAPIPokemon.TableSelection
-                    .join(PokeAPIPokemonAbility.all, on: joinOn(pokemon:junction:))
-                    .join(PokeAPIAbility.all, on: joinOn(pokemon:junction:ability:))
-            }
-            let fetchResults: [(PokeAPIPokemon.TableSelection, PokeAPIPokemonAbility, PokeAPIAbility)] = try database.execute(query)
-            guard let result = process(fetchResults: fetchResults).first else {
+            // Get the Pokemon
+            let pokemonResults: [PokeAPIPokemon] = try database.execute(
+                PokeAPIPokemon.all.where { $0.id == pokemonId }
+            )
+            guard let pokemon = pokemonResults.first else {
                 throw WithAbilitiesError.pokemonNotFound(pokemonId)
             }
-            return result
+            
+            // Get its abilities
+            let abilities = try fetchAbilitiesForPokemon(database, pokemonId: pokemonId)
+            
+            return WithAbilities(pokemon: pokemon, abilities: abilities)
         }
 
-        // MARK: -
+        // MARK: - Private Helpers
 
-        private static func process(
-            fetchResults: [(PokeAPIPokemon.TableSelection, PokeAPIPokemonAbility, PokeAPIAbility)]
-        ) -> [WithAbilities] {
-            fetchResults
-                .reduce(into: [PokeAPIPokemon.ID: WithAbilities]()) { acc, next in
-                    let (tableSelection, junction, ability) = next
-                    let pokemon = tableSelection.pokemon
-                    let existing = acc[pokemon.id]?.abilities ?? []
-                    let abilityData = AbilityData(
-                        ability: ability,
-                        isHidden: junction.isHidden,
-                        slot: junction.slot
-                    )
-                    let newAbilities = existing + [abilityData]
-                    acc[pokemon.id] = WithAbilities(
-                        pokemon: pokemon,
-                        abilities: newAbilities.sorted { lhs, rhs in
-                            // Sort by slot (regular abilities first, then hidden)
-                            lhs.slot < rhs.slot
-                        }
-                    )
-                }
-                .sorted(by: { $0.key < $1.key })
-                .map(\.value)
-        }
-
-        private static func joinOn(
-            pokemon: PokeAPIPokemon.TableSelection.TableColumns,
-            junction: PokeAPIPokemonAbility.TableColumns
-        ) -> some QueryExpression<Bool> {
-            return pokemon.id.eq(junction.pokemonId)
-        }
-
-        private static func joinOn(
-            pokemon: PokeAPIPokemon.TableSelection.TableColumns,
-            junction: PokeAPIPokemonAbility.TableColumns,
-            ability: PokeAPIAbility.TableColumns
-        ) -> some QueryExpression<Bool> {
-            return junction.abilityId.eq(ability.id)
+        /// Fetches all ability data for a specific Pokemon.
+        private static func fetchAbilitiesForPokemon(
+            _ database: StructuredQueriesSQLite.Database,
+            pokemonId: PokeAPIPokemon.ID
+        ) throws -> [AbilityData] {
+            // 1. Get Pokemon-ability relationships for this Pokemon
+            let pokemonAbilities: [PokeAPIPokemonAbility] = try database.execute(
+                PokeAPIPokemonAbility.all.where { $0.pokemonId == pokemonId }
+            )
+            
+            var abilityDataArray: [AbilityData] = []
+            
+            for pokemonAbility in pokemonAbilities {
+                // 2. Get the actual ability data
+                let ability: PokeAPIAbility = try database.execute(
+                    PokeAPIAbility.all.where { $0.id == pokemonAbility.abilityId }
+                ).first!
+                
+                // 3. Create the ability data
+                let abilityData = AbilityData(
+                    ability: ability,
+                    isHidden: pokemonAbility.isHidden,
+                    slot: pokemonAbility.slot
+                )
+                
+                abilityDataArray.append(abilityData)
+            }
+            
+            // Sort abilities by slot (regular abilities first, then hidden)
+            return abilityDataArray.sorted { lhs, rhs in
+                return lhs.slot < rhs.slot
+            }
         }
 
         // MARK: -

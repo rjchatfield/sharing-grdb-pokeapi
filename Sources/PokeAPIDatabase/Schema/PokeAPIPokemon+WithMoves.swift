@@ -64,17 +64,27 @@ extension PokeAPIPokemon {
             versionGroupId: PokeAPIVersionGroup.ID,
             limit: Int? = 10
         ) throws -> [PokeAPIPokemon.WithMoves] {
-            let query = With {
-                PokeAPIPokemon
-                    .select(PokeAPIPokemon.TableSelection.Columns.init(pokemon:))
-                    .limit(limit ?? 10_000) // higher than total number of pokemon
-            } query: {
-                PokeAPIPokemon.TableSelection
-                    .join(PokeAPIPokemonMove.all.where { $0.versionGroupId == versionGroupId }, on: joinOn(pokemon:junction:))
-                    .join(PokeAPIMove.all, on: joinOn(pokemon:junction:move:))
+            // Get Pokemon that have moves in this version group
+            let pokemonMoves: [PokeAPIPokemonMove] = try database.execute(
+                PokeAPIPokemonMove.all.where { $0.versionGroupId == versionGroupId }
+            )
+            
+            let pokemonIds = Set(pokemonMoves.map { $0.pokemonId })
+            let limitedPokemonIds = Array(pokemonIds.sorted()).prefix(limit ?? 10_000)
+            
+            var results: [WithMoves] = []
+            for pokemonId in limitedPokemonIds {
+                // Get the Pokemon
+                let pokemon: PokeAPIPokemon = try database.execute(
+                    PokeAPIPokemon.all.where { $0.id == pokemonId }
+                ).first!
+                
+                // Get its moves for this version group
+                let moves = try fetchMovesForPokemon(database, pokemonId: pokemonId, versionGroupId: versionGroupId)
+                results.append(WithMoves(pokemon: pokemon, moves: moves))
             }
-            let fetchResults: [(PokeAPIPokemon.TableSelection, PokeAPIPokemonMove, PokeAPIMove)] = try database.execute(query)
-            return process(fetchResults: fetchResults)
+            
+            return results.sorted(by: { $0.pokemon.id < $1.pokemon.id })
         }
 
         /// Fetches a single Pokemon with its moves for a specific version group.
@@ -90,68 +100,65 @@ extension PokeAPIPokemon {
             pokemonId: PokeAPIPokemon.ID,
             versionGroupId: PokeAPIVersionGroup.ID
         ) throws -> PokeAPIPokemon.WithMoves {
-            let query = With {
-                PokeAPIPokemon
-                    .select(PokeAPIPokemon.TableSelection.Columns.init(pokemon:))
-                    .where { $0.id == pokemonId }
-            } query: {
-                PokeAPIPokemon.TableSelection
-                    .join(PokeAPIPokemonMove.all.where { $0.versionGroupId == versionGroupId }, on: joinOn(pokemon:junction:))
-                    .join(PokeAPIMove.all, on: joinOn(pokemon:junction:move:))
-            }
-            let fetchResults: [(PokeAPIPokemon.TableSelection, PokeAPIPokemonMove, PokeAPIMove)] = try database.execute(query)
-            guard let result = process(fetchResults: fetchResults).first else {
+            // Get the Pokemon
+            let pokemonResults: [PokeAPIPokemon] = try database.execute(
+                PokeAPIPokemon.all.where { $0.id == pokemonId }
+            )
+            guard let pokemon = pokemonResults.first else {
                 throw WithMovesError.pokemonNotFound(pokemonId)
             }
-            return result
+            
+            // Get its moves for this version group
+            let moves = try fetchMovesForPokemon(database, pokemonId: pokemonId, versionGroupId: versionGroupId)
+            
+            return WithMoves(pokemon: pokemon, moves: moves)
         }
 
-        // MARK: -
+        // MARK: - Private Helpers
 
-        private static func process(
-            fetchResults: [(PokeAPIPokemon.TableSelection, PokeAPIPokemonMove, PokeAPIMove)]
-        ) -> [WithMoves] {
-            fetchResults
-                .reduce(into: [PokeAPIPokemon.ID: WithMoves]()) { acc, next in
-                    let (tableSelection, junction, move) = next
-                    let pokemon = tableSelection.pokemon
-                    let existing = acc[pokemon.id]?.moves ?? []
-                    let moveData = MoveData(
-                        move: move,
-                        level: junction.level,
-                        methodId: junction.pokemonMoveMethodId,
-                        order: junction.order,
-                        mastery: junction.mastery
-                    )
-                    let newMoves = existing + [moveData]
-                    acc[pokemon.id] = WithMoves(
-                        pokemon: pokemon,
-                        moves: newMoves.sorted { lhs, rhs in
-                            // Sort by level first, then by order
-                            if lhs.level != rhs.level {
-                                return lhs.level < rhs.level
-                            }
-                            return (lhs.order ?? 0) < (rhs.order ?? 0)
-                        }
-                    )
+        /// Fetches all move data for a specific Pokemon in a specific version group.
+        private static func fetchMovesForPokemon(
+            _ database: StructuredQueriesSQLite.Database,
+            pokemonId: PokeAPIPokemon.ID,
+            versionGroupId: PokeAPIVersionGroup.ID
+        ) throws -> [MoveData] {
+            // 1. Get Pokemon-move relationships for this Pokemon and version group
+            let pokemonMoves: [PokeAPIPokemonMove] = try database.execute(
+                PokeAPIPokemonMove.all.where { 
+                    $0.pokemonId == pokemonId && $0.versionGroupId == versionGroupId 
                 }
-                .sorted(by: { $0.key < $1.key })
-                .map(\.value)
-        }
-
-        private static func joinOn(
-            pokemon: PokeAPIPokemon.TableSelection.TableColumns,
-            junction: PokeAPIPokemonMove.TableColumns
-        ) -> some QueryExpression<Bool> {
-            return pokemon.id.eq(junction.pokemonId)
-        }
-
-        private static func joinOn(
-            pokemon: PokeAPIPokemon.TableSelection.TableColumns,
-            junction: PokeAPIPokemonMove.TableColumns,
-            move: PokeAPIMove.TableColumns
-        ) -> some QueryExpression<Bool> {
-            return junction.moveId.eq(move.id)
+            )
+            
+            var moveDataArray: [MoveData] = []
+            
+            for pokemonMove in pokemonMoves {
+                // 2. Get the actual move data
+                let move: PokeAPIMove = try database.execute(
+                    PokeAPIMove.all.where { $0.id == pokemonMove.moveId }
+                ).first!
+                
+                // 3. Create the move data
+                let moveData = MoveData(
+                    move: move,
+                    level: pokemonMove.level,
+                    methodId: pokemonMove.pokemonMoveMethodId,
+                    order: pokemonMove.order,
+                    mastery: pokemonMove.mastery
+                )
+                
+                moveDataArray.append(moveData)
+            }
+            
+            // Sort moves by level, then order (if available), then move ID for consistent ordering
+            return moveDataArray.sorted { lhs, rhs in
+                if lhs.level != rhs.level {
+                    return lhs.level < rhs.level
+                }
+                if let lhsOrder = lhs.order, let rhsOrder = rhs.order {
+                    return lhsOrder < rhsOrder
+                }
+                return lhs.move.id < rhs.move.id
+            }
         }
 
         // MARK: -
