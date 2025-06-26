@@ -42,25 +42,25 @@ extension PokeAPIVersionGroup {
             versionGroupId: PokeAPIVersionGroup.ID
         ) throws -> [PokeAPIPokemonSpecies] {
             // Get the generation for this version group
-            let versionGroupResults: [PokeAPIVersionGroup] = try database.execute(
-                PokeAPIVersionGroup.all.where { $0.id == versionGroupId }
+            let generationIds: [PokeAPIGeneration.ID] = try database.execute(
+                PokeAPIVersionGroup.all
+                    .where { $0.id == versionGroupId }
+                    .select(\.generationId)
             )
-            guard let versionGroup = versionGroupResults.first else {
+            guard let generationId = generationIds.first else {
                 throw StarterError.versionGroupNotFound(versionGroupId)
             }
             
             // Get starter Pokemon species for this generation
-            let starterIds = starterSpeciesIds(for: versionGroup.generationId)
+            let starterIds = starterSpeciesIds(for: generationId)
             
-            let starters: [PokeAPIPokemonSpecies] = try database.execute(
+            return try database.execute(
                 PokeAPIPokemonSpecies.all
                     .where { pokemonSpecies in
                         starterIds.contains(pokemonSpecies.id)
                     }
                     .order(by: \.id)
             )
-            
-            return starters
         }
         
         /// Returns the starter Pokemon species IDs for a given generation
