@@ -51,6 +51,44 @@ extension PokeAPIPokemon {
             return results
         }
 
+        /// Fetches multiple Pokemon with their types, filtered by version availability.
+        /// 
+        /// This ensures that Pokemon like Pikachu in Pokemon Red won't return forms
+        /// that weren't available in that generation (e.g., Alolan forms with different types).
+        /// 
+        /// - Parameters:
+        ///   - database: The database to query
+        ///   - versionId: The game version to filter forms for
+        ///   - limit: Maximum number of Pokemon to fetch (default: 10, use nil for all)
+        /// - Returns: Array of Pokemon with their types, filtered for version compatibility
+        public static func fetchAllForVersion(
+            _ database: StructuredQueriesSQLite.Database,
+            versionId: PokeAPIVersion.ID,
+            limit: Int? = 10
+        ) throws -> [PokeAPIPokemon.WithTypes] {
+            // Get all Pokemon
+            let allPokemon: [PokeAPIPokemon] = try database.execute(
+                PokeAPIPokemon.all
+                    .limit(limit ?? 10_000)
+                    .order(by: \.id)
+            )
+            
+            // Filter forms based on availability in the target version
+            let availableForms = try PokeAPIPokemonFormFiltering.filterFormsForVersion(
+                database, 
+                pokemon: allPokemon, 
+                versionId: versionId
+            )
+
+            let results: [WithTypes] = try availableForms
+                .map { pokemon in
+                    let types = try fetchTypesForPokemon(database, pokemonId: pokemon.id)
+                    return WithTypes(pokemon: pokemon, types: types)
+                }
+            
+            return results
+        }
+
         /// Fetches a single Pokemon with its types.
         /// 
         /// - Parameters:

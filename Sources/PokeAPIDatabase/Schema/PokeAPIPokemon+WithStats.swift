@@ -66,6 +66,43 @@ extension PokeAPIPokemon {
                 }
         }
 
+        /// Fetches multiple Pokemon with their base stats, filtered by version availability.
+        /// 
+        /// This ensures that Pokemon like Pikachu in Pokemon Red won't return forms
+        /// that weren't available in that generation (e.g., Gigantamax forms).
+        /// 
+        /// - Parameters:
+        ///   - database: The database to query
+        ///   - versionId: The game version to filter forms for
+        ///   - limit: Maximum number of Pokemon to fetch (default: 10, use nil for all)
+        /// - Returns: Array of Pokemon with their stats, filtered for version compatibility
+        public static func fetchAllForVersion(
+            _ database: StructuredQueriesSQLite.Database,
+            versionId: PokeAPIVersion.ID,
+            limit: Int? = 10
+        ) throws -> [PokeAPIPokemon.WithStats] {
+            // Get all Pokemon
+            let allPokemon: [PokeAPIPokemon] = try database.execute(
+                PokeAPIPokemon.all
+                    .limit(limit ?? 10_000)
+                    .order(by: \.id)
+            )
+            
+            // Filter forms based on availability in the target version
+            let availableForms = try PokeAPIPokemonFormFiltering.filterFormsForVersion(
+                database, 
+                pokemon: allPokemon, 
+                versionId: versionId
+            )
+            
+            // Get stats for available forms
+            return try availableForms
+                .map { pokemon in
+                    let stats = try fetchStatsForPokemon(database, pokemonId: pokemon.id)
+                    return WithStats(pokemon: pokemon, stats: stats)
+                }
+        }
+
         /// Fetches a single Pokemon with its base stats.
         /// 
         /// - Parameters:
