@@ -9,4 +9,8 @@ A local SQLite version of the PokeAPI.com database.
 
 - Build with `swift build`
 - Test with `swift test`
-- If test involves an inline snapshot test, it will not record an update. You will need me to run it.
+- **Recording inline snapshots**: `swift test` cannot record inline snapshots properly. Use `xcodebuild` instead:
+  ```bash
+  xcodebuild test -scheme PokeAPIDatabase -destination "platform=macOS,arch=arm64"
+  ```
+  This will automatically update source files with recorded snapshots when tests fail due to snapshot mismatches.
