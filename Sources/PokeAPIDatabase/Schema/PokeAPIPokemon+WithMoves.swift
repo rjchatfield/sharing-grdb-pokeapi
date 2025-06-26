@@ -64,27 +64,18 @@ extension PokeAPIPokemon {
             versionGroupId: PokeAPIVersionGroup.ID,
             limit: Int? = 10
         ) throws -> [PokeAPIPokemon.WithMoves] {
-            // Get Pokemon that have moves in this version group
-            let pokemonMoves: [PokeAPIPokemonMove] = try database.execute(
-                PokeAPIPokemonMove.all.where { $0.versionGroupId == versionGroupId }
+            // Get distinct Pokemon IDs that have moves in this version
+            let pokemonIds: [PokeAPIPokemon.ID] = try database.execute(
+                PokeAPIPokemonMove.all
+                    .where { $0.versionGroupId == versionGroupId }
+                    .select(\.pokemonId)
+                    .distinct()
+                    .limit(limit ?? 10_000)
+                    .order(by: \.pokemonId)
             )
-            
-            let pokemonIds = Set(pokemonMoves.map { $0.pokemonId })
-            let limitedPokemonIds = Array(pokemonIds.sorted()).prefix(limit ?? 10_000)
-            
-            var results: [WithMoves] = []
-            for pokemonId in limitedPokemonIds {
-                // Get the Pokemon
-                let pokemon: PokeAPIPokemon = try database.execute(
-                    PokeAPIPokemon.all.where { $0.id == pokemonId }
-                ).first!
-                
-                // Get its moves for this version group
-                let moves = try fetchMovesForPokemon(database, pokemonId: pokemonId, versionGroupId: versionGroupId)
-                results.append(WithMoves(pokemon: pokemon, moves: moves))
-            }
-            
-            return results.sorted(by: { $0.pokemon.id < $1.pokemon.id })
+            // Get its moves
+            return try pokemonIds
+                .map { try fetchOne(database, pokemonId: $0, versionGroupId: versionGroupId) }
         }
 
         /// Fetches a single Pokemon with its moves for a specific version group.
@@ -122,43 +113,34 @@ extension PokeAPIPokemon {
             pokemonId: PokeAPIPokemon.ID,
             versionGroupId: PokeAPIVersionGroup.ID
         ) throws -> [MoveData] {
-            // 1. Get Pokemon-move relationships for this Pokemon and version group
-            let pokemonMoves: [PokeAPIPokemonMove] = try database.execute(
-                PokeAPIPokemonMove.all.where { 
-                    $0.pokemonId == pokemonId && $0.versionGroupId == versionGroupId 
-                }
+            let pokemonMoves: [(PokeAPIPokemonMove, PokeAPIMove)] = try database.execute(
+                PokeAPIPokemonMove.all
+                    .where {
+                        return $0.pokemonId == pokemonId
+                            && $0.versionGroupId == versionGroupId
+                    }
+                    .join(PokeAPIMove.all) { $0.moveId == $1.id }
             )
-            
-            var moveDataArray: [MoveData] = []
-            
-            for pokemonMove in pokemonMoves {
-                // 2. Get the actual move data
-                let move: PokeAPIMove = try database.execute(
-                    PokeAPIMove.all.where { $0.id == pokemonMove.moveId }
-                ).first!
-                
-                // 3. Create the move data
-                let moveData = MoveData(
-                    move: move,
-                    level: pokemonMove.level,
-                    methodId: pokemonMove.pokemonMoveMethodId,
-                    order: pokemonMove.order,
-                    mastery: pokemonMove.mastery
-                )
-                
-                moveDataArray.append(moveData)
-            }
-            
-            // Sort moves by level, then order (if available), then move ID for consistent ordering
-            return moveDataArray.sorted { lhs, rhs in
-                if lhs.level != rhs.level {
-                    return lhs.level < rhs.level
+            return pokemonMoves
+                .map { pokemonMove, move in
+                    MoveData(
+                        move: move,
+                        level: pokemonMove.level,
+                        methodId: pokemonMove.pokemonMoveMethodId,
+                        order: pokemonMove.order,
+                        mastery: pokemonMove.mastery
+                    )
                 }
-                if let lhsOrder = lhs.order, let rhsOrder = rhs.order {
-                    return lhsOrder < rhsOrder
+                // Sort moves by level, then order (if available), then move ID for consistent ordering
+                .sorted { lhs, rhs in
+                    if lhs.level != rhs.level {
+                        return lhs.level < rhs.level
+                    }
+                    if let lhsOrder = lhs.order, let rhsOrder = rhs.order {
+                        return lhsOrder < rhsOrder
+                    }
+                    return lhs.move.id < rhs.move.id
                 }
-                return lhs.move.id < rhs.move.id
-            }
         }
 
         // MARK: -

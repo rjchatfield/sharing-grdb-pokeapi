@@ -67,26 +67,17 @@ extension PokeAPIPokemon {
             limit: Int? = 10
         ) throws -> [PokeAPIPokemon.WithEncounters] {
             // Get distinct Pokemon IDs that have encounters in this version
-            let encountersInVersion: [PokeAPIEncounter] = try database.execute(
-                PokeAPIEncounter.all.where { $0.versionId == versionId }
+            let pokemonIds: [PokeAPIPokemon.ID] = try database.execute(
+                PokeAPIEncounter.all
+                    .where { $0.versionId == versionId }
+                    .select(\.pokemonId)
+                    .distinct()
+                    .limit(limit ?? 10_000)
+                    .order(by: \.pokemonId)
             )
-            
-            let pokemonIds = Set(encountersInVersion.map { $0.pokemonId })
-            let limitedPokemonIds = Array(pokemonIds.sorted()).prefix(limit ?? 10_000)
-            
-            var results: [WithEncounters] = []
-            for pokemonId in limitedPokemonIds {
-                // Get the Pokemon
-                let pokemon: PokeAPIPokemon = try database.execute(
-                    PokeAPIPokemon.all.where { $0.id == pokemonId }
-                ).first!
-                
-                // Get its encounters
-                let encounters = try fetchEncountersForPokemon(database, pokemonId: pokemonId, versionId: versionId)
-                results.append(WithEncounters(pokemon: pokemon, encounters: encounters))
-            }
-            
-            return results.sorted(by: { $0.pokemon.id < $1.pokemon.id })
+            // Get its encounters
+            return try pokemonIds
+                .map { try fetchOne(database, pokemonId: $0, versionId: versionId) }
         }
 
         /// Fetches a single Pokemon with its encounter data for a specific version.
@@ -124,54 +115,63 @@ extension PokeAPIPokemon {
             versionId: PokeAPIVersion.ID
         ) throws -> [EncounterData] {
             // 1. Get base encounters for this Pokemon in this version
-            let encounters: [PokeAPIEncounter] = try database.execute(
-                PokeAPIEncounter.all.where { 
-                    $0.pokemonId == pokemonId && $0.versionId == versionId 
-                }
+            let encounters: [(PokeAPIEncounter, PokeAPILocationArea, PokeAPIEncounterSlot, PokeAPIEncounterMethod)] = try database.execute(
+                PokeAPIEncounter.all
+                    .where {
+                        return $0.pokemonId == pokemonId
+                            && $0.versionId == versionId
+                    }
+                    .join(PokeAPILocationArea.all, on: joinOn(encounter:location:))
+                    .join(PokeAPIEncounterSlot.all, on: joinOn(encounter:location:encounterSlot:))
+                    .join(PokeAPIEncounterMethod.all, on: joinOn(encounter:location:encounterSlot:encounterMethod:))
             )
             
-            var encounterDataArray: [EncounterData] = []
-            
-            for encounter in encounters {
-                // 2. Get the location area for this encounter
-                let locationArea: PokeAPILocationArea = try database.execute(
-                    PokeAPILocationArea.all.where { $0.id == encounter.locationAreaId }
-                ).first!
-                
-                // 3. Get the encounter slot details
-                let encounterSlot: PokeAPIEncounterSlot = try database.execute(
-                    PokeAPIEncounterSlot.all.where { $0.id == encounter.encounterSlotId }
-                ).first!
-                
-                // 4. Get the encounter method
-                let encounterMethod: PokeAPIEncounterMethod = try database.execute(
-                    PokeAPIEncounterMethod.all.where { $0.id == encounterSlot.encounterMethodId }
-                ).first!
-                
-                // 5. Create the encounter data
-                let encounterData = EncounterData(
-                    encounter: encounter,
-                    locationArea: locationArea,
-                    method: encounterMethod,
-                    slot: encounterSlot.slot ?? 1, // Default to slot 1 if null
-                    rarity: encounterSlot.rarity,
-                    minLevel: encounter.minLevel,
-                    maxLevel: encounter.maxLevel
-                )
-                
-                encounterDataArray.append(encounterData)
-            }
-            
-            // Sort encounters by method order, then rarity (high to low), then location area ID
-            return encounterDataArray.sorted { lhs, rhs in
-                if lhs.method.order != rhs.method.order {
-                    return lhs.method.order < rhs.method.order
+            return encounters
+                .map { (encounter, locationArea, encounterSlot, encounterMethod) in
+                    EncounterData(
+                        encounter: encounter,
+                        locationArea: locationArea,
+                        method: encounterMethod,
+                        slot: encounterSlot.slot ?? 1, // Default to slot 1 if null
+                        rarity: encounterSlot.rarity,
+                        minLevel: encounter.minLevel,
+                        maxLevel: encounter.maxLevel
+                    )
                 }
-                if lhs.rarity != rhs.rarity {
-                    return lhs.rarity > rhs.rarity // Higher rarity (more common) first
+                // Sort encounters by method order, then rarity (high to low), then location area ID
+                .sorted { lhs, rhs in
+                    if lhs.method.order != rhs.method.order {
+                        return lhs.method.order < rhs.method.order
+                    }
+                    if lhs.rarity != rhs.rarity {
+                        return lhs.rarity > rhs.rarity // Higher value (more common) first
+                    }
+                    return lhs.locationArea.id.rawValue < rhs.locationArea.id.rawValue
                 }
-                return lhs.locationArea.id.rawValue < rhs.locationArea.id.rawValue
-            }
+        }
+
+        private static func joinOn(
+            encounter: PokeAPIEncounter.TableColumns,
+            location: PokeAPILocationArea.TableColumns,
+        ) -> some QueryExpression<Bool> {
+            return encounter.locationAreaId.eq(location.id)
+        }
+
+        private static func joinOn(
+            encounter: PokeAPIEncounter.TableColumns,
+            location: PokeAPILocationArea.TableColumns,
+            encounterSlot: PokeAPIEncounterSlot.TableColumns,
+        ) -> some QueryExpression<Bool> {
+            return encounter.encounterSlotId.eq(encounterSlot.id)
+        }
+
+        private static func joinOn(
+            encounter: PokeAPIEncounter.TableColumns,
+            location: PokeAPILocationArea.TableColumns,
+            encounterSlot: PokeAPIEncounterSlot.TableColumns,
+            encounterMethod: PokeAPIEncounterMethod.TableColumns,
+        ) -> some QueryExpression<Bool> {
+            return encounterSlot.encounterMethodId.eq(encounterMethod.id)
         }
 
         // MARK: -

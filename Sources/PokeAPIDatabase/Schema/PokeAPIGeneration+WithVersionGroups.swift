@@ -59,43 +59,38 @@ extension PokeAPIGeneration {
         public static func fetchAll(
             _ database: StructuredQueriesSQLite.Database
         ) throws -> [PokeAPIGeneration.WithVersionGroups] {
-            // Use a simple subquery approach to avoid complex join syntax issues
-            let generations: [PokeAPIGeneration] = try database.execute(PokeAPIGeneration.all)
-            
-            var results: [WithVersionGroups] = []
-            for generation in generations {
-                // Get the region for this generation
-                let region: PokeAPIRegion = try database.execute(
-                    PokeAPIRegion.all.where { $0.id == generation.mainRegionId }
-                ).first!
-                
-                // Get version groups for this generation
-                let versionGroups: [PokeAPIVersionGroup] = try database.execute(
-                    PokeAPIVersionGroup.all.where { $0.generationId == generation.id }
-                )
-                
-                // For each version group, get its individual versions
-                var versionGroupsData: [VersionGroupData] = []
-                for versionGroup in versionGroups {
-                    let versions: [PokeAPIVersion] = try database.execute(
-                        PokeAPIVersion.all.where { $0.versionGroupId == versionGroup.id }
+            let generations: [(PokeAPIGeneration, PokeAPIRegion)] = try database.execute(
+                PokeAPIGeneration.all
+                    .join(PokeAPIRegion.all) { $0.mainRegionId == $1.id }
+                    .order(by: \.id)
+            )
+            return try generations
+                .map { (generation, region) in
+                    // Get version groups for this generation
+                    let versionGroups: [PokeAPIVersionGroup] = try database.execute(
+                        PokeAPIVersionGroup.all
+                            .where { $0.generationId == generation.id }
+                            .order(by: \.id)
                     )
-                    versionGroupsData.append(VersionGroupData(
-                        versionGroup: versionGroup,
-                        versions: versions.sorted(by: { $0.id < $1.id })
-                    ))
+                    // For each version group, get its individual versions
+                    let versionGroupsData: [VersionGroupData] = try versionGroups
+                        .map { versionGroup in
+                            let versions: [PokeAPIVersion] = try database.execute(
+                                PokeAPIVersion.all
+                                    .where { $0.versionGroupId == versionGroup.id }
+                                    .order(by: \.id)
+                            )
+                            return VersionGroupData(
+                                versionGroup: versionGroup,
+                                versions: versions
+                            )
+                        }
+                    return WithVersionGroups(
+                        generation: generation,
+                        region: region,
+                        versionGroups: versionGroupsData
+                    )
                 }
-                
-                results.append(WithVersionGroups(
-                    generation: generation,
-                    region: region,
-                    versionGroups: versionGroupsData.sorted(by: { $0.versionGroup.id < $1.versionGroup.id })
-                ))
-            }
-            
-            return results.sorted(by: { $0.generation.id < $1.generation.id })
         }
-
-
     }
 }

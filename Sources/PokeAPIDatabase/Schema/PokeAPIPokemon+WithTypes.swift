@@ -37,16 +37,18 @@ extension PokeAPIPokemon {
         ) throws -> [PokeAPIPokemon.WithTypes] {
             // Get all Pokemon
             let allPokemon: [PokeAPIPokemon] = try database.execute(
-                PokeAPIPokemon.all.limit(limit ?? 10_000)
+                PokeAPIPokemon.all
+                    .limit(limit ?? 10_000)
+                    .order(by: \.id)
             )
+
+            let results: [WithTypes] = try allPokemon
+                .map { pokemon in
+                    let types = try fetchTypesForPokemon(database, pokemonId: pokemon.id)
+                    return WithTypes(pokemon: pokemon, types: types)
+                }
             
-            var results: [WithTypes] = []
-            for pokemon in allPokemon {
-                let types = try fetchTypesForPokemon(database, pokemonId: pokemon.id)
-                results.append(WithTypes(pokemon: pokemon, types: types))
-            }
-            
-            return results.sorted(by: { $0.pokemon.id < $1.pokemon.id })
+            return results
         }
 
         /// Fetches a single Pokemon with its types.
@@ -81,29 +83,14 @@ extension PokeAPIPokemon {
             _ database: StructuredQueriesSQLite.Database,
             pokemonId: PokeAPIPokemon.ID
         ) throws -> [PokeAPIType] {
-            // 1. Get Pokemon-type relationships for this Pokemon
-            let pokemonTypes: [PokeAPIPokemonType] = try database.execute(
-                PokeAPIPokemonType.all.where { $0.pokemonId == pokemonId }
+            return try database.execute(
+                PokeAPIPokemonType.all
+                    .where { $0.pokemonId == pokemonId }
+                    // Sort types by slot (primary type first, secondary type second)
+                    .order(by: \.slot)
+                    .join(PokeAPIType.all) { $0.typeId == $1.id }
+                    .select { $1 }
             )
-            
-            var typeArray: [PokeAPIType] = []
-            
-            for pokemonType in pokemonTypes {
-                // 2. Get the actual type data
-                let type: PokeAPIType = try database.execute(
-                    PokeAPIType.all.where { $0.id == pokemonType.typeId }
-                ).first!
-                
-                typeArray.append(type)
-            }
-            
-            // Sort types by slot (primary type first, secondary type second)
-            return typeArray.sorted { lhs, rhs in
-                // Find the slots for these types
-                let lhsSlot = pokemonTypes.first { $0.typeId == lhs.id }?.slot ?? 1
-                let rhsSlot = pokemonTypes.first { $0.typeId == rhs.id }?.slot ?? 1
-                return lhsSlot < rhsSlot
-            }
         }
 
         // MARK: -

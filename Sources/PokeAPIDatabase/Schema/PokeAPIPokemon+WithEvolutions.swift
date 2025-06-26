@@ -35,18 +35,18 @@ extension PokeAPIPokemon {
             _ database: StructuredQueriesSQLite.Database,
             limit: Int? = 10
         ) throws -> [PokeAPIPokemon.WithEvolutions] {
-            // Get Pokemon that have evolution data
-            let pokemonWithEvolutions: [PokeAPIPokemon] = try database.execute(
-                PokeAPIPokemon.all.limit(limit ?? 10_000)
+            // Get all Pokemon
+            let allPokemon: [PokeAPIPokemon] = try database.execute(
+                PokeAPIPokemon.all
+                    .limit(limit ?? 10_000)
+                    .order(by: \.id)
             )
-            
-            var results: [WithEvolutions] = []
-            for pokemon in pokemonWithEvolutions {
-                let evolutions = try fetchEvolutionsForPokemon(database, pokemonId: pokemon.id)
-                results.append(WithEvolutions(pokemon: pokemon, evolutions: evolutions))
-            }
-            
-            return results.sorted(by: { $0.pokemon.id < $1.pokemon.id })
+            // Get its evolutions
+            return try allPokemon
+                .map { pokemon in
+                    let evolutions = try fetchEvolutionsForPokemon(database, pokemon: pokemon)
+                    return WithEvolutions(pokemon: pokemon, evolutions: evolutions)
+                }
         }
 
         /// Fetches a single Pokemon with its evolution data.
@@ -68,7 +68,7 @@ extension PokeAPIPokemon {
             }
             
             // Get its evolutions
-            let evolutions = try fetchEvolutionsForPokemon(database, pokemonId: pokemonId)
+            let evolutions = try fetchEvolutionsForPokemon(database, pokemon: pokemon)
             
             return WithEvolutions(pokemon: pokemon, evolutions: evolutions)
         }
@@ -78,33 +78,15 @@ extension PokeAPIPokemon {
         /// Fetches all evolution data for a specific Pokemon.
         private static func fetchEvolutionsForPokemon(
             _ database: StructuredQueriesSQLite.Database,
-            pokemonId: PokeAPIPokemon.ID
+            pokemon: PokeAPIPokemon
         ) throws -> [PokeAPIPokemonEvolution] {
-            // 1. Get the Pokemon to find its species ID
-            let pokemon: [PokeAPIPokemon] = try database.execute(
-                PokeAPIPokemon.all.where { $0.id == pokemonId }
+            return try database.execute(
+                PokeAPIPokemonSpecies.all
+                    .where { $0.id == pokemon.speciesId }
+                    .order(by: \.id)
+                    .join(PokeAPIPokemonEvolution.all) { $0.id == $1.evolvedSpeciesId }
+                    .select { $1 }
             )
-            guard let pokemonResult = pokemon.first else {
-                return []
-            }
-            
-            // 2. Get the Pokemon's species to find its evolution chain
-            let pokemonSpecies: [PokeAPIPokemonSpecies] = try database.execute(
-                PokeAPIPokemonSpecies.all.where { $0.id == pokemonResult.speciesId }
-            )
-            guard let species = pokemonSpecies.first else {
-                // No species found, return empty evolutions
-                return []
-            }
-            
-            // 3. Get all evolutions that evolve FROM this species
-            let evolutions: [PokeAPIPokemonEvolution] = try database.execute(
-                PokeAPIPokemonEvolution.all.where { evolution in
-                    evolution.evolvedSpeciesId == species.id
-                }
-            )
-            
-            return evolutions.sorted(by: { $0.id < $1.id })
         }
 
         // MARK: -

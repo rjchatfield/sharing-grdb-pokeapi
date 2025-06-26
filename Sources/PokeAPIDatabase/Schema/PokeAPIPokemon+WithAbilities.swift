@@ -54,16 +54,16 @@ extension PokeAPIPokemon {
         ) throws -> [PokeAPIPokemon.WithAbilities] {
             // Get all Pokemon
             let allPokemon: [PokeAPIPokemon] = try database.execute(
-                PokeAPIPokemon.all.limit(limit ?? 10_000)
+                PokeAPIPokemon.all
+                    .limit(limit ?? 10_000)
+                    .order(by: \.id)
             )
-            
-            var results: [WithAbilities] = []
-            for pokemon in allPokemon {
-                let abilities = try fetchAbilitiesForPokemon(database, pokemonId: pokemon.id)
-                results.append(WithAbilities(pokemon: pokemon, abilities: abilities))
-            }
-            
-            return results.sorted(by: { $0.pokemon.id < $1.pokemon.id })
+            // Get its abilities
+            return try allPokemon
+                .map { pokemon in
+                    let abilities = try fetchAbilitiesForPokemon(database, pokemonId: pokemon.id)
+                    return WithAbilities(pokemon: pokemon, abilities: abilities)
+                }
         }
 
         /// Fetches a single Pokemon with its abilities.
@@ -98,33 +98,21 @@ extension PokeAPIPokemon {
             _ database: StructuredQueriesSQLite.Database,
             pokemonId: PokeAPIPokemon.ID
         ) throws -> [AbilityData] {
-            // 1. Get Pokemon-ability relationships for this Pokemon
-            let pokemonAbilities: [PokeAPIPokemonAbility] = try database.execute(
-                PokeAPIPokemonAbility.all.where { $0.pokemonId == pokemonId }
+            let pokemonAbilities: [(PokeAPIPokemonAbility, PokeAPIAbility)] = try database.execute(
+                PokeAPIPokemonAbility.all
+                    .where { $0.pokemonId == pokemonId }
+                    // Sort abilities by slot (regular abilities first, then hidden)
+                    .order(by: \.slot)
+                    .join(PokeAPIAbility.all) { $0.abilityId == $1.id }
             )
-            
-            var abilityDataArray: [AbilityData] = []
-            
-            for pokemonAbility in pokemonAbilities {
-                // 2. Get the actual ability data
-                let ability: PokeAPIAbility = try database.execute(
-                    PokeAPIAbility.all.where { $0.id == pokemonAbility.abilityId }
-                ).first!
-                
-                // 3. Create the ability data
-                let abilityData = AbilityData(
-                    ability: ability,
-                    isHidden: pokemonAbility.isHidden,
-                    slot: pokemonAbility.slot
-                )
-                
-                abilityDataArray.append(abilityData)
-            }
-            
-            // Sort abilities by slot (regular abilities first, then hidden)
-            return abilityDataArray.sorted { lhs, rhs in
-                return lhs.slot < rhs.slot
-            }
+            return pokemonAbilities
+                .map { (pokemonAbility, ability) in
+                    AbilityData(
+                        ability: ability,
+                        isHidden: pokemonAbility.isHidden,
+                        slot: pokemonAbility.slot
+                    )
+                }
         }
 
         // MARK: -

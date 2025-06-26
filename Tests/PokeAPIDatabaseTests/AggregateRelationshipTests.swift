@@ -20,7 +20,7 @@ struct AggregateRelationshipTests {
     @Test
     func testPokemonWithAbilities_fetchAll() throws {
         let database = Helper.sqlDB()
-        let allPokemonWithAbilities = try PokeAPIPokemon.WithAbilities.fetchAll(database, limit: 3)
+        let allPokemonWithAbilities = try PokeAPIPokemon.WithAbilities.fetchAll(database, limit: 4)
         assertInlineSnapshot(of: allPokemonWithAbilities.map { ($0.pokemon.identifier, $0.abilities.map { "\($0.ability.identifier)(slot:\($0.slot),hidden:\($0.isHidden))" }) }, as: .customDump) {
             """
             [
@@ -43,6 +43,13 @@ struct AggregateRelationshipTests {
                 [
                   [0]: "overgrow(slot:1,hidden:false)",
                   [1]: "chlorophyll(slot:3,hidden:true)"
+                ]
+              ),
+              [3]: (
+                "charmander",
+                [
+                  [0]: "blaze(slot:1,hidden:false)",
+                  [1]: "solar-power(slot:3,hidden:true)"
                 ]
               )
             ]
@@ -105,6 +112,93 @@ struct AggregateRelationshipTests {
                       locationId: Tagged(rawValue: 86),
                       gameIndex: 102
                     ),
+                    method: PokeAPIEncounterMethod(
+                      id: Tagged(rawValue: 18),
+                      identifier: "gift",
+                      order: 18
+                    ),
+                    slot: 1,
+                    rarity: 100,
+                    minLevel: 5,
+                    maxLevel: 5
+                  )
+                ]
+              ),
+              [1]: PokeAPIPokemon.WithEncounters(
+                pokemon: PokeAPIPokemon(
+                  id: Tagged(rawValue: 4),
+                  identifier: "charmander",
+                  speciesId: Tagged(rawValue: 4),
+                  heightInDecimeters: 6,
+                  weightInHectograms: 85,
+                  baseExperience: 62,
+                  order: 5,
+                  isDefault: true
+                ),
+                encounters: [
+                  [0]: PokeAPIPokemon.WithEncounters.EncounterData(
+                    encounter: PokeAPIEncounter(
+                      id: Tagged(rawValue: 50292),
+                      versionId: Tagged(rawValue: 1),
+                      locationAreaId: Tagged(rawValue: 285),
+                      encounterSlotId: Tagged(rawValue: 490),
+                      pokemonId: Tagged(rawValue: 4),
+                      minLevel: 5,
+                      maxLevel: 5
+                    ),
+                    locationArea: PokeAPILocationArea(
+                      id: Tagged(rawValue: 285),
+                      identifier: nil,
+                      locationId: Tagged(rawValue: 86),
+                      gameIndex: 102
+                    ),
+                    method: PokeAPIEncounterMethod(
+                      id: Tagged(rawValue: 18),
+                      identifier: "gift",
+                      order: 18
+                    ),
+                    slot: 1,
+                    rarity: 100,
+                    minLevel: 5,
+                    maxLevel: 5
+                  )
+                ]
+              ),
+              [2]: PokeAPIPokemon.WithEncounters(
+                pokemon: PokeAPIPokemon(
+                  id: Tagged(rawValue: 7),
+                  identifier: "squirtle",
+                  speciesId: Tagged(rawValue: 7),
+                  heightInDecimeters: 5,
+                  weightInHectograms: 90,
+                  baseExperience: 63,
+                  order: 10,
+                  isDefault: true
+                ),
+                encounters: [
+                  [0]: PokeAPIPokemon.WithEncounters.EncounterData(
+                    encounter: PokeAPIEncounter(
+                      id: Tagged(rawValue: 50294),
+                      versionId: Tagged(rawValue: 1),
+                      locationAreaId: Tagged(rawValue: 285),
+                      encounterSlotId: Tagged(rawValue: 490),
+                      pokemonId: Tagged(rawValue: 7),
+                      minLevel: 5,
+                      maxLevel: 5
+                    ),
+                    locationArea: PokeAPILocationArea(
+                      id: Tagged(rawValue: 285),
+                      identifier: nil,
+                      locationId: Tagged(rawValue: 86),
+                      gameIndex: 102
+                    ),
+                    method: PokeAPIEncounterMethod(
+                      id: Tagged(rawValue: 18),
+                      identifier: "gift",
+                      order: 18
+                    ),
+                    slot: 1,
+                    rarity: 100,
                     minLevel: 5,
                     maxLevel: 5
                   )
@@ -143,25 +237,6 @@ struct AggregateRelationshipTests {
               [
                 [0]: PokeAPIPokemon.WithEncounters.EncounterData(
                   encounter: PokeAPIEncounter(
-                    id: Tagged(rawValue: 24258),
-                    versionId: Tagged(rawValue: 1),
-                    locationAreaId: Tagged(rawValue: 315),
-                    encounterSlotId: Tagged(rawValue: 76),
-                    pokemonId: Tagged(rawValue: 10),
-                    minLevel: 8,
-                    maxLevel: 8
-                  ),
-                  locationArea: PokeAPILocationArea(
-                    id: Tagged(rawValue: 315),
-                    identifier: nil,
-                    locationId: Tagged(rawValue: 104),
-                    gameIndex: 132
-                  ),
-                  minLevel: 8,
-                  maxLevel: 8
-                ),
-                [1]: PokeAPIPokemon.WithEncounters.EncounterData(
-                  encounter: PokeAPIEncounter(
                     id: Tagged(rawValue: 24266),
                     versionId: Tagged(rawValue: 1),
                     locationAreaId: Tagged(rawValue: 321),
@@ -176,8 +251,41 @@ struct AggregateRelationshipTests {
                     locationId: Tagged(rawValue: 155),
                     gameIndex: 138
                   ),
+                  method: PokeAPIEncounterMethod(
+                    id: Tagged(rawValue: 1),
+                    identifier: "walk",
+                    order: 1
+                  ),
+                  slot: 8,
+                  rarity: 5,
                   minLevel: 3,
                   maxLevel: 3
+                ),
+                [1]: PokeAPIPokemon.WithEncounters.EncounterData(
+                  encounter: PokeAPIEncounter(
+                    id: Tagged(rawValue: 24258),
+                    versionId: Tagged(rawValue: 1),
+                    locationAreaId: Tagged(rawValue: 315),
+                    encounterSlotId: Tagged(rawValue: 76),
+                    pokemonId: Tagged(rawValue: 10),
+                    minLevel: 8,
+                    maxLevel: 8
+                  ),
+                  locationArea: PokeAPILocationArea(
+                    id: Tagged(rawValue: 315),
+                    identifier: nil,
+                    locationId: Tagged(rawValue: 104),
+                    gameIndex: 132
+                  ),
+                  method: PokeAPIEncounterMethod(
+                    id: Tagged(rawValue: 1),
+                    identifier: "walk",
+                    order: 1
+                  ),
+                  slot: 10,
+                  rarity: 1,
+                  minLevel: 8,
+                  maxLevel: 8
                 )
               ]
             )
@@ -196,6 +304,19 @@ struct AggregateRelationshipTests {
             """
             [
               [0]: PokeAPIPokemon.WithEvolutions(
+                pokemon: PokeAPIPokemon(
+                  id: Tagged(rawValue: 1),
+                  identifier: "bulbasaur",
+                  speciesId: Tagged(rawValue: 1),
+                  heightInDecimeters: 7,
+                  weightInHectograms: 69,
+                  baseExperience: 64,
+                  order: 1,
+                  isDefault: true
+                ),
+                evolutions: []
+              ),
+              [1]: PokeAPIPokemon.WithEvolutions(
                 pokemon: PokeAPIPokemon(
                   id: Tagged(rawValue: 2),
                   identifier: "ivysaur",
@@ -231,7 +352,7 @@ struct AggregateRelationshipTests {
                   )
                 ]
               ),
-              [1]: PokeAPIPokemon.WithEvolutions(
+              [2]: PokeAPIPokemon.WithEvolutions(
                 pokemon: PokeAPIPokemon(
                   id: Tagged(rawValue: 3),
                   identifier: "venusaur",

@@ -54,16 +54,16 @@ extension PokeAPIPokemon {
         ) throws -> [PokeAPIPokemon.WithStats] {
             // Get all Pokemon
             let allPokemon: [PokeAPIPokemon] = try database.execute(
-                PokeAPIPokemon.all.limit(limit ?? 10_000)
+                PokeAPIPokemon.all
+                    .limit(limit ?? 10_000)
+                    .order(by: \.id)
             )
-            
-            var results: [WithStats] = []
-            for pokemon in allPokemon {
-                let stats = try fetchStatsForPokemon(database, pokemonId: pokemon.id)
-                results.append(WithStats(pokemon: pokemon, stats: stats))
-            }
-            
-            return results.sorted(by: { $0.pokemon.id < $1.pokemon.id })
+            // Get its stats
+            return try allPokemon
+                .map { pokemon in
+                    let stats = try fetchStatsForPokemon(database, pokemonId: pokemon.id)
+                    return WithStats(pokemon: pokemon, stats: stats)
+                }
         }
 
         /// Fetches a single Pokemon with its base stats.
@@ -98,33 +98,21 @@ extension PokeAPIPokemon {
             _ database: StructuredQueriesSQLite.Database,
             pokemonId: PokeAPIPokemon.ID
         ) throws -> [StatData] {
-            // 1. Get Pokemon-stat relationships for this Pokemon
-            let pokemonStats: [PokeAPIPokemonStat] = try database.execute(
-                PokeAPIPokemonStat.all.where { $0.pokemonId == pokemonId }
+            let pokemonStats: [(PokeAPIPokemonStat, PokeAPIStat)] = try database.execute(
+                PokeAPIPokemonStat.all
+                    .where { $0.pokemonId == pokemonId }
+                    .join(PokeAPIStat.all) { $0.statId == $1.id }
+                    // Sort stats by stat ID (HP, Attack, Defense, Sp.Attack, Sp.Defense, Speed)
+                    .order { $1.id }
             )
-            
-            var statDataArray: [StatData] = []
-            
-            for pokemonStat in pokemonStats {
-                // 2. Get the actual stat data
-                let stat: PokeAPIStat = try database.execute(
-                    PokeAPIStat.all.where { $0.id == pokemonStat.statId }
-                ).first!
-                
-                // 3. Create the stat data
-                let statData = StatData(
-                    stat: stat,
-                    baseStat: pokemonStat.baseStat,
-                    effort: pokemonStat.effort
-                )
-                
-                statDataArray.append(statData)
-            }
-            
-            // Sort stats by stat ID (HP, Attack, Defense, Sp.Attack, Sp.Defense, Speed)
-            return statDataArray.sorted { lhs, rhs in
-                return lhs.stat.id < rhs.stat.id
-            }
+            return pokemonStats
+                .map { (pokemonStat, stat) in
+                    StatData(
+                        stat: stat,
+                        baseStat: pokemonStat.baseStat,
+                        effort: pokemonStat.effort
+                    )
+                }
         }
 
         // MARK: -
