@@ -16,7 +16,7 @@ public struct PokeAPILocation: Decodable, Hashable, Identifiable, Sendable {
     @Column("identifier") public var identifier: Identifier
 
     /// Region this location belongs to (Kanto, Johto, Hoenn, etc.)
-    @Column("region_id") public var regionId: PokeAPIRegion.ID
+    @Column("region_id") public var regionId: PokeAPIRegion.ID?
 
     // MARK: - Helpers
 

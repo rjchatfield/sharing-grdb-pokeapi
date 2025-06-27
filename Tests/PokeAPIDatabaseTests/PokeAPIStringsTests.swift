@@ -73,13 +73,14 @@ struct PokeAPIStringsTests {
     
     @Test("Stat localization")
     func testStatLocalization() {
-        #expect(PokeAPIStrings.stat(id: 1, identifier: "ignored") == "HP")
-        #expect(PokeAPIStrings.stat(id: 2, identifier: "ignored") == "Attack")
-        #expect(PokeAPIStrings.stat(id: 3, identifier: "ignored") == "Defense")
-        #expect(PokeAPIStrings.stat(id: 4, identifier: "ignored") == "Special Attack")
-        #expect(PokeAPIStrings.stat(id: 5, identifier: "ignored") == "Special Defense")
-        #expect(PokeAPIStrings.stat(id: 6, identifier: "ignored") == "Speed")
-        #expect(PokeAPIStrings.stat(id: 99999, identifier: "super-attack") == "Super Attack")
+        #expect(PokeAPIStrings.stat(id: .hp) == "HP")
+        #expect(PokeAPIStrings.stat(id: .attack) == "Attack")
+        #expect(PokeAPIStrings.stat(id: .defense) == "Defense")
+        #expect(PokeAPIStrings.stat(id: .specialAttack) == "Special Attack")
+        #expect(PokeAPIStrings.stat(id: .specialDefense) == "Special Defense")
+        #expect(PokeAPIStrings.stat(id: .speed) == "Speed")
+        #expect(PokeAPIStrings.stat(id: .accuracy) == "Accuracy")
+        #expect(PokeAPIStrings.stat(id: .evasion) == "Evasion")
     }
     
     @Test("Nature localization")

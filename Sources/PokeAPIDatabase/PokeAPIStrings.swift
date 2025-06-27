@@ -71,11 +71,11 @@ public enum PokeAPIStrings {
     /// - Parameter id: The stat ID (1-8)
     /// - Parameter identifier: The stat identifier
     /// - Returns: Localized stat name, or the identifier as fallback
-    public static func stat(id: PokeAPIStat.ID, identifier: PokeAPIStat.Identifier) -> String {
-        return localizedString(key: "stat.\(id).name", table: "Stats")
-            ?? formatted(identifier: identifier)
+    public static func stat(id: PokeAPIStat.ID) -> String {
+        return localizedString(key: "stat.\(id.rawValue).name", table: "Stats")
+            ?? formatted(identifier: id.identifier.rawValue)
     }
-    
+
     /// Returns the localized name for a nature by its ID.
     /// - Parameter id: The nature ID (1-25)
     /// - Parameter identifier: The nature identifier

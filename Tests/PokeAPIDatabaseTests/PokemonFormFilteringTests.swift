@@ -18,12 +18,11 @@ struct PokemonFormFilteringTests {
     @Test func testFormFilteringForGeneration1() throws {
         // Test that Pikachu in Generation 1 (Red/Blue) only returns base form
         let database = Helper.sqlDB()
-        let redVersionId = PokeAPIVersion.ID(rawValue: 1) // Pokemon Red
-        
+
         let pikachuWithAllForms = try PokeAPIPokemon.WithAllForms.fetchForSpecies(
             database, 
             speciesIdentifier: "pikachu", 
-            versionId: redVersionId
+            versionId: .red
         )
         
         
@@ -36,12 +35,11 @@ struct PokemonFormFilteringTests {
     @Test func testFormFilteringForGeneration6() throws {
         // Test that Charizard in Generation 6 (X/Y) includes Mega forms but not Gigantamax
         let database = Helper.sqlDB()
-        let xVersionId = PokeAPIVersion.ID(rawValue: 23) // Pokemon X
-        
+
         let charizardWithAllForms = try PokeAPIPokemon.WithAllForms.fetchForSpecies(
             database, 
             speciesIdentifier: "charizard", 
-            versionId: xVersionId
+            versionId: .x
         )
         
         let megaForms = charizardWithAllForms.megaForms
@@ -60,12 +58,11 @@ struct PokemonFormFilteringTests {
     @Test func testFormFilteringForGeneration8() throws {
         // Test that Charizard in Generation 8 (Sword/Shield) includes Gigantamax but not Mega forms
         let database = Helper.sqlDB()
-        let swordVersionId = PokeAPIVersion.ID(rawValue: 33) // Pokemon Sword
-        
+
         let charizardWithAllForms = try PokeAPIPokemon.WithAllForms.fetchForSpecies(
             database, 
             speciesIdentifier: "charizard", 
-            versionId: swordVersionId
+            versionId: .sword
         )
         
         let megaForms = charizardWithAllForms.megaForms
@@ -83,9 +80,9 @@ struct PokemonFormFilteringTests {
     @Test func testRegionalFormsFiltering() throws {
         // Test that regional forms are filtered correctly by generation
         let database = Helper.sqlDB()
-        let gen7VersionId = PokeAPIVersion.ID(rawValue: 27) // Pokemon Sun
-        let gen8VersionId = PokeAPIVersion.ID(rawValue: 33) // Pokemon Sword
-        
+        let gen7VersionId = PokeAPIVersion.ID.sun
+        let gen8VersionId = PokeAPIVersion.ID.sword
+
         // Raichu should have Alolan form in Gen 7+
         let raichuGen7 = try PokeAPIPokemon.WithAllForms.fetchForSpecies(
             database, 
@@ -113,9 +110,9 @@ struct PokemonFormFilteringTests {
     @Test func testEvolutionChainFormFiltering() throws {
         // Test that evolution chains properly filter forms by version
         let database = Helper.sqlDB()
-        let gen1VersionId = PokeAPIVersion.ID(rawValue: 1) // Pokemon Red
-        let gen8VersionId = PokeAPIVersion.ID(rawValue: 33) // Pokemon Sword
-        
+        let gen1VersionId = PokeAPIVersion.ID.red
+        let gen8VersionId = PokeAPIVersion.ID.sword
+
         // Get Charizard evolution chain in Gen 1 vs Gen 8
         let charizardGen1Chain = try PokeAPIPokemon.WithEvolutionChain.fetchChainForPokemon(
             database, 
@@ -145,7 +142,7 @@ struct PokemonFormFilteringTests {
     @Test func testVersionAwareStatsFetching() throws {
         // Test that WithStats.fetchAllForVersion properly filters forms
         let database = Helper.sqlDB()
-        let gen1VersionId = PokeAPIVersion.ID(rawValue: 1) // Pokemon Red
+        let gen1VersionId = PokeAPIVersion.ID.red
         
         let pokemonWithStats = try PokeAPIPokemon.WithStats.fetchAllForVersion(
             database, 

@@ -6,8 +6,27 @@ import Tagged
 /// Additional stats like Accuracy and Evasion exist for battle calculations.
 @Table("stats")
 public struct PokeAPIStat: Decodable, Equatable, Identifiable, Sendable {
-    public typealias ID = Tagged<Self, Int>
-    public typealias Identifier = String
+    public enum ID: Int, Sendable, Decodable {
+        case hp = 1
+        case attack
+        case defense
+        case specialAttack
+        case specialDefense
+        case speed
+        case accuracy
+        case evasion
+    }
+
+    public enum Identifier: String, Sendable, Decodable {
+        case hp = "hp"
+        case attack = "attack"
+        case defense = "defense"
+        case specialAttack = "special-attack"
+        case specialDefense = "special-defense"
+        case speed = "speed"
+        case accuracy = "accuracy"
+        case evasion = "evasion"
+    }
 
     /// Unique stat identifier (1=HP, 2=Attack, 3=Defense, 4=Sp.Attack, 5=Sp.Defense, 6=Speed)
     @Column("id", primaryKey: true) public var id: ID
@@ -22,7 +41,7 @@ public struct PokeAPIStat: Decodable, Equatable, Identifiable, Sendable {
     /// Whether this stat only exists during battle (true for Accuracy/Evasion)
     /// Main six stats are permanent, others are temporary battle modifiers
     @Column("is_battle_only") public var isBattleOnly: Bool
-    
+
     /// In-game index number for this stat (used internally by game mechanics)
     /// Range: 1-6
     @Column("game_index") public var gameIndex: Int?
@@ -30,21 +49,63 @@ public struct PokeAPIStat: Decodable, Equatable, Identifiable, Sendable {
     // MARK: - Helpers
 
     public var localizedName: String {
-        return PokeAPIStrings.stat(id: id, identifier: identifier)
-            .replacingOccurrences(of: "Special", with: "Sp.")
+        return PokeAPIStrings.stat(id: id)
     }
-    
-    public var abbreviation: String {
-        switch identifier {
-        case "hp": return "HP"
-        case "attack": return "Atk"
-        case "defense": return "Def"
-        case "special-attack": return "SpA"
-        case "special-defense": return "SpD"
-        case "speed": return "Spe"
-        case "accuracy": return "Acc"
-        case "evasion": return "Eva"
-        default: return String(identifier.prefix(3).capitalized)
+}
+
+// MARK: - 
+
+extension PokeAPIStat.ID {
+    public var identifier: PokeAPIStat.Identifier {
+        switch self {
+        case .hp: return .hp
+        case .attack: return .attack
+        case .defense: return .defense
+        case .specialAttack: return .specialAttack
+        case .specialDefense: return .specialDefense
+        case .speed: return .speed
+        case .accuracy: return .accuracy
+        case .evasion: return .evasion
         }
     }
+}
+
+extension PokeAPIStat.Identifier {
+    public var id: PokeAPIStat.ID {
+        switch self {
+        case .hp: return .hp
+        case .attack: return .attack
+        case .defense: return .defense
+        case .specialAttack: return .specialAttack
+        case .specialDefense: return .specialDefense
+        case .speed: return .speed
+        case .accuracy: return .accuracy
+        case .evasion: return .evasion
+        }
+    }
+
+    public var abbreviation: String {
+        switch self {
+        case .hp: return "HP"
+        case .attack: return "Atk"
+        case .defense: return "Def"
+        case .specialAttack: return "SpA"
+        case .specialDefense: return "SpD"
+        case .speed: return "Spe"
+        case .accuracy: return "Acc"
+        case .evasion: return "Eva"
+        }
+    }
+}
+
+// MARK: -
+
+extension PokeAPIStat.ID: SQLiteType {
+    public static var typeAffinity: SQLiteTypeAffinity { RawValue.typeAffinity }
+}
+
+// MARK: -
+
+extension PokeAPIStat.Identifier: SQLiteType {
+    public static var typeAffinity: SQLiteTypeAffinity { RawValue.typeAffinity }
 }

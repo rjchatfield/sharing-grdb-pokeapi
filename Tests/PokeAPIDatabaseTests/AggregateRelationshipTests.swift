@@ -1040,8 +1040,8 @@ struct AggregateRelationshipTests {
                   [0]: "hp:45",
                   [1]: "attack:49",
                   [2]: "defense:49",
-                  [3]: "special-attack:65",
-                  [4]: "special-defense:65",
+                  [3]: "specialAttack:65",
+                  [4]: "specialDefense:65",
                   [5]: "speed:45"
                 ]
               ),
@@ -1051,8 +1051,8 @@ struct AggregateRelationshipTests {
                   [0]: "hp:60",
                   [1]: "attack:62",
                   [2]: "defense:63",
-                  [3]: "special-attack:80",
-                  [4]: "special-defense:80",
+                  [3]: "specialAttack:80",
+                  [4]: "specialDefense:80",
                   [5]: "speed:60"
                 ]
               )
@@ -1073,8 +1073,8 @@ struct AggregateRelationshipTests {
                 [0]: "hp:45",
                 [1]: "attack:49",
                 [2]: "defense:49",
-                [3]: "special-attack:65",
-                [4]: "special-defense:65",
+                [3]: "specialAttack:65",
+                [4]: "specialDefense:65",
                 [5]: "speed:45"
               ]
             )

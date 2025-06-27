@@ -26,3 +26,52 @@ public struct PokeAPIVersion: Decodable, Hashable, Identifiable, Sendable {
         return PokeAPIStrings.formatted(identifier: identifier)
     }
 }
+
+extension PokeAPIVersion.ID {
+    // Generation I
+    public static let red = PokeAPIVersion.ID(1)
+    public static let blue = PokeAPIVersion.ID(2)
+    public static let yellow = PokeAPIVersion.ID(3)
+    // Generation II
+    public static let gold = PokeAPIVersion.ID(4)
+    public static let silver = PokeAPIVersion.ID(5)
+    public static let crystal = PokeAPIVersion.ID(6)
+    // Generation IIII
+    public static let ruby = PokeAPIVersion.ID(7)
+    public static let sapphire = PokeAPIVersion.ID(8)
+    public static let emerald = PokeAPIVersion.ID(9)
+    public static let firered = PokeAPIVersion.ID(10)
+    public static let leafgreen = PokeAPIVersion.ID(11)
+    // Generation IV
+    public static let diamond = PokeAPIVersion.ID(12)
+    public static let pearl = PokeAPIVersion.ID(13)
+    public static let platinum = PokeAPIVersion.ID(14)
+    public static let heartgold = PokeAPIVersion.ID(15)
+    public static let soulsilver = PokeAPIVersion.ID(16)
+    // Generation V
+    public static let black = PokeAPIVersion.ID(17)
+    public static let white = PokeAPIVersion.ID(18)
+    public static let black2 = PokeAPIVersion.ID(21)
+    public static let white2 = PokeAPIVersion.ID(22)
+    // Generation VI
+    public static let x = PokeAPIVersion.ID(23)
+    public static let y = PokeAPIVersion.ID(24)
+    public static let omegaRuby = PokeAPIVersion.ID(25)
+    public static let alphaSapphire = PokeAPIVersion.ID(26)
+    // Generation VII
+    public static let sun = PokeAPIVersion.ID(27)
+    public static let moon = PokeAPIVersion.ID(28)
+    public static let ultraSun = PokeAPIVersion.ID(29)
+    public static let ultraMoon = PokeAPIVersion.ID(30)
+    public static let letsGoPikachu = PokeAPIVersion.ID(31)
+    public static let letsGoEevee = PokeAPIVersion.ID(32)
+    // Generation VIII
+    public static let sword = PokeAPIVersion.ID(33)
+    public static let shield = PokeAPIVersion.ID(34)
+    public static let brilliantDiamond = PokeAPIVersion.ID(37)
+    public static let shiningPearl = PokeAPIVersion.ID(38)
+    public static let legendsArceus = PokeAPIVersion.ID(39)
+    // Generation IX
+    public static let scarlet = PokeAPIVersion.ID(40)
+    public static let violet = PokeAPIVersion.ID(41)
+}

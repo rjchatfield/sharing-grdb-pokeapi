@@ -21,7 +21,7 @@ public struct PokeAPIType: Decodable, Equatable, Identifiable, Sendable {
 
     /// Default damage class for moves of this type (Physical/Special/Status)
     /// Used in older generations before individual moves had damage classes
-    @Column("damage_class_id") public var damageClassId: PokeAPIMoveDamageClass.ID
+    @Column("damage_class_id") public var damageClassId: PokeAPIMoveDamageClass.ID?
 
     // MARK: - Helpers
 

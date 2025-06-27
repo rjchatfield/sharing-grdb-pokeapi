@@ -23,6 +23,10 @@ extension PokeAPIPokemon {
             self.stats = stats
         }
 
+        public subscript(identifier: PokeAPIStat.Identifier) -> Int? {
+            stats.first(where: { $0.stat.identifier == identifier })?.baseStat
+        }
+
         /// Contains a stat value and effort yield for a specific Pokemon.
         public struct StatData {
             public let stat: PokeAPIStat

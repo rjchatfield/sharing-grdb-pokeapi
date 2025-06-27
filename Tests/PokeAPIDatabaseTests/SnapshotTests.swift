@@ -204,37 +204,37 @@ struct SnapshotTests {
             """
         } results: {
             """
-            ┌────────────────────────────────┐
-            │ PokeAPICharacteristic(         │
-            │   id: Tagged(rawValue: 1),     │
-            │   statId: Tagged(rawValue: 1), │
-            │   geneMod5: 0                  │
-            │ )                              │
-            ├────────────────────────────────┤
-            │ PokeAPICharacteristic(         │
-            │   id: Tagged(rawValue: 2),     │
-            │   statId: Tagged(rawValue: 2), │
-            │   geneMod5: 0                  │
-            │ )                              │
-            ├────────────────────────────────┤
-            │ PokeAPICharacteristic(         │
-            │   id: Tagged(rawValue: 3),     │
-            │   statId: Tagged(rawValue: 3), │
-            │   geneMod5: 0                  │
-            │ )                              │
-            ├────────────────────────────────┤
-            │ PokeAPICharacteristic(         │
-            │   id: Tagged(rawValue: 4),     │
-            │   statId: Tagged(rawValue: 4), │
-            │   geneMod5: 0                  │
-            │ )                              │
-            ├────────────────────────────────┤
-            │ PokeAPICharacteristic(         │
-            │   id: Tagged(rawValue: 5),     │
-            │   statId: Tagged(rawValue: 5), │
-            │   geneMod5: 0                  │
-            │ )                              │
-            └────────────────────────────────┘
+            ┌────────────────────────────┐
+            │ PokeAPICharacteristic(     │
+            │   id: Tagged(rawValue: 1), │
+            │   statId: .hp,             │
+            │   geneMod5: 0              │
+            │ )                          │
+            ├────────────────────────────┤
+            │ PokeAPICharacteristic(     │
+            │   id: Tagged(rawValue: 2), │
+            │   statId: .attack,         │
+            │   geneMod5: 0              │
+            │ )                          │
+            ├────────────────────────────┤
+            │ PokeAPICharacteristic(     │
+            │   id: Tagged(rawValue: 3), │
+            │   statId: .defense,        │
+            │   geneMod5: 0              │
+            │ )                          │
+            ├────────────────────────────┤
+            │ PokeAPICharacteristic(     │
+            │   id: Tagged(rawValue: 4), │
+            │   statId: .specialAttack,  │
+            │   geneMod5: 0              │
+            │ )                          │
+            ├────────────────────────────┤
+            │ PokeAPICharacteristic(     │
+            │   id: Tagged(rawValue: 5), │
+            │   statId: .specialDefense, │
+            │   geneMod5: 0              │
+            │ )                          │
+            └────────────────────────────┘
             """
         }
 
@@ -1596,57 +1596,57 @@ struct SnapshotTests {
             """
         } results: {
             """
-            ┌─────────────────────────────────────────┐
-            │ PokeAPINature(                          │
-            │   id: Tagged(rawValue: 1),              │
-            │   identifier: "hardy",                  │
-            │   decreasedStatId: Tagged(rawValue: 2), │
-            │   increasedStatId: Tagged(rawValue: 2), │
-            │   hatesFlavorId: 1,                     │
-            │   likesFlavorId: 1,                     │
-            │   gameIndex: 0                          │
-            │ )                                       │
-            ├─────────────────────────────────────────┤
-            │ PokeAPINature(                          │
-            │   id: Tagged(rawValue: 2),              │
-            │   identifier: "bold",                   │
-            │   decreasedStatId: Tagged(rawValue: 2), │
-            │   increasedStatId: Tagged(rawValue: 3), │
-            │   hatesFlavorId: 1,                     │
-            │   likesFlavorId: 5,                     │
-            │   gameIndex: 5                          │
-            │ )                                       │
-            ├─────────────────────────────────────────┤
-            │ PokeAPINature(                          │
-            │   id: Tagged(rawValue: 3),              │
-            │   identifier: "modest",                 │
-            │   decreasedStatId: Tagged(rawValue: 2), │
-            │   increasedStatId: Tagged(rawValue: 4), │
-            │   hatesFlavorId: 1,                     │
-            │   likesFlavorId: 2,                     │
-            │   gameIndex: 15                         │
-            │ )                                       │
-            ├─────────────────────────────────────────┤
-            │ PokeAPINature(                          │
-            │   id: Tagged(rawValue: 4),              │
-            │   identifier: "calm",                   │
-            │   decreasedStatId: Tagged(rawValue: 2), │
-            │   increasedStatId: Tagged(rawValue: 5), │
-            │   hatesFlavorId: 1,                     │
-            │   likesFlavorId: 4,                     │
-            │   gameIndex: 20                         │
-            │ )                                       │
-            ├─────────────────────────────────────────┤
-            │ PokeAPINature(                          │
-            │   id: Tagged(rawValue: 5),              │
-            │   identifier: "timid",                  │
-            │   decreasedStatId: Tagged(rawValue: 2), │
-            │   increasedStatId: Tagged(rawValue: 6), │
-            │   hatesFlavorId: 1,                     │
-            │   likesFlavorId: 3,                     │
-            │   gameIndex: 10                         │
-            │ )                                       │
-            └─────────────────────────────────────────┘
+            ┌─────────────────────────────────────┐
+            │ PokeAPINature(                      │
+            │   id: Tagged(rawValue: 1),          │
+            │   identifier: "hardy",              │
+            │   decreasedStatId: .attack,         │
+            │   increasedStatId: .attack,         │
+            │   hatesFlavorId: 1,                 │
+            │   likesFlavorId: 1,                 │
+            │   gameIndex: 0                      │
+            │ )                                   │
+            ├─────────────────────────────────────┤
+            │ PokeAPINature(                      │
+            │   id: Tagged(rawValue: 2),          │
+            │   identifier: "bold",               │
+            │   decreasedStatId: .attack,         │
+            │   increasedStatId: .defense,        │
+            │   hatesFlavorId: 1,                 │
+            │   likesFlavorId: 5,                 │
+            │   gameIndex: 5                      │
+            │ )                                   │
+            ├─────────────────────────────────────┤
+            │ PokeAPINature(                      │
+            │   id: Tagged(rawValue: 3),          │
+            │   identifier: "modest",             │
+            │   decreasedStatId: .attack,         │
+            │   increasedStatId: .specialAttack,  │
+            │   hatesFlavorId: 1,                 │
+            │   likesFlavorId: 2,                 │
+            │   gameIndex: 15                     │
+            │ )                                   │
+            ├─────────────────────────────────────┤
+            │ PokeAPINature(                      │
+            │   id: Tagged(rawValue: 4),          │
+            │   identifier: "calm",               │
+            │   decreasedStatId: .attack,         │
+            │   increasedStatId: .specialDefense, │
+            │   hatesFlavorId: 1,                 │
+            │   likesFlavorId: 4,                 │
+            │   gameIndex: 20                     │
+            │ )                                   │
+            ├─────────────────────────────────────┤
+            │ PokeAPINature(                      │
+            │   id: Tagged(rawValue: 5),          │
+            │   identifier: "timid",              │
+            │   decreasedStatId: .attack,         │
+            │   increasedStatId: .speed,          │
+            │   hatesFlavorId: 1,                 │
+            │   likesFlavorId: 3,                 │
+            │   gameIndex: 10                     │
+            │ )                                   │
+            └─────────────────────────────────────┘
             """
         }
     }
@@ -2596,35 +2596,35 @@ struct SnapshotTests {
             ┌───────────────────────────────────┐
             │ PokeAPIPokemonStat(               │
             │   pokemonId: Tagged(rawValue: 1), │
-            │   statId: Tagged(rawValue: 1),    │
+            │   statId: .hp,                    │
             │   baseStat: 45,                   │
             │   effort: 0                       │
             │ )                                 │
             ├───────────────────────────────────┤
             │ PokeAPIPokemonStat(               │
             │   pokemonId: Tagged(rawValue: 1), │
-            │   statId: Tagged(rawValue: 2),    │
+            │   statId: .attack,                │
             │   baseStat: 49,                   │
             │   effort: 0                       │
             │ )                                 │
             ├───────────────────────────────────┤
             │ PokeAPIPokemonStat(               │
             │   pokemonId: Tagged(rawValue: 1), │
-            │   statId: Tagged(rawValue: 3),    │
+            │   statId: .defense,               │
             │   baseStat: 49,                   │
             │   effort: 0                       │
             │ )                                 │
             ├───────────────────────────────────┤
             │ PokeAPIPokemonStat(               │
             │   pokemonId: Tagged(rawValue: 1), │
-            │   statId: Tagged(rawValue: 4),    │
+            │   statId: .specialAttack,         │
             │   baseStat: 65,                   │
             │   effort: 1                       │
             │ )                                 │
             ├───────────────────────────────────┤
             │ PokeAPIPokemonStat(               │
             │   pokemonId: Tagged(rawValue: 1), │
-            │   statId: Tagged(rawValue: 5),    │
+            │   statId: .specialDefense,        │
             │   baseStat: 65,                   │
             │   effort: 0                       │
             │ )                                 │
@@ -2781,40 +2781,40 @@ struct SnapshotTests {
             """
             ┌───────────────────────────────────────┐
             │ PokeAPIStat(                          │
-            │   id: Tagged(rawValue: 1),            │
-            │   identifier: "hp",                   │
+            │   id: .hp,                            │
+            │   identifier: .hp,                    │
             │   damageClassId: nil,                 │
             │   isBattleOnly: false,                │
             │   gameIndex: 1                        │
             │ )                                     │
             ├───────────────────────────────────────┤
             │ PokeAPIStat(                          │
-            │   id: Tagged(rawValue: 2),            │
-            │   identifier: "attack",               │
+            │   id: .attack,                        │
+            │   identifier: .attack,                │
             │   damageClassId: Tagged(rawValue: 2), │
             │   isBattleOnly: false,                │
             │   gameIndex: 2                        │
             │ )                                     │
             ├───────────────────────────────────────┤
             │ PokeAPIStat(                          │
-            │   id: Tagged(rawValue: 3),            │
-            │   identifier: "defense",              │
+            │   id: .defense,                       │
+            │   identifier: .defense,               │
             │   damageClassId: Tagged(rawValue: 2), │
             │   isBattleOnly: false,                │
             │   gameIndex: 3                        │
             │ )                                     │
             ├───────────────────────────────────────┤
             │ PokeAPIStat(                          │
-            │   id: Tagged(rawValue: 4),            │
-            │   identifier: "special-attack",       │
+            │   id: .specialAttack,                 │
+            │   identifier: .specialAttack,         │
             │   damageClassId: Tagged(rawValue: 3), │
             │   isBattleOnly: false,                │
             │   gameIndex: 5                        │
             │ )                                     │
             ├───────────────────────────────────────┤
             │ PokeAPIStat(                          │
-            │   id: Tagged(rawValue: 5),            │
-            │   identifier: "special-defense",      │
+            │   id: .specialDefense,                │
+            │   identifier: .specialDefense,        │
             │   damageClassId: Tagged(rawValue: 3), │
             │   isBattleOnly: false,                │
             │   gameIndex: 6                        │

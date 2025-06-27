@@ -50,7 +50,7 @@ public struct PokeAPIMove: Decodable, Hashable, Identifiable, Sendable {
     @Column("damage_class_id") public var damageClassId: PokeAPIMoveDamageClass.ID
 
     /// Primary effect this move has (damage, status condition, stat change, etc.)
-    @Column("effect_id") public var effectId: Int
+    @Column("effect_id") public var effectId: Int?
 
     /// Percentage chance the secondary effect occurs (0-100)
     /// Nil if move has no secondary effect or always triggers

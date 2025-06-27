@@ -23,7 +23,7 @@ struct PokemonWithEvolutionChainTests {
         let chain = try PokeAPIPokemon.WithEvolutionChain.fetchChainForPokemon(
             database, 
             pokemonId: PokeAPIPokemon.ID(4), // Charmander
-            versionId: PokeAPIVersion.ID(1)  // Red
+            versionId: .red
         )
         
         // Verify we get the complete Charmander evolution line in natural order
@@ -50,7 +50,7 @@ struct PokemonWithEvolutionChainTests {
         let chain = try PokeAPIPokemon.WithEvolutionChain.fetchChainForPokemon(
             database, 
             pokemonId: PokeAPIPokemon.ID(4), // Charmander
-            versionId: PokeAPIVersion.ID(23) // Pokemon X
+            versionId: .x
         )
         
         // Verify we get the complete Charmander evolution line in Pokemon X (may include Mega forms)
@@ -87,7 +87,7 @@ struct PokemonWithEvolutionChainTests {
         let chain = try PokeAPIPokemon.WithEvolutionChain.fetchChainForPokemon(
             database, 
             pokemonId: PokeAPIPokemon.ID(4), // Charmander
-            versionId: PokeAPIVersion.ID(33) // Pokemon Sword
+            versionId: .sword
         )
         
         // Verify we get the complete Charmander evolution line in Pokemon Sword (may include Gigantamax forms)
@@ -128,7 +128,7 @@ struct PokemonWithEvolutionChainTests {
         let chain = try PokeAPIPokemon.WithEvolutionChain.fetchChainForPokemon(
             database, 
             pokemonId: PokeAPIPokemon.ID(1), // Bulbasaur
-            versionId: PokeAPIVersion.ID(1)  // Red
+            versionId: .red
         )
         
         // Verify we get the complete Bulbasaur evolution line in natural order
@@ -151,7 +151,7 @@ struct PokemonWithEvolutionChainTests {
         let chain = try PokeAPIPokemon.WithEvolutionChain.fetchChainForPokemon(
             database, 
             pokemonId: PokeAPIPokemon.ID(5), // Charmeleon
-            versionId: PokeAPIVersion.ID(1)  // Red
+            versionId: .red
         )
         
         // Should still get the complete Charmander line in natural order
@@ -173,7 +173,7 @@ struct PokemonWithEvolutionChainTests {
         let chain = try PokeAPIPokemon.WithEvolutionChain.fetchChainForPokemon(
             database, 
             pokemonId: PokeAPIPokemon.ID(4), // Charmander
-            versionId: PokeAPIVersion.ID(1)  // Red
+            versionId: .red
         )
         
         // Verify each Pokemon has exactly 6 stats
@@ -181,13 +181,13 @@ struct PokemonWithEvolutionChainTests {
             #expect(pokemonData.stats.count == 6, "Pokemon \(pokemonData.species.identifier) should have 6 stats")
             
             // Verify stat names are as expected
-            let statNames = pokemonData.stats.map(\.stat.identifier).sorted()
-            #expect(statNames.contains("hp"))
-            #expect(statNames.contains("attack"))
-            #expect(statNames.contains("defense"))
-            #expect(statNames.contains("special-attack"))
-            #expect(statNames.contains("special-defense"))
-            #expect(statNames.contains("speed"))
+            let statNames = pokemonData.stats.map(\.stat.identifier)
+            #expect(statNames.contains(.hp))
+            #expect(statNames.contains(.attack))
+            #expect(statNames.contains(.defense))
+            #expect(statNames.contains(.specialAttack))
+            #expect(statNames.contains(.specialDefense))
+            #expect(statNames.contains(.speed))
         }
     }
 
@@ -197,7 +197,7 @@ struct PokemonWithEvolutionChainTests {
         let chain = try PokeAPIPokemon.WithEvolutionChain.fetchChainForPokemon(
             database, 
             pokemonId: PokeAPIPokemon.ID(4), // Charmander
-            versionId: PokeAPIVersion.ID(1)  // Red
+            versionId: .red
         )
         
         // Find Charmander and Charizard in the chain
@@ -220,7 +220,7 @@ struct PokemonWithEvolutionChainTests {
         let chain = try PokeAPIPokemon.WithEvolutionChain.fetchChainForPokemon(
             database, 
             pokemonId: PokeAPIPokemon.ID(4), // Charmander
-            versionId: PokeAPIVersion.ID(1)  // Red
+            versionId: .red
         )
         
         // The strongest Pokemon should be Charizard (final evolution)
@@ -241,7 +241,7 @@ struct PokemonWithEvolutionChainTests {
             _ = try PokeAPIPokemon.WithEvolutionChain.fetchChainForPokemon(
                 database, 
                 pokemonId: PokeAPIPokemon.ID(99999), 
-                versionId: PokeAPIVersion.ID(1)
+                versionId: .red
             )
         }
     }
@@ -253,7 +253,7 @@ struct PokemonWithEvolutionChainTests {
         let database = Helper.sqlDB()
         let chains = try PokeAPIPokemon.WithEvolutionChain.fetchAllForVersion(
             database, 
-            versionId: PokeAPIVersion.ID(1), // Red
+            versionId: .red,
             limit: 5 // Just test first 5 chains
         )
         
@@ -271,7 +271,7 @@ struct PokemonWithEvolutionChainTests {
         let database = Helper.sqlDB()
         let chains = try PokeAPIPokemon.WithEvolutionChain.fetchAllForVersion(
             database, 
-            versionId: PokeAPIVersion.ID(1), // Red
+            versionId: .red,
             limit: 10
         )
         
@@ -295,12 +295,12 @@ struct PokemonWithEvolutionChainTests {
         // Test with different limits
         let chains3 = try PokeAPIPokemon.WithEvolutionChain.fetchAllForVersion(
             database, 
-            versionId: PokeAPIVersion.ID(1), 
+            versionId: .red,
             limit: 3
         )
         let chains10 = try PokeAPIPokemon.WithEvolutionChain.fetchAllForVersion(
             database, 
-            versionId: PokeAPIVersion.ID(1), 
+            versionId: .red,
             limit: 10
         )
         
@@ -314,7 +314,7 @@ struct PokemonWithEvolutionChainTests {
         let database = Helper.sqlDB()
         let chains = try PokeAPIPokemon.WithEvolutionChain.fetchAllForVersion(
             database, 
-            versionId: PokeAPIVersion.ID(1), // Red
+            versionId: .red,
             limit: 5
         )
         
@@ -340,7 +340,7 @@ struct PokemonWithEvolutionChainTests {
         let chain = try PokeAPIPokemon.WithEvolutionChain.fetchChainForPokemon(
             database, 
             pokemonId: PokeAPIPokemon.ID(4), // Charmander
-            versionId: PokeAPIVersion.ID(1)  // Red
+            versionId: .red
         )
         
         // Verify data integrity
@@ -371,12 +371,12 @@ struct PokemonWithEvolutionChainTests {
         let chain1 = try PokeAPIPokemon.WithEvolutionChain.fetchChainForPokemon(
             database, 
             pokemonId: PokeAPIPokemon.ID(4), // Charmander
-            versionId: PokeAPIVersion.ID(1)
+            versionId: .red
         )
         let chain2 = try PokeAPIPokemon.WithEvolutionChain.fetchChainForPokemon(
             database, 
             pokemonId: PokeAPIPokemon.ID(5), // Charmeleon (same chain)
-            versionId: PokeAPIVersion.ID(1)
+            versionId: .red
         )
         
         // Both should return the same Pokemon in the same order
@@ -394,7 +394,7 @@ struct PokemonWithEvolutionChainTests {
         let charizardForms = try PokeAPIPokemon.WithAllForms.fetchForSpecies(
             database,
             speciesIdentifier: "charizard",
-            versionId: PokeAPIVersion.ID(23) // Pokemon X
+            versionId: .x
         )
         
         // Should have base Charizard
@@ -425,7 +425,7 @@ struct PokemonWithEvolutionChainTests {
         let charizardForms = try PokeAPIPokemon.WithAllForms.fetchForSpecies(
             database,
             speciesIdentifier: "charizard",
-            versionId: PokeAPIVersion.ID(33) // Pokemon Sword
+            versionId: .sword
         )
         
         // Check all forms available
@@ -448,7 +448,7 @@ struct PokemonWithEvolutionChainTests {
         let pikachuForms = try PokeAPIPokemon.WithAllForms.fetchForSpecies(
             database,
             speciesIdentifier: "pikachu",
-            versionId: PokeAPIVersion.ID(33) // Pokemon Sword
+            versionId: .sword
         )
         
         print("Pikachu forms in Sword: \(pikachuForms.allForms.map(\.pokemon.identifier))")
@@ -479,7 +479,7 @@ struct PokemonWithEvolutionChainTests {
         let vulpixForms = try PokeAPIPokemon.WithAllForms.fetchForSpecies(
             database,
             speciesIdentifier: "vulpix",
-            versionId: PokeAPIVersion.ID(30) // Pokemon Sun (Gen 7, has Alolan forms)
+            versionId: .sun // Pokemon Sun (Gen 7, has Alolan forms)
         )
         
         print("Vulpix forms in Sun: \(vulpixForms.allForms.map(\.pokemon.identifier))")

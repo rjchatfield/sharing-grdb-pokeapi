@@ -23,3 +23,15 @@ public struct PokeAPIRegion: Decodable, Hashable, Identifiable, Sendable {
         return PokeAPIStrings.region(id: id, identifier: identifier)
     }
 }
+
+extension PokeAPIRegion.ID {
+    public static let kanto  = PokeAPIRegion.ID(1)
+    public static let johto  = PokeAPIRegion.ID(2)
+    public static let hoenn  = PokeAPIRegion.ID(3)
+    public static let sinnoh = PokeAPIRegion.ID(4)
+    public static let unova  = PokeAPIRegion.ID(5)
+    public static let kalos  = PokeAPIRegion.ID(6)
+    public static let alola  = PokeAPIRegion.ID(7)
+    public static let galar  = PokeAPIRegion.ID(8)
+    public static let paldea = PokeAPIRegion.ID(10)
+}
