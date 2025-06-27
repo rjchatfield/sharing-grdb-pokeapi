@@ -19,9 +19,8 @@ struct PokemonWithEvolutionChainTests {
 
     @Test
     func testWithEvolutionChain_fetchChainForPokemon_charmanderEvolutionLine() throws {
-        let database = Helper.sqlDB()
         let chain = try PokeAPIPokemon.WithEvolutionChain.fetchChainForPokemon(
-            database, 
+            .pokeAPI,
             pokemonId: PokeAPIPokemon.ID(4), // Charmander
             versionId: .red
         )
@@ -46,9 +45,8 @@ struct PokemonWithEvolutionChainTests {
 
     @Test
     func testWithEvolutionChain_fetchChainForPokemon_charmanderEvolutionLine_pokemonX() throws {
-        let database = Helper.sqlDB()
         let chain = try PokeAPIPokemon.WithEvolutionChain.fetchChainForPokemon(
-            database, 
+            .pokeAPI,
             pokemonId: PokeAPIPokemon.ID(4), // Charmander
             versionId: .x
         )
@@ -83,9 +81,8 @@ struct PokemonWithEvolutionChainTests {
 
     @Test
     func testWithEvolutionChain_fetchChainForPokemon_charmanderEvolutionLine_pokemonSword() throws {
-        let database = Helper.sqlDB()
         let chain = try PokeAPIPokemon.WithEvolutionChain.fetchChainForPokemon(
-            database, 
+            .pokeAPI,
             pokemonId: PokeAPIPokemon.ID(4), // Charmander
             versionId: .sword
         )
@@ -124,9 +121,8 @@ struct PokemonWithEvolutionChainTests {
 
     @Test
     func testWithEvolutionChain_fetchChainForPokemon_bulbasaurEvolutionLine() throws {
-        let database = Helper.sqlDB()
         let chain = try PokeAPIPokemon.WithEvolutionChain.fetchChainForPokemon(
-            database, 
+            .pokeAPI,
             pokemonId: PokeAPIPokemon.ID(1), // Bulbasaur
             versionId: .red
         )
@@ -146,10 +142,9 @@ struct PokemonWithEvolutionChainTests {
 
     @Test
     func testWithEvolutionChain_fetchChainForPokemon_startingFromMiddleEvolution() throws {
-        let database = Helper.sqlDB()
         // Start with Charmeleon (middle evolution) and verify we get the complete chain
         let chain = try PokeAPIPokemon.WithEvolutionChain.fetchChainForPokemon(
-            database, 
+            .pokeAPI,
             pokemonId: PokeAPIPokemon.ID(5), // Charmeleon
             versionId: .red
         )
@@ -169,9 +164,8 @@ struct PokemonWithEvolutionChainTests {
 
     @Test
     func testWithEvolutionChain_fetchChainForPokemon_pokemonWithStats() throws {
-        let database = Helper.sqlDB()
         let chain = try PokeAPIPokemon.WithEvolutionChain.fetchChainForPokemon(
-            database, 
+            .pokeAPI,
             pokemonId: PokeAPIPokemon.ID(4), // Charmander
             versionId: .red
         )
@@ -193,9 +187,8 @@ struct PokemonWithEvolutionChainTests {
 
     @Test
     func testWithEvolutionChain_fetchChainForPokemon_totalStatsCalculation() throws {
-        let database = Helper.sqlDB()
         let chain = try PokeAPIPokemon.WithEvolutionChain.fetchChainForPokemon(
-            database, 
+            .pokeAPI,
             pokemonId: PokeAPIPokemon.ID(4), // Charmander
             versionId: .red
         )
@@ -216,9 +209,8 @@ struct PokemonWithEvolutionChainTests {
 
     @Test
     func testWithEvolutionChain_fetchChainForPokemon_strongestPokemon() throws {
-        let database = Helper.sqlDB()
         let chain = try PokeAPIPokemon.WithEvolutionChain.fetchChainForPokemon(
-            database, 
+            .pokeAPI,
             pokemonId: PokeAPIPokemon.ID(4), // Charmander
             versionId: .red
         )
@@ -234,13 +226,11 @@ struct PokemonWithEvolutionChainTests {
 
     @Test
     func testWithEvolutionChain_fetchChainForPokemon_nonExistentPokemon() throws {
-        let database = Helper.sqlDB()
-        
         // Test with a Pokemon ID that doesn't exist
         #expect(throws: Error.self) {
             _ = try PokeAPIPokemon.WithEvolutionChain.fetchChainForPokemon(
-                database, 
-                pokemonId: PokeAPIPokemon.ID(99999), 
+                .pokeAPI,
+                pokemonId: PokeAPIPokemon.ID(99999),
                 versionId: .red
             )
         }
@@ -250,9 +240,8 @@ struct PokemonWithEvolutionChainTests {
 
     @Test
     func testWithEvolutionChain_fetchAllForVersion_redVersion() throws {
-        let database = Helper.sqlDB()
         let chains = try PokeAPIPokemon.WithEvolutionChain.fetchAllForVersion(
-            database, 
+            .pokeAPI,
             versionId: .red,
             limit: 5 // Just test first 5 chains
         )
@@ -268,9 +257,8 @@ struct PokemonWithEvolutionChainTests {
 
     @Test
     func testWithEvolutionChain_fetchAllForVersion_chainContainsMultiplePokemon() throws {
-        let database = Helper.sqlDB()
         let chains = try PokeAPIPokemon.WithEvolutionChain.fetchAllForVersion(
-            database, 
+            .pokeAPI,
             versionId: .red,
             limit: 10
         )
@@ -290,16 +278,14 @@ struct PokemonWithEvolutionChainTests {
 
     @Test
     func testWithEvolutionChain_fetchAllForVersion_withLimit() throws {
-        let database = Helper.sqlDB()
-        
         // Test with different limits
         let chains3 = try PokeAPIPokemon.WithEvolutionChain.fetchAllForVersion(
-            database, 
+            .pokeAPI,
             versionId: .red,
             limit: 3
         )
         let chains10 = try PokeAPIPokemon.WithEvolutionChain.fetchAllForVersion(
-            database, 
+            .pokeAPI,
             versionId: .red,
             limit: 10
         )
@@ -311,9 +297,8 @@ struct PokemonWithEvolutionChainTests {
 
     @Test
     func testWithEvolutionChain_fetchAllForVersion_catchablePokemon() throws {
-        let database = Helper.sqlDB()
         let chains = try PokeAPIPokemon.WithEvolutionChain.fetchAllForVersion(
-            database, 
+            .pokeAPI,
             versionId: .red,
             limit: 5
         )
@@ -336,9 +321,8 @@ struct PokemonWithEvolutionChainTests {
 
     @Test
     func testWithEvolutionChain_dataIntegrity() throws {
-        let database = Helper.sqlDB()
         let chain = try PokeAPIPokemon.WithEvolutionChain.fetchChainForPokemon(
-            database, 
+            .pokeAPI,
             pokemonId: PokeAPIPokemon.ID(4), // Charmander
             versionId: .red
         )
@@ -365,16 +349,14 @@ struct PokemonWithEvolutionChainTests {
 
     @Test
     func testWithEvolutionChain_pokemonOrderConsistency() throws {
-        let database = Helper.sqlDB()
-        
         // Fetch the same chain multiple times and verify consistent ordering
         let chain1 = try PokeAPIPokemon.WithEvolutionChain.fetchChainForPokemon(
-            database, 
+            .pokeAPI,
             pokemonId: PokeAPIPokemon.ID(4), // Charmander
             versionId: .red
         )
         let chain2 = try PokeAPIPokemon.WithEvolutionChain.fetchChainForPokemon(
-            database, 
+            .pokeAPI,
             pokemonId: PokeAPIPokemon.ID(5), // Charmeleon (same chain)
             versionId: .red
         )
@@ -390,9 +372,8 @@ struct PokemonWithEvolutionChainTests {
 
     @Test
     func testWithAllForms_charizardInPokemonX() throws {
-        let database = Helper.sqlDB()
         let charizardForms = try PokeAPIPokemon.WithAllForms.fetchForSpecies(
-            database,
+            .pokeAPI,
             speciesIdentifier: "charizard",
             versionId: .x
         )
@@ -421,9 +402,8 @@ struct PokemonWithEvolutionChainTests {
 
     @Test
     func testWithAllForms_charizardInPokemonSword() throws {
-        let database = Helper.sqlDB()
         let charizardForms = try PokeAPIPokemon.WithAllForms.fetchForSpecies(
-            database,
+            .pokeAPI,
             speciesIdentifier: "charizard",
             versionId: .sword
         )
@@ -442,11 +422,9 @@ struct PokemonWithEvolutionChainTests {
 
     @Test
     func testWithAllForms_formCategorization() throws {
-        let database = Helper.sqlDB()
-        
         // Test Pikachu (has many form types)
         let pikachuForms = try PokeAPIPokemon.WithAllForms.fetchForSpecies(
-            database,
+            .pokeAPI,
             speciesIdentifier: "pikachu",
             versionId: .sword
         )
@@ -473,11 +451,9 @@ struct PokemonWithEvolutionChainTests {
 
     @Test 
     func testWithAllForms_regionalVariants() throws {
-        let database = Helper.sqlDB()
-        
         // Test Pokemon with regional variants
         let vulpixForms = try PokeAPIPokemon.WithAllForms.fetchForSpecies(
-            database,
+            .pokeAPI,
             speciesIdentifier: "vulpix",
             versionId: .sun // Pokemon Sun (Gen 7, has Alolan forms)
         )

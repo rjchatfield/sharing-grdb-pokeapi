@@ -12,9 +12,12 @@ public enum PokeAPIPokemonFormFiltering {
     /// 
     /// - Parameters:
     ///   - identifier: The Pokemon identifier (e.g., "pikachu", "charizard-mega-x")
-    ///   - targetGeneration: The generation number (1-9)
+    ///   - generationId: The generation number (1-9)
     /// - Returns: True if the form is available in that generation
-    public static func isFormAvailableInGeneration(_ identifier: String, targetGeneration: Int) -> Bool {
+    public static func isFormAvailableInGeneration(
+        _ identifier: PokeAPIPokemon.Identifier,
+        generationId: PokeAPIGeneration.ID
+    ) -> Bool {
         // Base forms are always available
         if !identifier.contains("-") {
             return true
@@ -23,37 +26,37 @@ public enum PokeAPIPokemonFormFiltering {
         // Mega Evolution forms available in Generation 6-7, removed in 8+
         // Use a more precise check to avoid false positives like "meganium"
         if identifier.contains("-mega") {
-            return targetGeneration >= 6 && targetGeneration <= 7
+            return generationId >= 6 && generationId <= 7
         }
         
         // Gigantamax forms available only in Generation 8
         if identifier.contains("gmax") {
-            return targetGeneration == 8
+            return generationId == 8
         }
         
         // Alolan forms introduced in Generation 7 (Sun/Moon)
         if identifier.contains("alola") {
-            return targetGeneration >= 7
+            return generationId >= 7
         }
         
         // Galarian forms introduced in Generation 8 (Sword/Shield)
         if identifier.contains("galar") {
-            return targetGeneration >= 8
+            return generationId >= 8
         }
         
         // Hisuian forms introduced in Generation 8 (Legends Arceus)
         if identifier.contains("hisui") {
-            return targetGeneration >= 8
+            return generationId >= 8
         }
         
         // Paldean forms introduced in Generation 9 (Scarlet/Violet)
         if identifier.contains("paldea") {
-            return targetGeneration >= 9
+            return generationId >= 9
         }
         
         // Totem forms introduced in Generation 7 (Sun/Moon)
         if identifier.contains("totem") {
-            return targetGeneration >= 7
+            return generationId >= 7
         }
         
         // Costume/Event forms - most were introduced in Generation 6+
@@ -67,7 +70,7 @@ public enum PokeAPIPokemonFormFiltering {
            identifier.contains("-cosplay") || 
            identifier.contains("-starter") || 
            identifier.contains("-world") {
-            return targetGeneration >= 6
+            return generationId >= 6
         }
         
         // For other forms, assume they're available (could be refined further)
@@ -78,11 +81,14 @@ public enum PokeAPIPokemonFormFiltering {
     /// 
     /// - Parameters:
     ///   - pokemon: Array of Pokemon to filter
-    ///   - targetGeneration: The generation number to filter for
+    ///   - generationId: The generation number to filter for
     /// - Returns: Filtered array containing only available forms
-    public static func filterFormsForGeneration<T: Collection>(_ pokemon: T, targetGeneration: Int) -> [T.Element] where T.Element == PokeAPIPokemon {
+    public static func filterFormsForGeneration(
+        pokemon: some Collection<PokeAPIPokemon>,
+        generationId: PokeAPIGeneration.ID
+    ) -> [PokeAPIPokemon] {
         return pokemon.filter { pokemon in
-            return isFormAvailableInGeneration(pokemon.identifier, targetGeneration: targetGeneration)
+            return isFormAvailableInGeneration(pokemon.identifier, generationId: generationId)
         }
     }
         
@@ -96,16 +102,17 @@ public enum PokeAPIPokemonFormFiltering {
     public static func getGenerationForVersion(
         _ database: StructuredQueriesSQLite.Database,
         versionId: PokeAPIVersion.ID
-    ) throws -> Int {
-        let versionInfo: [(PokeAPIVersion, PokeAPIVersionGroup)] = try database.execute(
+    ) throws -> PokeAPIGeneration.ID {
+        let versionInfo: [PokeAPIVersionGroup] = try database.execute(
             PokeAPIVersion.all
                 .where { $0.id == versionId }
                 .join(PokeAPIVersionGroup.all) { $0.versionGroupId == $1.id }
+                .select { $1 }
         )
-        guard let (_, versionGroup) = versionInfo.first else {
+        guard let versionGroup = versionInfo.first else {
             throw FormFilteringError.versionNotFound(versionId)
         }
-        return versionGroup.generationId.rawValue
+        return versionGroup.generationId
     }
     
     /// Filters Pokemon to only return forms available in the specified version
@@ -116,15 +123,15 @@ public enum PokeAPIPokemonFormFiltering {
     ///   - versionId: The target version ID
     /// - Returns: Filtered array containing only available forms
     /// - Throws: Database errors if the version is not found
-    public static func filterFormsForVersion<T: Collection>(
+    public static func filterFormsForVersion(
         _ database: StructuredQueriesSQLite.Database,
-        pokemon: T,
+        pokemon: some Collection<PokeAPIPokemon>,
         versionId: PokeAPIVersion.ID
-    ) throws -> [T.Element] where T.Element == PokeAPIPokemon {
+    ) throws -> [PokeAPIPokemon] {
         let targetGeneration = try getGenerationForVersion(database, versionId: versionId)
-        return filterFormsForGeneration(pokemon, targetGeneration: targetGeneration)
+        return filterFormsForGeneration(pokemon: pokemon, generationId: targetGeneration)
     }
-    
+
     // MARK: - Errors
     
     public enum FormFilteringError: Error {

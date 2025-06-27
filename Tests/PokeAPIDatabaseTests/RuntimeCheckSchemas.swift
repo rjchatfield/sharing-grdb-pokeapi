@@ -5,7 +5,7 @@ import Testing
 
 /// To check the data imports correctly, we read all records for all tables
 @Test func testRuntimeCheckSchemas() throws {
-    let database = Helper.sqlDB()
+    let database = StructuredQueriesSQLite.Database.pokeAPI
     let _ = try database.execute(PokeAPIAbility.all)
     let _ = try database.execute(PokeAPIBerry.all)
     let _ = try database.execute(PokeAPICharacteristic.all)

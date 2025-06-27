@@ -16,7 +16,7 @@ enum Helper {
     ) where S.QueryValue == (), S.Joins == (repeat each J) {
         StructuredQueriesTestSupport.assertQuery(
             query,
-            execute: sqlDB().execute,
+            execute: StructuredQueriesSQLite.Database.pokeAPI.execute,
             sql: sql,
             results: results,
             snapshotTrailingClosureOffset: 0,
@@ -40,7 +40,7 @@ enum Helper {
     ) {
         StructuredQueriesTestSupport.assertQuery(
             query,
-            execute: sqlDB().execute,
+            execute: StructuredQueriesSQLite.Database.pokeAPI.execute,
             sql: sql,
             results: results,
             snapshotTrailingClosureOffset: 0,
@@ -51,13 +51,13 @@ enum Helper {
             column: column
         )
     }
-    
-    static func sqlDB() -> StructuredQueriesSQLite.Database {
-        let db = try! PokeAPIDatabase.makeDatabase()
-        return try! StructuredQueriesSQLite.Database(path: db.path)
-    }
 }
 
 // MARK: -
 
-extension StructuredQueriesSQLite.Database: @retroactive @unchecked Sendable {}
+extension StructuredQueriesSQLite.Database: @retroactive @unchecked Sendable {
+    static var pokeAPI: StructuredQueriesSQLite.Database {
+        let db = try! PokeAPIDatabase.makeDatabase()
+        return try! StructuredQueriesSQLite.Database(path: db.path)
+    }
+}

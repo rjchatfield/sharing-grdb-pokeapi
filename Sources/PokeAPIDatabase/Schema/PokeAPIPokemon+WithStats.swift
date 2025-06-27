@@ -82,7 +82,7 @@ extension PokeAPIPokemon {
         /// - Returns: Array of Pokemon with their stats, filtered for version compatibility
         public static func fetchAllForVersion(
             _ database: StructuredQueriesSQLite.Database,
-            versionId: PokeAPIVersion.ID,
+            generationId: PokeAPIGeneration.ID,
             limit: Int? = 10
         ) throws -> [PokeAPIPokemon.WithStats] {
             // Get all Pokemon
@@ -93,10 +93,9 @@ extension PokeAPIPokemon {
             )
             
             // Filter forms based on availability in the target version
-            let availableForms = try PokeAPIPokemonFormFiltering.filterFormsForVersion(
-                database, 
-                pokemon: allPokemon, 
-                versionId: versionId
+            let availableForms = PokeAPIPokemonFormFiltering.filterFormsForGeneration(
+                pokemon: allPokemon,
+                generationId: generationId,
             )
             
             // Get stats for available forms

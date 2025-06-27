@@ -19,8 +19,7 @@ struct VersionGroupWithPokemonTests {
 
     @Test
     func testVersionGroupWithPokemon_fetchStarters_gen1() throws {
-        let database = Helper.sqlDB()
-        let starters = try PokeAPIVersionGroup.WithPokemon.fetchStarters(database, versionGroupId: PokeAPIVersionGroup.ID(1)) // Red/Blue
+        let starters = try PokeAPIVersionGroup.WithPokemon.fetchStarters(.pokeAPI, versionGroupId: PokeAPIVersionGroup.ID(1)) // Red/Blue
         assertInlineSnapshot(of: starters.map { ($0.id.rawValue, $0.identifier, $0.generationId.rawValue) }, as: .customDump) {
             """
             [
@@ -46,8 +45,7 @@ struct VersionGroupWithPokemonTests {
 
     @Test
     func testVersionGroupWithPokemon_fetchStarters_gen2() throws {
-        let database = Helper.sqlDB()
-        let starters = try PokeAPIVersionGroup.WithPokemon.fetchStarters(database, versionGroupId: PokeAPIVersionGroup.ID(3)) // Gold/Silver
+        let starters = try PokeAPIVersionGroup.WithPokemon.fetchStarters(.pokeAPI, versionGroupId: PokeAPIVersionGroup.ID(3)) // Gold/Silver
         assertInlineSnapshot(of: starters.map { ($0.id.rawValue, $0.identifier, $0.generationId.rawValue) }, as: .customDump) {
             """
             [
@@ -73,8 +71,7 @@ struct VersionGroupWithPokemonTests {
 
     @Test
     func testVersionGroupWithPokemon_fetchStarters_gen3() throws {
-        let database = Helper.sqlDB()
-        let starters = try PokeAPIVersionGroup.WithPokemon.fetchStarters(database, versionGroupId: PokeAPIVersionGroup.ID(5)) // Ruby/Sapphire
+        let starters = try PokeAPIVersionGroup.WithPokemon.fetchStarters(.pokeAPI, versionGroupId: PokeAPIVersionGroup.ID(5)) // Ruby/Sapphire
         assertInlineSnapshot(of: starters.map { ($0.id.rawValue, $0.identifier, $0.generationId.rawValue) }, as: .customDump) {
             """
             [
@@ -100,8 +97,7 @@ struct VersionGroupWithPokemonTests {
 
     @Test
     func testVersionGroupWithPokemon_fetchStarters_gen6() throws {
-        let database = Helper.sqlDB()
-        let starters = try PokeAPIVersionGroup.WithPokemon.fetchStarters(database, versionGroupId: PokeAPIVersionGroup.ID(15)) // X/Y
+        let starters = try PokeAPIVersionGroup.WithPokemon.fetchStarters(.pokeAPI, versionGroupId: PokeAPIVersionGroup.ID(15)) // X/Y
         assertInlineSnapshot(of: starters.map { ($0.id.rawValue, $0.identifier, $0.generationId.rawValue) }, as: .customDump) {
             """
             [
@@ -127,8 +123,7 @@ struct VersionGroupWithPokemonTests {
 
     @Test
     func testVersionGroupWithPokemon_fetchStarters_orderedByNationalDexNumber() throws {
-        let database = Helper.sqlDB()
-        let starters = try PokeAPIVersionGroup.WithPokemon.fetchStarters(database, versionGroupId: PokeAPIVersionGroup.ID(1)) // Red/Blue
+        let starters = try PokeAPIVersionGroup.WithPokemon.fetchStarters(.pokeAPI, versionGroupId: PokeAPIVersionGroup.ID(1)) // Red/Blue
         
         // Verify they're in National Pokedex order
         #expect(starters[0].id.rawValue == 1) // Bulbasaur
@@ -142,12 +137,11 @@ struct VersionGroupWithPokemonTests {
 
     @Test
     func testVersionGroupWithPokemon_fetchStarters_alwaysReturnsThreeStarters() throws {
-        let database = Helper.sqlDB()
-        
+
         // Test multiple generations to ensure consistent count
-        let gen1Starters = try PokeAPIVersionGroup.WithPokemon.fetchStarters(database, versionGroupId: PokeAPIVersionGroup.ID(1))
-        let gen2Starters = try PokeAPIVersionGroup.WithPokemon.fetchStarters(database, versionGroupId: PokeAPIVersionGroup.ID(3))
-        let gen3Starters = try PokeAPIVersionGroup.WithPokemon.fetchStarters(database, versionGroupId: PokeAPIVersionGroup.ID(5))
+        let gen1Starters = try PokeAPIVersionGroup.WithPokemon.fetchStarters(.pokeAPI, versionGroupId: PokeAPIVersionGroup.ID(1))
+        let gen2Starters = try PokeAPIVersionGroup.WithPokemon.fetchStarters(.pokeAPI, versionGroupId: PokeAPIVersionGroup.ID(3))
+        let gen3Starters = try PokeAPIVersionGroup.WithPokemon.fetchStarters(.pokeAPI, versionGroupId: PokeAPIVersionGroup.ID(5))
         
         #expect(gen1Starters.count == 3)
         #expect(gen2Starters.count == 3)
@@ -156,8 +150,7 @@ struct VersionGroupWithPokemonTests {
 
     @Test
     func testVersionGroupWithPokemon_fetchStarters_starterPropertiesValidation() throws {
-        let database = Helper.sqlDB()
-        let starters = try PokeAPIVersionGroup.WithPokemon.fetchStarters(database, versionGroupId: PokeAPIVersionGroup.ID(1)) // Red/Blue
+        let starters = try PokeAPIVersionGroup.WithPokemon.fetchStarters(.pokeAPI, versionGroupId: PokeAPIVersionGroup.ID(1)) // Red/Blue
         
         // All starters should be base forms (don't evolve from anything)
         for starter in starters {
@@ -181,11 +174,10 @@ struct VersionGroupWithPokemonTests {
 
     @Test
     func testVersionGroupWithPokemon_fetchStarters_nonExistentVersionGroup() throws {
-        let database = Helper.sqlDB()
-        
+
         // Test with a version group ID that doesn't exist
         #expect(throws: Error.self) {
-            _ = try PokeAPIVersionGroup.WithPokemon.fetchStarters(database, versionGroupId: PokeAPIVersionGroup.ID(999))
+            _ = try PokeAPIVersionGroup.WithPokemon.fetchStarters(.pokeAPI, versionGroupId: PokeAPIVersionGroup.ID(999))
         }
     }
 
@@ -193,8 +185,7 @@ struct VersionGroupWithPokemonTests {
     func testVersionGroupWithPokemon_fetchStarters_unsupportedGeneration() throws {
         // Test behavior for generations that might not have starters defined
         // This tests the default case in the switch statement
-        let database = Helper.sqlDB()
-        
+
         // Insert a fake version group with a very high generation ID that wouldn't have starters
         // Since we can't modify the database in tests, we'll simulate this by testing the method behavior
         // We expect this to return an empty array for unsupported generations
@@ -202,7 +193,7 @@ struct VersionGroupWithPokemonTests {
         // Note: This test may need to be adjusted based on actual data in the database
         // For now, we'll test a generation that exists but might return empty results
         do {
-            let starters = try PokeAPIVersionGroup.WithPokemon.fetchStarters(database, versionGroupId: PokeAPIVersionGroup.ID(50)) // Very high ID
+            let starters = try PokeAPIVersionGroup.WithPokemon.fetchStarters(.pokeAPI, versionGroupId: PokeAPIVersionGroup.ID(50)) // Very high ID
             // If this succeeds, it should return an empty array or throw an error
             // The exact behavior depends on whether version group 50 exists in the database
         } catch {

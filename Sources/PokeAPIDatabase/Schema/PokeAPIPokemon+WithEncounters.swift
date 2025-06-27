@@ -30,8 +30,7 @@ extension PokeAPIPokemon {
             public let method: PokeAPIEncounterMethod
             public let slot: Int
             public let rarity: Int
-            public let minLevel: Int
-            public let maxLevel: Int
+            // TODO: Missing encounter_condition.csv
 
             public init(
                 encounter: PokeAPIEncounter,
@@ -39,16 +38,12 @@ extension PokeAPIPokemon {
                 method: PokeAPIEncounterMethod,
                 slot: Int,
                 rarity: Int,
-                minLevel: Int,
-                maxLevel: Int
             ) {
                 self.encounter = encounter
                 self.locationArea = locationArea
                 self.method = method
                 self.slot = slot
                 self.rarity = rarity
-                self.minLevel = minLevel
-                self.maxLevel = maxLevel
             }
         }
 
@@ -134,8 +129,6 @@ extension PokeAPIPokemon {
                         method: encounterMethod,
                         slot: encounterSlot.slot ?? 1, // Default to slot 1 if null
                         rarity: encounterSlot.rarity,
-                        minLevel: encounter.minLevel,
-                        maxLevel: encounter.maxLevel
                     )
                 }
                 // Sort encounters by method order, then rarity (high to low), then location area ID

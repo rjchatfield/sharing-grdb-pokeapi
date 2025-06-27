@@ -1,6 +1,7 @@
 import StructuredQueries
 import StructuredQueriesSQLite
 
+// TODO: Re-evaluate if this is a useful query
 extension PokeAPIPokemon {
     /// Represents a Pokemon with its evolution information.
     /// 

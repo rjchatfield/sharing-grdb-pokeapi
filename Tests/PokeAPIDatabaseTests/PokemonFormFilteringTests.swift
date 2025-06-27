@@ -15,16 +15,13 @@ import Tagged
 )
 struct PokemonFormFilteringTests {
     
-    @Test func testFormFilteringForGeneration1() throws {
-        // Test that Pikachu in Generation 1 (Red/Blue) only returns base form
-        let database = Helper.sqlDB()
-
+    @Test("Test that Pikachu in Generation 1 (Red/Blue) only returns base form")
+    func testFormFilteringForGeneration1() throws {
         let pikachuWithAllForms = try PokeAPIPokemon.WithAllForms.fetchForSpecies(
-            database, 
-            speciesIdentifier: "pikachu", 
+            .pokeAPI,
+            speciesIdentifier: "pikachu",
             versionId: .red
         )
-        
         
         // In Generation 1, Pikachu should only have the base form (no caps, no Gigantamax)
         #expect(pikachuWithAllForms.baseForms.count == 1)
@@ -32,13 +29,11 @@ struct PokemonFormFilteringTests {
         #expect(pikachuWithAllForms.baseForms.first?.pokemon.identifier == "pikachu")
     }
     
-    @Test func testFormFilteringForGeneration6() throws {
-        // Test that Charizard in Generation 6 (X/Y) includes Mega forms but not Gigantamax
-        let database = Helper.sqlDB()
-
+    @Test("Test that Charizard in Generation 6 (X/Y) includes Mega forms but not Gigantamax")
+    func testFormFilteringForGeneration6() throws {
         let charizardWithAllForms = try PokeAPIPokemon.WithAllForms.fetchForSpecies(
-            database, 
-            speciesIdentifier: "charizard", 
+            .pokeAPI,
+            speciesIdentifier: "charizard",
             versionId: .x
         )
         
@@ -55,13 +50,11 @@ struct PokemonFormFilteringTests {
         #expect(megaIdentifiers.contains("charizard-mega-y"), "Should contain Mega Charizard Y")
     }
     
-    @Test func testFormFilteringForGeneration8() throws {
-        // Test that Charizard in Generation 8 (Sword/Shield) includes Gigantamax but not Mega forms
-        let database = Helper.sqlDB()
-
+    @Test("Test that Charizard in Generation 8 (Sword/Shield) includes Gigantamax but not Mega forms")
+    func testFormFilteringForGeneration8() throws {
         let charizardWithAllForms = try PokeAPIPokemon.WithAllForms.fetchForSpecies(
-            database, 
-            speciesIdentifier: "charizard", 
+            .pokeAPI,
+            speciesIdentifier: "charizard",
             versionId: .sword
         )
         
@@ -77,16 +70,15 @@ struct PokemonFormFilteringTests {
         #expect(gigantamaxIdentifiers.contains("charizard-gmax"), "Should contain Gigantamax Charizard")
     }
     
-    @Test func testRegionalFormsFiltering() throws {
-        // Test that regional forms are filtered correctly by generation
-        let database = Helper.sqlDB()
+    @Test("Test that regional forms are filtered correctly by generation")
+    func testRegionalFormsFiltering() throws {
         let gen7VersionId = PokeAPIVersion.ID.sun
         let gen8VersionId = PokeAPIVersion.ID.sword
 
         // Raichu should have Alolan form in Gen 7+
         let raichuGen7 = try PokeAPIPokemon.WithAllForms.fetchForSpecies(
-            database, 
-            speciesIdentifier: "raichu", 
+            .pokeAPI,
+            speciesIdentifier: "raichu",
             versionId: gen7VersionId
         )
         
@@ -95,8 +87,8 @@ struct PokemonFormFilteringTests {
         
         // Meowth should have both Alolan (Gen 7+) and Galarian (Gen 8+) forms in Gen 8
         let meowthGen8 = try PokeAPIPokemon.WithAllForms.fetchForSpecies(
-            database, 
-            speciesIdentifier: "meowth", 
+            .pokeAPI,
+            speciesIdentifier: "meowth",
             versionId: gen8VersionId
         )
         
@@ -107,21 +99,20 @@ struct PokemonFormFilteringTests {
         #expect(meowthGalarian.count > 0, "Meowth should have Galarian forms in Generation 8")
     }
     
-    @Test func testEvolutionChainFormFiltering() throws {
-        // Test that evolution chains properly filter forms by version
-        let database = Helper.sqlDB()
+    @Test("Test that evolution chains properly filter forms by version")
+    func testEvolutionChainFormFiltering() throws {
         let gen1VersionId = PokeAPIVersion.ID.red
         let gen8VersionId = PokeAPIVersion.ID.sword
 
         // Get Charizard evolution chain in Gen 1 vs Gen 8
         let charizardGen1Chain = try PokeAPIPokemon.WithEvolutionChain.fetchChainForPokemon(
-            database, 
+            .pokeAPI,
             pokemonId: PokeAPIPokemon.ID(rawValue: 6), // Charizard ID
             versionId: gen1VersionId
         )
         
         let charizardGen8Chain = try PokeAPIPokemon.WithEvolutionChain.fetchChainForPokemon(
-            database, 
+            .pokeAPI,
             pokemonId: PokeAPIPokemon.ID(rawValue: 6), // Charizard ID
             versionId: gen8VersionId
         )
@@ -139,14 +130,11 @@ struct PokemonFormFilteringTests {
         #expect(charizardGen8.pokemon.identifier == "charizard")
     }
     
-    @Test func testVersionAwareStatsFetching() throws {
-        // Test that WithStats.fetchAllForVersion properly filters forms
-        let database = Helper.sqlDB()
-        let gen1VersionId = PokeAPIVersion.ID.red
-        
+    @Test("Test that WithStats.fetchAllForVersion properly filters forms")
+    func testVersionAwareStatsFetching() throws {
         let pokemonWithStats = try PokeAPIPokemon.WithStats.fetchAllForVersion(
-            database, 
-            versionId: gen1VersionId, 
+            .pokeAPI,
+            generationId: 1,
             limit: 200 // Get enough to include some that would have alternate forms
         )
         
@@ -162,48 +150,48 @@ struct PokemonFormFilteringTests {
     
     
 
-    @Test func testFormFilteringLogic() throws {
-        // Test the form filtering logic directly
-        let gen1 = 1
-        let gen6 = 6  
-        let gen7 = 7
-        let gen8 = 8
-        let gen9 = 9
-        
+    @Test("Test the form filtering logic directly")
+    func testFormFilteringLogic() throws {
+        let gen1: PokeAPIGeneration.ID = 1
+        let gen6: PokeAPIGeneration.ID = 6
+        let gen7: PokeAPIGeneration.ID = 7
+        let gen8: PokeAPIGeneration.ID = 8
+        let gen9: PokeAPIGeneration.ID = 9
+
         // Base forms always available
-        #expect(PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("pikachu", targetGeneration: gen1))
-        #expect(PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("charizard", targetGeneration: gen1))
-        
+        #expect(PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("pikachu", generationId: gen1))
+        #expect(PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("charizard", generationId: gen1))
+
         // Mega forms available in Gen 6-7 only
-        #expect(PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("charizard-mega-x", targetGeneration: gen6))
-        #expect(PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("charizard-mega-y", targetGeneration: gen7))
-        #expect(!PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("charizard-mega-x", targetGeneration: gen8))
-        #expect(!PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("charizard-mega-y", targetGeneration: gen1))
-        
+        #expect(PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("charizard-mega-x", generationId: gen6))
+        #expect(PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("charizard-mega-y", generationId: gen7))
+        #expect(!PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("charizard-mega-x", generationId: gen8))
+        #expect(!PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("charizard-mega-y", generationId: gen1))
+
         // Gigantamax forms available in Gen 8 only
-        #expect(PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("charizard-gmax", targetGeneration: gen8))
-        #expect(!PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("charizard-gmax", targetGeneration: gen7))
-        #expect(!PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("charizard-gmax", targetGeneration: gen9))
-        
+        #expect(PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("charizard-gmax", generationId: gen8))
+        #expect(!PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("charizard-gmax", generationId: gen7))
+        #expect(!PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("charizard-gmax", generationId: gen9))
+
         // Regional forms available from their introduction onwards
-        #expect(PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("raichu-alola", targetGeneration: gen7))
-        #expect(PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("raichu-alola", targetGeneration: gen8))
-        #expect(!PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("raichu-alola", targetGeneration: gen6))
-        
-        #expect(PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("meowth-galar", targetGeneration: gen8))
-        #expect(PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("meowth-galar", targetGeneration: gen9))
-        #expect(!PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("meowth-galar", targetGeneration: gen7))
-        
-        #expect(PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("growlithe-hisui", targetGeneration: gen8))
-        #expect(PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("growlithe-hisui", targetGeneration: gen9))
-        #expect(!PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("growlithe-hisui", targetGeneration: gen7))
-        
-        #expect(PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("tauros-paldea-combat-breed", targetGeneration: gen9))
-        #expect(!PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("tauros-paldea-combat-breed", targetGeneration: gen8))
-        
+        #expect(PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("raichu-alola", generationId: gen7))
+        #expect(PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("raichu-alola", generationId: gen8))
+        #expect(!PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("raichu-alola", generationId: gen6))
+
+        #expect(PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("meowth-galar", generationId: gen8))
+        #expect(PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("meowth-galar", generationId: gen9))
+        #expect(!PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("meowth-galar", generationId: gen7))
+
+        #expect(PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("growlithe-hisui", generationId: gen8))
+        #expect(PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("growlithe-hisui", generationId: gen9))
+        #expect(!PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("growlithe-hisui", generationId: gen7))
+
+        #expect(PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("tauros-paldea-combat-breed", generationId: gen9))
+        #expect(!PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("tauros-paldea-combat-breed", generationId: gen8))
+
         // Totem forms available from Gen 7 onwards
-        #expect(PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("raticate-totem", targetGeneration: gen7))
-        #expect(PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("raticate-totem", targetGeneration: gen8))
-        #expect(!PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("raticate-totem", targetGeneration: gen6))
+        #expect(PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("raticate-totem", generationId: gen7))
+        #expect(PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("raticate-totem", generationId: gen8))
+        #expect(!PokeAPIPokemonFormFiltering.isFormAvailableInGeneration("raticate-totem", generationId: gen6))
     }
 }

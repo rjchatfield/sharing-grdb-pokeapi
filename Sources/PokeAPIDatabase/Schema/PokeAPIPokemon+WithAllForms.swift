@@ -9,7 +9,7 @@ extension PokeAPIPokemon {
     /// like Mega Evolution and Gigantamax that affect battle statistics.
     ///
     /// ```swift
-    /// let charizardForms = try PokeAPIPokemon.WithAllForms.fetchForSpecies(database, speciesIdentifier: "charizard", versionId: 23)
+    /// let charizardForms = try PokeAPIPokemon.WithAllForms.fetchForSpecies(database, speciesIdentifier: "charizard", versionId: .soulSilver)
     /// let megaForms = charizardForms.alternativeForms.filter { $0.isMegaForm }
     /// ```
     public struct WithAllForms {

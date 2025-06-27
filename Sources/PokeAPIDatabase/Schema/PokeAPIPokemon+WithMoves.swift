@@ -17,6 +17,7 @@ extension PokeAPIPokemon {
     /// ```
     public struct WithMoves {
         public let pokemon: PokeAPIPokemon
+        // TODO: Should we bucket the moves by method? 
         public let moves: [MoveData]
 
         public init(
@@ -30,14 +31,14 @@ extension PokeAPIPokemon {
         /// Contains a move and its learning information for a specific Pokemon.
         public struct MoveData {
             public let move: PokeAPIMove
-            public let level: Int
+            public let level: Int?
             public let methodId: Int
             public let order: Int?
             public let mastery: String?
 
             public init(
                 move: PokeAPIMove,
-                level: Int,
+                level: Int?,
                 methodId: Int,
                 order: Int? = nil,
                 mastery: String? = nil
@@ -125,7 +126,7 @@ extension PokeAPIPokemon {
                 .map { pokemonMove, move in
                     MoveData(
                         move: move,
-                        level: pokemonMove.level,
+                        level: pokemonMove.level == 0 ? nil : pokemonMove.level, // TODO: Update pokemon.db instead of here?
                         methodId: pokemonMove.pokemonMoveMethodId,
                         order: pokemonMove.order,
                         mastery: pokemonMove.mastery
@@ -133,8 +134,17 @@ extension PokeAPIPokemon {
                 }
                 // Sort moves by level, then order (if available), then move ID for consistent ordering
                 .sorted { lhs, rhs in
-                    if lhs.level != rhs.level {
-                        return lhs.level < rhs.level
+                    switch (lhs.level, rhs.level) {
+                    case (let lhsLevel?, let rhsLevel?):
+                        if lhsLevel != rhsLevel {
+                            return lhsLevel < rhsLevel
+                        }
+                    case (nil, _?):
+                        return false
+                    case (_?, nil):
+                        return true
+                    case (nil, nil):
+                        break
                     }
                     if let lhsOrder = lhs.order, let rhsOrder = rhs.order {
                         return lhsOrder < rhsOrder

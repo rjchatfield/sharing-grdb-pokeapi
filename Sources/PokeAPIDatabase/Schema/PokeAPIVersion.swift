@@ -40,14 +40,14 @@ extension PokeAPIVersion.ID {
     public static let ruby = PokeAPIVersion.ID(7)
     public static let sapphire = PokeAPIVersion.ID(8)
     public static let emerald = PokeAPIVersion.ID(9)
-    public static let firered = PokeAPIVersion.ID(10)
-    public static let leafgreen = PokeAPIVersion.ID(11)
+    public static let fireRed = PokeAPIVersion.ID(10)
+    public static let leafGreen = PokeAPIVersion.ID(11)
     // Generation IV
     public static let diamond = PokeAPIVersion.ID(12)
     public static let pearl = PokeAPIVersion.ID(13)
     public static let platinum = PokeAPIVersion.ID(14)
-    public static let heartgold = PokeAPIVersion.ID(15)
-    public static let soulsilver = PokeAPIVersion.ID(16)
+    public static let heartGold = PokeAPIVersion.ID(15)
+    public static let soulSilver = PokeAPIVersion.ID(16)
     // Generation V
     public static let black = PokeAPIVersion.ID(17)
     public static let white = PokeAPIVersion.ID(18)
