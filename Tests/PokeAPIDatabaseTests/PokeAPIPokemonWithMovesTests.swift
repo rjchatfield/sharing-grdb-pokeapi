@@ -199,7 +199,7 @@ struct PokeAPIPokemonWithMovesTests {
 
 // MARK: -
 
-extension PokeAPIPokemon.WithMoves: CustomDumpRepresentable {
+extension PokeAPIPokemon.WithMoves: @retroactive CustomDumpRepresentable {
     public var customDumpValue: Any {
         (
             pokemon.localizedName,
@@ -208,7 +208,7 @@ extension PokeAPIPokemon.WithMoves: CustomDumpRepresentable {
     }
 }
 
-extension PokeAPIPokemon.WithMoves.MoveData: CustomDumpStringConvertible {
+extension PokeAPIPokemon.WithMoves.MoveData: @retroactive CustomDumpStringConvertible {
     public var customDumpDescription: String {
         var result = "'\(move.localizedName)'"
         if let level {

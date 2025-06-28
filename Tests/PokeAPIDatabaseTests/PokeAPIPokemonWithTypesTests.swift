@@ -84,11 +84,37 @@ struct PokeAPIPokemonWithTypesTests {
             """
         }
     }
+
+    // MARK: - Type Changes Across Generations
+
+//    @Test func testGengarTypingConsistency() throws {
+//        // Gengar has always been Ghost/Poison, but lost Levitate ability in Gen 7
+//        // (Note: Abilities aren't the same as types, but this tests type consistency)
+//        let database = Helper.sqlDB()
+//
+//        let gengarTypes = try PokeAPIPokemon.WithTypes.fetchOne(
+//            database,
+//            pokemonId: PokeAPIPokemon.ID(94) // Gengar
+//        )
+//
+//        // Gengar should have exactly 2 types
+//        #expect(gengarTypes.types.count == 2, "Gengar should have exactly 2 types")
+//
+//        let typeNames = gengarTypes.types.map { $0.type.identifier }.sorted()
+//        #expect(typeNames == ["ghost", "poison"], "Gengar should be Ghost/Poison type")
+//
+//        // Verify type slots (primary vs secondary)
+//        let ghostType = gengarTypes.types.first { $0.type.identifier == "ghost" }
+//        let poisonType = gengarTypes.types.first { $0.type.identifier == "poison" }
+//
+//        #expect(ghostType?.slot == 1, "Ghost should be Gengar's primary type")
+//        #expect(poisonType?.slot == 2, "Poison should be Gengar's secondary type")
+//    }
 }
 
 // MARK: -
 
-extension PokeAPIPokemon.WithTypes: CustomDumpStringConvertible {
+extension PokeAPIPokemon.WithTypes: @retroactive CustomDumpStringConvertible {
     public var customDumpDescription: String {
         "\(pokemon.localizedName): \(types.map(\.localizedName).joined(separator: "/"))\(isMultiGeneration ? " (Multi-Generation: \(types.map(\.generationId)))" : "")"
     }

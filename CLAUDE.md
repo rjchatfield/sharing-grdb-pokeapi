@@ -7,8 +7,9 @@ A local SQLite version of the PokeAPI.com database.
 - `Tests/` contains the tests using `InlineSnapshotTesting` and `StructuredQueriesTestSupport`
 - `submodules/` directory contains a git submodule for the original PokeAPI repo
 
-- Build with `swift build`
-- Test with `swift test`
+- Build with `swift build` (grep for errors: `swift build 2>&1 | grep -i error`)
+- Test with `swift test` (grep for errors: `swift test 2>&1 | grep -E "(error|fail)"`)
+- To save tokens, filter output for errors/failures when running commands for Claude
 - **Recording inline snapshots**: `swift test` cannot record inline snapshots properly. Use `xcodebuild` instead:
   ```bash
   xcodebuild test -scheme PokeAPIDatabase -destination "platform=macOS,arch=arm64"

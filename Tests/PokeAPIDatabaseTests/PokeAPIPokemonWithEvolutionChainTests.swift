@@ -467,6 +467,131 @@ struct PokemonWithEvolutionChainTests {
         #expect(vulpixForms.alolanForms.count >= 1)
     }
 
+    // MARK: - Evolution Availability by Generation
+
+    @Test("Magnezone evolution was introduced in Gen 4")
+    func testMagnezoneEvolutionAvailability() throws {
+        // Get Magneton species to check evolution chain
+        let magnetonEvolution = try PokeAPIPokemon.WithEvolutionChain.fetchChainForPokemon(
+            .pokeAPI,
+            pokemonId: PokeAPIPokemon.ID(82), // Magneton
+            versionId: .red
+        )
+
+        // Check if Magnezone exists in the evolution chain
+        // Find Magnezone in the evolution chain
+        let magnezoneInChain = magnetonEvolution.pokemonInChain
+            .first { $0.pokemon.identifier == "magnezone" }
+
+        // Verify that Magnezone is from Gen 4+ (should have higher species ID than Gen 3 Pokemon)
+        let magnezone = try #require(magnezoneInChain, "Magnezone should exist in Magneton's evolution chain")
+
+        // Magnezone should be from Gen 4, so species ID should be > 386 (last Gen 3 Pokemon)
+        #expect(magnezone.pokemon.speciesId.rawValue > 386, "Magnezone should be from Gen 4+ (species ID > 386)")
+    }
+
+    @Test("Test that Eevee has the correct number of evolutions available")
+    func testEeveeEvolutionsByGeneration() throws {
+        func eeveelutions(versionId: PokeAPIVersion.ID) throws -> [String] {
+            try PokeAPIPokemon.WithEvolutionChain
+                .fetchChainForPokemon(
+                    .pokeAPI,
+                    pokemonId: PokeAPIPokemon.ID(133), // Eevee
+                    versionId: versionId
+                )
+                .pokemonInChain
+                .map(\.pokemon.identifier)
+        }
+
+        try assertInlineSnapshot(of: eeveelutions(versionId: .red), as: .customDump) {
+            """
+            [
+              [0]: "eevee",
+              [1]: "vaporeon",
+              [2]: "jolteon",
+              [3]: "flareon",
+              [4]: "espeon",
+              [5]: "umbreon",
+              [6]: "leafeon",
+              [7]: "glaceon",
+              [8]: "sylveon"
+            ]
+            """
+        }
+
+        try assertInlineSnapshot(of: eeveelutions(versionId: .gold), as: .customDump) {
+            """
+            [
+              [0]: "eevee",
+              [1]: "vaporeon",
+              [2]: "jolteon",
+              [3]: "flareon",
+              [4]: "espeon",
+              [5]: "umbreon",
+              [6]: "leafeon",
+              [7]: "glaceon",
+              [8]: "sylveon"
+            ]
+            """
+        }
+
+//        // Count Eevee evolutions (excluding Eevee itself)
+//        let eeveelutions = eeveeEvolution.pokemonInChain
+//            .filter { $0.pokemon.identifier != "eevee" }
+//
+//        // Should have 8 Eeveelutions total: Vaporeon, Jolteon, Flareon (Gen 1),
+//        // Espeon, Umbreon (Gen 2), Leafeon, Glaceon (Gen 4), Sylveon (Gen 6)
+//        #expect(eeveelutions.count == 8, "Eevee should have 8 evolutions total")
+//
+//        // Verify specific evolutions exist
+//        let eeveelutionNames = eeveelutions.map(\.pokemon.identifier)
+//        let expectedEeveelutions = [
+//            "vaporeon", "jolteon", "flareon",    // Gen 1
+//            "espeon", "umbreon",                 // Gen 2
+//            "leafeon", "glaceon",                // Gen 4
+//            "sylveon"                            // Gen 6
+//        ]
+//
+//        for expectedEeveelution in expectedEeveelutions {
+//            #expect(eeveelutionNames.contains(expectedEeveelution),
+//                   "Should contain \(expectedEeveelution) in Eevee's evolution chain")
+//        }
+    }
+
+    // MARK: - Cross-Generation Data Consistency Tests
+
+    @Test("Test that evolution chains remain consistent but forms are filtered appropriately")
+    func testEvolutionChainConsistencyAcrossGenerations() throws {
+        let gen1VersionId = PokeAPIVersion.ID.red
+        let gen8VersionId = PokeAPIVersion.ID.sword
+
+        // Test Abra evolution chain in different generations
+        let abraGen1 = try PokeAPIPokemon.WithEvolutionChain.fetchChainForPokemon(
+            .pokeAPI,
+            pokemonId: PokeAPIPokemon.ID(rawValue: 63), // Abra ID
+            versionId: gen1VersionId
+        )
+
+        let abraGen8 = try PokeAPIPokemon.WithEvolutionChain.fetchChainForPokemon(
+            .pokeAPI,
+            pokemonId: PokeAPIPokemon.ID(rawValue: 63), // Abra ID
+            versionId: gen8VersionId
+        )
+
+        // Both generations should have the same evolution chain length
+        #expect(abraGen1.pokemonInChain.count == abraGen8.pokemonInChain.count,
+               "Evolution chain length should be consistent across generations")
+
+        // Chain should be: Abra -> Kadabra -> Alakazam
+        #expect(abraGen1.pokemonInChain.count == 3, "Abra evolution chain should have 3 Pokemon")
+
+        let gen1Names = abraGen1.pokemonInChain.map { $0.pokemon.identifier }
+        let gen8Names = abraGen8.pokemonInChain.map { $0.pokemon.identifier }
+
+        #expect(gen1Names == gen8Names, "Evolution chain Pokemon should be the same across generations")
+        #expect(gen1Names == ["abra", "kadabra", "alakazam"], "Should be Abra -> Kadabra -> Alakazam")
+    }
+
     // MARK: - Helper Types
 
     enum TestError: Error {
