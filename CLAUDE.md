@@ -9,6 +9,7 @@ A local SQLite version of the PokeAPI.com database.
 
 - Build with `swift build` (grep for errors: `swift build 2>&1 | grep -i error`)
 - Test with `swift test` (grep for errors: `swift test 2>&1 | grep -E "(error|fail)"`)
+- Update database with latest CSV data: `./scripts/update_database.sh`
 - To save tokens, filter output for errors/failures when running commands for Claude
 - **Recording inline snapshots**: `swift test` cannot record inline snapshots properly. Use `xcodebuild` instead:
   ```bash

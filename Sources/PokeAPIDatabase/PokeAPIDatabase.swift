@@ -19,11 +19,17 @@ public enum PokeAPIDatabase {
     
     private static var bundlePath: String {
         get throws {
-            guard let bundlePath = Bundle.module.path(forResource: "pokemon", ofType: "db") else {
+            guard let bundlePath = Bundle.module.path(forResource: "pokeapi", ofType: "db") else {
                 throw DatabaseError.bundleResourceNotFound
             }
             return bundlePath
         }
+    }
+}
+
+extension Bundle {
+    public static var pokeapi: Bundle {
+        return .module
     }
 }
 

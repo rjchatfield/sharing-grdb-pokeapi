@@ -105,6 +105,31 @@ swift build
 swift test
 ```
 
+## Updating the Database
+
+To update the SQLite database with the latest Pokemon data from the PokeAPI CSV files:
+
+```bash
+# Update database with latest CSV data
+./scripts/update_database.sh
+```
+
+This script will:
+- 🔒 Backup your existing database
+- 🗄️ Create a fresh database from the schema
+- 📊 Import the latest CSV data (excluding translations and text files)
+- 📈 Compare changes between old and new databases
+- ✅ Verify the update was successful
+
+**Prerequisites:**
+- `sqlite3` (usually pre-installed on macOS/Linux)
+- `csvs-to-sqlite` - install with `pip install csvs-to-sqlite`
+
+After updating, run the tests to ensure everything still works:
+```bash
+swift test
+```
+
 ## Data Attribution
 
 This package contains data from the [PokeAPI](https://pokeapi.co) project. All Pokemon data is sourced from PokeAPI's comprehensive database.

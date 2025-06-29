@@ -33,7 +33,7 @@ let package = Package(
                 .product(name: "_StructuredQueriesSQLite", package: "swift-structured-queries"),
             ],
             resources: [
-                .copy("Resources/pokemon.db"),
+                .copy("Resources/pokeapi.db"),
                 .process("Resources/Strings"),
             ]
         ),
