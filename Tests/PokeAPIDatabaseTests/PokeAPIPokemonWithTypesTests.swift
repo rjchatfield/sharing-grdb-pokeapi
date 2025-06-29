@@ -114,7 +114,7 @@ struct PokeAPIPokemonWithTypesTests {
 
 // MARK: -
 
-extension PokeAPIPokemon.WithTypes: @retroactive CustomDumpStringConvertible {
+extension PokeAPIPokemon.WithTypes: CustomDumpStringConvertible {
     public var customDumpDescription: String {
         "\(pokemon.localizedName): \(types.map(\.localizedName).joined(separator: "/"))\(isMultiGeneration ? " (Multi-Generation: \(types.map(\.generationId)))" : "")"
     }

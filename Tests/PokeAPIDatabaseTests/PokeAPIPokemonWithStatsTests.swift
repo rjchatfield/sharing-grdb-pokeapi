@@ -207,7 +207,7 @@ struct PokeAPIPokemonWithStatsTests {
 
 // MARK: -
 
-extension PokeAPIPokemon.WithStats: @retroactive CustomDumpRepresentable {
+extension PokeAPIPokemon.WithStats: CustomDumpRepresentable {
     public var customDumpValue: Any {
         (
             pokemon.localizedName,
@@ -216,7 +216,7 @@ extension PokeAPIPokemon.WithStats: @retroactive CustomDumpRepresentable {
     }
 }
 
-extension PokeAPIPokemon.WithStats.StatData: @retroactive CustomDumpStringConvertible {
+extension PokeAPIPokemon.WithStats.StatData: CustomDumpStringConvertible {
     public var customDumpDescription: String {
         "\(stat.localizedName): \(baseStat)"
     }

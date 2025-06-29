@@ -66,7 +66,7 @@ struct PokeAPIPokemonWithEvolutionsTests {
 
 // MARK: -
 
-extension PokeAPIPokemon.WithEvolutions: @retroactive CustomDumpStringConvertible {
+extension PokeAPIPokemon.WithEvolutions: CustomDumpStringConvertible {
     public var customDumpDescription: String {
         "\(pokemon.localizedName) evolved in \(evolutions.count) ways"
     }

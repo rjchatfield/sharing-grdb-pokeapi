@@ -68,7 +68,7 @@ struct PokeAPIPokemonWithAbilitiesTests {
 
 // MARK: -
 
-extension PokeAPIPokemon.WithAbilities: @retroactive CustomDumpRepresentable {
+extension PokeAPIPokemon.WithAbilities: CustomDumpRepresentable {
     public var customDumpValue: Any {
         (
             pokemon.localizedName,
@@ -77,7 +77,7 @@ extension PokeAPIPokemon.WithAbilities: @retroactive CustomDumpRepresentable {
     }
 }
 
-extension PokeAPIPokemon.WithAbilities.AbilityData: @retroactive CustomDumpStringConvertible {
+extension PokeAPIPokemon.WithAbilities.AbilityData: CustomDumpStringConvertible {
     public var customDumpDescription: String {
         "\(ability.localizedName) { slot:\(slot), hidden:\(isHidden), gen:\(ability.generationId) }"
     }

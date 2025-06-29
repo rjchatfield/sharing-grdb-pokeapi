@@ -593,7 +593,7 @@ struct PokeAPIPokemonWithEncountersTests {
 
 // MARK: -
 
-extension PokeAPIPokemon.WithEncounters: @retroactive CustomDumpRepresentable {
+extension PokeAPIPokemon.WithEncounters: CustomDumpRepresentable {
     public var customDumpValue: Any {
         (
             pokemon.localizedName,
@@ -602,7 +602,7 @@ extension PokeAPIPokemon.WithEncounters: @retroactive CustomDumpRepresentable {
     }
 }
 
-extension PokeAPIPokemon.WithEncounters.EncounterData: @retroactive CustomDumpStringConvertible {
+extension PokeAPIPokemon.WithEncounters.EncounterData: CustomDumpStringConvertible {
     public var customDumpDescription: String {
         "'\(locationArea.formattedName ?? "_")' using '\(method.formattedName)'"
     }

@@ -1832,7 +1832,7 @@ struct SnapshotTests {
             FROM "pokemon"
             ORDER BY "pokemon"."id"
             """
-        }results: {
+        } results: {
             """
             ┌─────────────────────────┬───────────────────────────────┐
             │ Tagged(rawValue: 1)     │ "bulbasaur"                   │
