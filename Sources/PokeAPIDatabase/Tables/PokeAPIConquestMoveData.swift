@@ -9,10 +9,10 @@ public struct PokeAPIConquestMoveData: Decodable, Hashable, Sendable {
     @Column("move_id") public var moveId: PokeAPIMove.ID
 
     // TODO: Add description for power
-    @Column("power") public var power: Int
+    @Column("power") public var power: Int?
 
     // TODO: Add description for accuracy
-    @Column("accuracy") public var accuracy: Int
+    @Column("accuracy") public var accuracy: Int?
 
     // TODO: Add description for effect_chance
     @Column("effect_chance") public var effectChance: Int?
