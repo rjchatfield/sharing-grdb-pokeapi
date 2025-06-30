@@ -12,7 +12,7 @@ import PokeAPIDatabase
 )
 struct PokeAPICharacteristicTests {
     @Test
-    func testCharacteristicBasicQuery() {
+    func count() {
         Helper.assertQuery(
             PokeAPICharacteristic.count()
         ) {
@@ -27,7 +27,10 @@ struct PokeAPICharacteristicTests {
             └────┘
             """
         }
+    }
 
+    @Test
+    func first5() {
         Helper.assertQuery(
             PokeAPICharacteristic.limit(5)
         ) {
@@ -71,7 +74,10 @@ struct PokeAPICharacteristicTests {
             └────────────────────────────┘
             """
         }
+    }
 
+    @Test
+    func geneMode5() {
         Helper.assertQuery(
             PokeAPICharacteristic
                 .where { $0.geneMod5 != 0 }

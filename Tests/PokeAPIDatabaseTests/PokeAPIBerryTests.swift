@@ -12,7 +12,7 @@ import PokeAPIDatabase
 )
 struct PokeAPIBerryTests {
     @Test
-    func testBerryBasicQuery() {
+    func count() {
         Helper.assertQuery(
             PokeAPIBerry.count()
         ) {
@@ -27,7 +27,10 @@ struct PokeAPIBerryTests {
             └────┘
             """
         }
-
+    }
+    
+    @Test
+    func first5() {
         Helper.assertQuery(
             PokeAPIBerry.limit(5)
         ) {

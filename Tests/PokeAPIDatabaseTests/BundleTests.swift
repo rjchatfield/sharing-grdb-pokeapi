@@ -51,8 +51,12 @@ struct BundleTests {
     private var sortedFilePaths: [String] {
         let enumerator = FileManager.default.enumerator(atPath: Bundle.pokeapi.bundlePath)
         var filePaths = [String]()
-        while let filePath = enumerator?.nextObject() as? String {
+        while var filePath = enumerator?.nextObject() as? String {
             guard !filePath.hasPrefix("_CodeSignature") else { continue }
+            // Mac resource folder
+            if filePath.hasPrefix("Contents/Resources/") {
+                filePath.removeFirst("Contents/Resources/".count)
+            }
             filePaths.append(filePath)
         }
         return filePaths.sorted()
