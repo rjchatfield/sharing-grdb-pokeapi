@@ -424,7 +424,7 @@ CREATE TABLE IF NOT EXISTS "conquest_pokemon_moves" (
   FOREIGN KEY (move_id) REFERENCES moves(id)
 );
 CREATE TABLE IF NOT EXISTS "conquest_move_effects" (
-  "id" INTEGER
+  "id" INTEGER PRIMARY KEY
 );
 CREATE TABLE IF NOT EXISTS "abilities" (
   "id" INTEGER PRIMARY KEY,
@@ -517,7 +517,7 @@ CREATE TABLE IF NOT EXISTS "conquest_pokemon_evolution" (
   FOREIGN KEY (item_id) REFERENCES items(id)
 );
 CREATE TABLE IF NOT EXISTS "move_effects" (
-  "id" INTEGER
+  "id" INTEGER PRIMARY KEY
 );
 CREATE TABLE IF NOT EXISTS "pokedexes" (
   "id" INTEGER PRIMARY KEY,
