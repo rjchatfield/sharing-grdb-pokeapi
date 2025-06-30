@@ -194,6 +194,40 @@ def categorize_table(table_name):
     else:
         return 'other'
 
+def generate_test_file(swift_type_name):
+    """Generate test file content for a table"""
+    content = [
+        "import Testing",
+        "import StructuredQueries",
+        "import StructuredQueriesSQLite", 
+        "import StructuredQueriesTestSupport",
+        "import SnapshotTesting",
+        "import InlineSnapshotTesting",
+        "import PokeAPIDatabase",
+        "",
+        "@Suite(",
+        "    .serialized,",
+        "    .snapshots(record: .failed)",
+        ")",
+        f"struct {swift_type_name}Tests {{",
+        "    @Test",
+        "    func count() {",
+        "        Helper.assertQuery(",
+        f"            {swift_type_name}.count()",
+        "        )",
+        "    }",
+        "",
+        "    @Test",
+        "    func first5() {",
+        "        Helper.assertQuery(",
+        f"            {swift_type_name}.limit(5)",
+        "        )",
+        "    }",
+        "}"
+    ]
+    
+    return "\n".join(content)
+
 def update_runtime_check_schemas(project_root, new_swift_types):
     """Update RuntimeCheckSchemas.swift with new table types and sort all execute lines"""
     test_file_path = project_root / "Tests/PokeAPIDatabaseTests/RuntimeCheckSchemas.swift"
@@ -385,11 +419,17 @@ def main():
         
         generated_count = 0
         generated_swift_types = []
+        tests_dir = project_root / "Tests/PokeAPIDatabaseTests/Tables"
+        
+        # Ensure tests directory exists
+        tests_dir.mkdir(parents=True, exist_ok=True)
+        
         for table in all_missing:
             swift_type = snake_to_pascal_case(table)
             output_file = tables_dir / f"{swift_type}.swift"
+            test_file = tests_dir / f"{swift_type}Tests.swift"
             
-            print(f"\033[0;34mGenerating {swift_type}.swift...\033[0m")
+            print(f"\033[0;34mGenerating {swift_type}.swift...\\033[0m")
             
             # Generate Swift file content
             content = generate_swift_file(db_path, table, swift_type)
@@ -398,11 +438,18 @@ def main():
             with open(output_file, 'w') as f:
                 f.write(content)
             
+            # Generate test file content
+            test_content = generate_test_file(swift_type)
+            
+            # Write test file
+            with open(test_file, 'w') as f:
+                f.write(test_content)
+            
             generated_count += 1
             generated_swift_types.append(swift_type)
         
         print()
-        print(f"\033[0;32mSuccessfully generated {generated_count} Swift files!\033[0m")
+        print(f"\033[0;32mSuccessfully generated {generated_count} Swift files and {generated_count} test files!\033[0m")
         
         # Update RuntimeCheckSchemas.swift with new types
         if generated_swift_types:
