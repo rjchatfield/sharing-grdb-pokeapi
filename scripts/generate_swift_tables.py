@@ -153,7 +153,6 @@ def generate_swift_file(db_path, table_name, swift_type_name):
     for col in columns:
         column_name = col[1]
         sql_type = col[2]
-        not_null = col[3]
         is_primary_key = col[5]
         
         # Generate property name (snake_case to camelCase)
@@ -161,10 +160,6 @@ def generate_swift_file(db_path, table_name, swift_type_name):
         
         # Determine Swift type
         swift_type = sql_to_swift_type(sql_type, column_name, is_primary_key, foreign_keys)
-        
-        # Handle nullability - only make nullable if NOT NULL is false and it's not the id column
-        if not not_null and column_name != 'id':
-            swift_type += "?"
         
         # Generate column annotation
         primary_key_annotation = ", primaryKey: true" if is_primary_key else ""
@@ -198,6 +193,84 @@ def categorize_table(table_name):
         return 'core'
     else:
         return 'other'
+
+def update_runtime_check_schemas(project_root, new_swift_types):
+    """Update RuntimeCheckSchemas.swift with new table types and sort all execute lines"""
+    test_file_path = project_root / "Tests/PokeAPIDatabaseTests/RuntimeCheckSchemas.swift"
+    
+    if not test_file_path.exists():
+        print(f"\\033[0;33mWarning: RuntimeCheckSchemas.swift not found at {test_file_path}\\033[0m")
+        return
+    
+    # Read the current file
+    with open(test_file_path, 'r') as f:
+        content = f.read()
+    
+    lines = content.split('\n')
+    
+    # Find the function boundaries
+    function_start = -1
+    function_end = -1
+    for i, line in enumerate(lines):
+        if 'func testRuntimeCheckSchemas()' in line:
+            function_start = i
+        elif function_start != -1 and line.strip() == '}':
+            function_end = i
+            break
+    
+    if function_start == -1 or function_end == -1:
+        print("\\033[0;33mWarning: Could not find function boundaries in RuntimeCheckSchemas.swift\\033[0m")
+        return
+    
+    # Extract existing execute lines and other lines
+    execute_lines = []
+    other_lines = []
+    
+    for i in range(function_start + 1, function_end):
+        line = lines[i]
+        if 'let _ = try database.execute(' in line:
+            # Extract the type name for sorting
+            type_match = re.search(r'database\.execute\((\w+)\.all\)', line)
+            if type_match:
+                type_name = type_match.group(1)
+                execute_lines.append((type_name, line))
+        else:
+            other_lines.append((i, line))
+    
+    # Add new types to the execute lines
+    for swift_type in new_swift_types:
+        execute_lines.append((swift_type, f"    let _ = try database.execute({swift_type}.all)"))
+    
+    # Sort execute lines alphabetically by type name
+    execute_lines.sort(key=lambda x: x[0])
+    
+    # Rebuild the function content
+    new_function_lines = []
+    
+    # Add lines before execute statements (typically just the database declaration)
+    for i, line in other_lines:
+        if i < function_start + 3:  # Assume first few lines are setup
+            new_function_lines.append(line)
+    
+    # Add all execute lines in sorted order
+    for _, line in execute_lines:
+        new_function_lines.append(line)
+    
+    # Rebuild the entire file
+    new_lines = (
+        lines[:function_start + 1] +  # Everything before function body
+        new_function_lines +           # Sorted function body
+        lines[function_end:]           # Closing brace and everything after
+    )
+    
+    # Write back to file
+    updated_content = '\n'.join(new_lines)
+    with open(test_file_path, 'w') as f:
+        f.write(updated_content)
+    
+    total_types = len(execute_lines)
+    new_count = len(new_swift_types)
+    print(f"\\033[0;32mUpdated RuntimeCheckSchemas.swift with {new_count} new types, sorted {total_types} total types\\033[0m")
 
 def main():
     # Configuration
@@ -311,6 +384,7 @@ def main():
             all_missing.extend(tables)
         
         generated_count = 0
+        generated_swift_types = []
         for table in all_missing:
             swift_type = snake_to_pascal_case(table)
             output_file = tables_dir / f"{swift_type}.swift"
@@ -325,9 +399,15 @@ def main():
                 f.write(content)
             
             generated_count += 1
+            generated_swift_types.append(swift_type)
         
         print()
         print(f"\033[0;32mSuccessfully generated {generated_count} Swift files!\033[0m")
+        
+        # Update RuntimeCheckSchemas.swift with new types
+        if generated_swift_types:
+            print("\033[0;34mUpdating RuntimeCheckSchemas.swift...\033[0m")
+            update_runtime_check_schemas(project_root, generated_swift_types)
         print()
         print("\033[1;33mNext steps:\033[0m")
         print("1. Review the generated files and add proper documentation")
