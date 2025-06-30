@@ -138,13 +138,6 @@ CREATE TABLE IF NOT EXISTS "conquest_warrior_stats" (
   "id" INTEGER PRIMARY KEY,
   "identifier" TEXT
 );
-CREATE TABLE IF NOT EXISTS "characteristic_text" (
-  "characteristic_id" INTEGER,
-  "local_language_id" INTEGER,
-  "message" TEXT,
-  FOREIGN KEY (characteristic_id) REFERENCES characteristics(id),
-  FOREIGN KEY (local_language_id) REFERENCES languages(id)
-);
 CREATE TABLE IF NOT EXISTS "conquest_max_links" (
   "warrior_rank_id" INTEGER,
   "pokemon_species_id" INTEGER,
@@ -183,15 +176,6 @@ CREATE TABLE IF NOT EXISTS "pokemon_colors" (
   "id" INTEGER PRIMARY KEY,
   "identifier" TEXT
 );
-CREATE TABLE IF NOT EXISTS "item_flavor_text" (
-  "item_id" INTEGER,
-  "version_group_id" INTEGER,
-  "language_id" INTEGER,
-  "flavor_text" TEXT,
-  FOREIGN KEY (item_id) REFERENCES items(id),
-  FOREIGN KEY (version_group_id) REFERENCES version_groups(id),
-  FOREIGN KEY (language_id) REFERENCES languages(id)
-);
 CREATE TABLE IF NOT EXISTS "pokemon_shapes" (
   "id" INTEGER PRIMARY KEY,
   "identifier" TEXT
@@ -228,15 +212,6 @@ CREATE TABLE IF NOT EXISTS "conquest_warrior_rank_stat_map" (
   "base_stat" INTEGER,
   FOREIGN KEY (warrior_rank_id) REFERENCES conquest_warrior_ranks(id),
   FOREIGN KEY (warrior_stat_id) REFERENCES conquest_warrior_stats(id)
-);
-CREATE TABLE IF NOT EXISTS "move_flavor_text" (
-  "move_id" INTEGER,
-  "version_group_id" INTEGER,
-  "language_id" INTEGER,
-  "flavor_text" TEXT,
-  FOREIGN KEY (move_id) REFERENCES moves(id),
-  FOREIGN KEY (version_group_id) REFERENCES version_groups(id),
-  FOREIGN KEY (language_id) REFERENCES languages(id)
 );
 CREATE TABLE IF NOT EXISTS "conquest_warrior_transformation" (
   "transformed_warrior_rank_id" INTEGER,
@@ -321,15 +296,6 @@ CREATE TABLE IF NOT EXISTS "pokemon_species_flavor_summaries" (
   "flavor_summary" TEXT,
   FOREIGN KEY (pokemon_species_id) REFERENCES pokemon_species(id),
   FOREIGN KEY (local_language_id) REFERENCES languages(id)
-);
-CREATE TABLE IF NOT EXISTS "pokemon_species_flavor_text" (
-  "species_id" INTEGER,
-  "version_id" INTEGER,
-  "language_id" INTEGER,
-  "flavor_text" TEXT,
-  FOREIGN KEY (species_id) REFERENCES pokemon_species(id),
-  FOREIGN KEY (version_id) REFERENCES versions(id),
-  FOREIGN KEY (language_id) REFERENCES languages(id)
 );
 CREATE TABLE IF NOT EXISTS "super_contest_effects" (
   "id" INTEGER PRIMARY KEY,
@@ -552,15 +518,6 @@ CREATE TABLE IF NOT EXISTS "conquest_pokemon_evolution" (
 );
 CREATE TABLE IF NOT EXISTS "move_effects" (
   "id" INTEGER
-);
-CREATE TABLE IF NOT EXISTS "ability_flavor_text" (
-  "ability_id" INTEGER,
-  "version_group_id" INTEGER,
-  "language_id" INTEGER,
-  "flavor_text" TEXT,
-  FOREIGN KEY (ability_id) REFERENCES abilities(id),
-  FOREIGN KEY (version_group_id) REFERENCES version_groups(id),
-  FOREIGN KEY (language_id) REFERENCES languages(id)
 );
 CREATE TABLE IF NOT EXISTS "pokedexes" (
   "id" INTEGER PRIMARY KEY,
