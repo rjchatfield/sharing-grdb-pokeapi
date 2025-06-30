@@ -1,47 +1,61 @@
 import StructuredQueries
 import Tagged
 
-// TODO: Add description for move_meta table
+/// Contains detailed battle mechanics and effect metadata for moves.
+/// This includes information about multi-hit moves, status effects, healing,
+/// critical hit rates, and various battle-specific parameters.
 @Table("move_meta")
 public struct PokeAPIMoveMeta: Decodable, Hashable, Sendable {
 
-    // TODO: Add description for move_id
+    /// References the move that this metadata applies to
     @Column("move_id") public var moveId: PokeAPIMove.ID
 
-    // TODO: Add description for meta_category_id
+    /// The move's meta category (damage, ailment, net-good-stats, etc.)
+    /// Categorizes the move's primary battle effect
     @Column("meta_category_id") public var metaCategoryId: PokeAPIMoveMetaCategory.ID
 
-    // TODO: Add description for meta_ailment_id
+    /// The status ailment this move can inflict (paralysis, burn, poison, etc.)
+    /// References the specific ailment type
     @Column("meta_ailment_id") public var metaAilmentId: PokeAPIMoveMetaAilment.ID
 
-    // TODO: Add description for min_hits
+    /// Minimum number of hits for multi-hit moves
+    /// Nil for single-hit moves (e.g., Double Slap: 2, Fury Attack: 2)
     @Column("min_hits") public var minHits: Int?
 
-    // TODO: Add description for max_hits
+    /// Maximum number of hits for multi-hit moves
+    /// Nil for single-hit moves (e.g., Double Slap: 5, Fury Attack: 5)
     @Column("max_hits") public var maxHits: Int?
 
-    // TODO: Add description for min_turns
+    /// Minimum duration in turns for moves with variable duration
+    /// Used for moves like Thrash, Outrage, Sleep Talk
     @Column("min_turns") public var minTurns: Int?
 
-    // TODO: Add description for max_turns
+    /// Maximum duration in turns for moves with variable duration
+    /// Used for moves like Thrash, Outrage, Sleep Talk
     @Column("max_turns") public var maxTurns: Int?
 
-    // TODO: Add description for drain
+    /// Percentage of damage dealt that is recovered as HP (negative values)
+    /// Used for draining moves like Absorb, Giga Drain (typically -50 to -75)
     @Column("drain") public var drain: Int
 
-    // TODO: Add description for healing
+    /// Percentage of user's max HP restored by healing moves
+    /// Used for moves like Recover (50), Rest (100), Roost (50)
     @Column("healing") public var healing: Int
 
-    // TODO: Add description for crit_rate
+    /// Critical hit rate modifier (0 = normal, 1 = high crit ratio)
+    /// Moves like Slash, Razor Leaf have crit_rate = 1
     @Column("crit_rate") public var critRate: Int
 
-    // TODO: Add description for ailment_chance
+    /// Percentage chance of inflicting the associated ailment (0-100)
+    /// Used for moves with status effect chances (e.g., Thunder has 10% paralysis)
     @Column("ailment_chance") public var ailmentChance: Int
 
-    // TODO: Add description for flinch_chance
+    /// Percentage chance of causing the target to flinch (0-100)
+    /// Flinching prevents the target from acting this turn
     @Column("flinch_chance") public var flinchChance: Int
 
-    // TODO: Add description for stat_chance
+    /// Percentage chance of the move's stat changes occurring (0-100)
+    /// For moves that may or may not apply stat modifications
     @Column("stat_chance") public var statChance: Int
 
 }

@@ -1,17 +1,20 @@
 import StructuredQueries
 import Tagged
 
-// TODO: Add description for type_game_indices table
+/// Maps Pokemon types to their game-specific index numbers across generations.
+/// Types may have different internal indices in different generations
+/// due to type system changes and additions over time.
 @Table("type_game_indices")
 public struct PokeAPITypeGameIndices: Decodable, Hashable, Sendable {
 
-    // TODO: Add description for type_id
+    /// References the type that has this generation-specific index
     @Column("type_id") public var typeId: PokeAPIType.ID
 
-    // TODO: Add description for generation_id
+    /// The generation in which this type index applies
     @Column("generation_id") public var generationId: PokeAPIGeneration.ID
 
-    // TODO: Add description for game_index
+    /// The type's internal index number in this generation
+    /// Used for game mechanics and type effectiveness calculations
     @Column("game_index") public var gameIndex: Int
 
 }

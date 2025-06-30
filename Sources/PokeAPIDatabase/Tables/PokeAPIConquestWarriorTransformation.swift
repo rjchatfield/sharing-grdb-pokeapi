@@ -1,38 +1,50 @@
 import StructuredQueries
 import Tagged
 
-// TODO: Add description for conquest_warrior_transformation table
+/// Warrior transformation requirements and conditions in Pokemon Conquest.
+/// Warriors can evolve/transform into higher ranks under specific conditions.
+/// These transformations unlock new abilities, stats, and sometimes change appearance.
 @Table("conquest_warrior_transformation")
 public struct PokeAPIConquestWarriorTransformation: Decodable, Hashable, Sendable {
 
-    // TODO: Add description for transformed_warrior_rank_id
+    /// The warrior rank that results from this transformation
+    /// Points to the evolved/transformed form of the warrior
     @Column("transformed_warrior_rank_id") public var transformedWarriorRankId: PokeAPIConquestWarriorRank.ID
 
-    // TODO: Add description for is_automatic
+    /// Whether this transformation happens automatically when conditions are met
+    /// If false, transformation requires manual triggering
     @Column("is_automatic") public var isAutomatic: Bool
 
-    // TODO: Add description for required_link
+    /// Minimum link level required with a Pokemon to unlock this transformation
+    /// Higher transformations often require strong bonds with Pokemon
     @Column("required_link") public var requiredLink: Int?
 
-    // TODO: Add description for completed_episode_id
+    /// Episode that must be completed before this transformation is available
+    /// Story progression requirement for transformation
     @Column("completed_episode_id") public var completedEpisodeId: PokeAPIConquestEpisode.ID?
 
-    // TODO: Add description for current_episode_id
+    /// Episode that must be currently active for this transformation
+    /// Some transformations are episode-specific
     @Column("current_episode_id") public var currentEpisodeId: PokeAPIConquestEpisode.ID?
 
-    // TODO: Add description for distant_warrior_id
+    /// Specific distant warrior that must be encountered or defeated
+    /// Some transformations require interaction with particular warriors
     @Column("distant_warrior_id") public var distantWarriorId: PokeAPIConquestWarrior.ID?
 
-    // TODO: Add description for female_warlord_count
+    /// Required number of female warlords in the player's army
+    /// Gender-based transformation requirement
     @Column("female_warlord_count") public var femaleWarlordCount: Int?
 
-    // TODO: Add description for pokemon_count
+    /// Required number of Pokemon in the player's collection
+    /// Collection-based transformation requirement
     @Column("pokemon_count") public var pokemonCount: Int?
 
-    // TODO: Add description for collection_type_id
+    /// Specific type of Pokemon collection required
+    /// May require collecting certain types or rarities of Pokemon
     @Column("collection_type_id") public var collectionTypeId: Int?
 
-    // TODO: Add description for warrior_count
+    /// Required number of warriors in the player's army
+    /// Army size requirement for transformation
     @Column("warrior_count") public var warriorCount: Int?
 
 }

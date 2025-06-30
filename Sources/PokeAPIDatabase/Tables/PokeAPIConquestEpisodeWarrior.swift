@@ -1,14 +1,18 @@
 import StructuredQueries
 import Tagged
 
-// TODO: Add description for conquest_episode_warriors table
+/// Warriors that appear in specific episodes of Pokemon Conquest's story campaigns.
+/// Each episode features different warriors as allies, enemies, or neutral characters.
+/// This system controls narrative progression and character availability across different storylines.
 @Table("conquest_episode_warriors")
 public struct PokeAPIConquestEpisodeWarrior: Decodable, Hashable, Sendable {
 
-    // TODO: Add description for episode_id
+    /// The story episode this warrior appears in
+    /// Links to specific campaign or storyline segments
     @Column("episode_id") public var episodeId: PokeAPIConquestEpisode.ID
 
-    // TODO: Add description for warrior_id
+    /// The warrior that appears in this episode
+    /// Determines which characters are available during this part of the story
     @Column("warrior_id") public var warriorId: PokeAPIConquestWarrior.ID
 
 }

@@ -1,17 +1,23 @@
 import StructuredQueries
 import Tagged
 
-// TODO: Add description for item_game_indices table
+/// Game-specific indices for items across different generations.
+/// Each item may have different internal ID numbers in different game generations,
+/// this table maps the universal item ID to generation-specific indices.
 @Table("item_game_indices")
 public struct PokeAPIItemGameIndices: Decodable, Hashable, Sendable {
 
-    // TODO: Add description for item_id
+    /// Reference to the universal item
+    /// Links to the items table
     @Column("item_id") public var itemId: PokeAPIItem.ID
 
-    // TODO: Add description for generation_id
+    /// The generation this game index applies to
+    /// References the generations table
     @Column("generation_id") public var generationId: PokeAPIGeneration.ID
 
-    // TODO: Add description for game_index
+    /// The internal item ID used within this specific generation's games
+    /// Different generations may use different numbering schemes
+    /// Range: varies by generation
     @Column("game_index") public var gameIndex: Int
 
 }

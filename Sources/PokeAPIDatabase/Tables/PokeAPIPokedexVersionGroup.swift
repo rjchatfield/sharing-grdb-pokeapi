@@ -1,14 +1,16 @@
 import StructuredQueries
 import Tagged
 
-// TODO: Add description for pokedex_version_groups table
+/// Maps Pokedexes to the version groups where they are available.
+/// Each Pokedex can appear in multiple version groups, and each version group
+/// can have multiple Pokedexes (regional, national, etc.).
 @Table("pokedex_version_groups")
 public struct PokeAPIPokedexVersionGroup: Decodable, Hashable, Sendable {
 
-    // TODO: Add description for pokedex_id
+    /// Reference to the Pokedex that is available in the version group
     @Column("pokedex_id") public var pokedexId: PokeAPIPokedex.ID
 
-    // TODO: Add description for version_group_id
+    /// Reference to the version group where this Pokedex is available
     @Column("version_group_id") public var versionGroupId: PokeAPIVersionGroup.ID
 
 }

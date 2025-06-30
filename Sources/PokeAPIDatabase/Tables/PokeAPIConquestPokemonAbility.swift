@@ -1,17 +1,22 @@
 import StructuredQueries
 import Tagged
 
-// TODO: Add description for conquest_pokemon_abilities table
+/// Abilities that Pokemon species possess in Pokemon Conquest.
+/// These abilities provide passive effects during tactical battles.
+/// Abilities work similarly to main series games but are adapted for the tactical combat system.
 @Table("conquest_pokemon_abilities")
 public struct PokeAPIConquestPokemonAbility: Decodable, Hashable, Sendable {
 
-    // TODO: Add description for pokemon_species_id
+    /// The Pokemon species that has this ability
+    /// Each species can have one or more possible abilities
     @Column("pokemon_species_id") public var pokemonSpeciesId: PokeAPIPokemonSpecy.ID
 
-    // TODO: Add description for slot
+    /// The ability slot (1, 2, or 3 for hidden ability)
+    /// Determines which ability slot this ability occupies
     @Column("slot") public var slot: Int
 
-    // TODO: Add description for ability_id
+    /// The specific ability this Pokemon species can have
+    /// References the main ability database
     @Column("ability_id") public var abilityId: PokeAPIAbility.ID
 
 }

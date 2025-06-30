@@ -1,70 +1,86 @@
 import StructuredQueries
 import Tagged
 
-// TODO: Add description for pokemon_species table
+/// Contains core species data shared across all forms of a Pokemon.
+/// This includes breeding information, capture mechanics, evolution data,
+/// and classification details that remain consistent regardless of form.
 @Table("pokemon_species")
 public struct PokeAPIPokemonSpecy: Decodable, Hashable, Identifiable, Sendable {
     public typealias ID = Tagged<Self, Int>
     public typealias Identifier = String
 
-    // TODO: Add description for id
+    /// National Pokedex number and unique species identifier
     @Column("id", primaryKey: true) public var id: ID
 
-    // TODO: Add description for identifier
+    /// Machine-readable species name (e.g., "pikachu", "charizard")
     @Column("identifier") public var identifier: Identifier
 
-    // TODO: Add description for generation_id
+    /// Generation in which this species was first introduced (1-9+)
     @Column("generation_id") public var generationId: PokeAPIGeneration.ID
 
-    // TODO: Add description for evolves_from_species_id
+    /// Species this Pokemon evolves from, if any
+    /// Nil for base evolution forms (e.g., Bulbasaur, Charmander)
     @Column("evolves_from_species_id") public var evolvesFromSpeciesId: PokeAPIPokemonSpecy.ID?
 
-    // TODO: Add description for evolution_chain_id
+    /// Evolution chain this species belongs to
+    /// Links related evolutionary forms together
     @Column("evolution_chain_id") public var evolutionChainId: PokeAPIEvolutionChain.ID
 
-    // TODO: Add description for color_id
+    /// Primary color classification for this Pokemon
+    /// Used for Pokedex filtering and organization
     @Column("color_id") public var colorId: PokeAPIPokemonColor.ID
 
-    // TODO: Add description for shape_id
+    /// Body shape category (humanoid, quadruped, serpentine, etc.)
     @Column("shape_id") public var shapeId: PokeAPIPokemonShape.ID
 
-    // TODO: Add description for habitat_id
+    /// Natural habitat where this Pokemon can typically be found
+    /// Nil for Pokemon without a specific natural habitat
     @Column("habitat_id") public var habitatId: PokeAPIPokemonHabitat.ID?
 
-    // TODO: Add description for gender_rate
+    /// Gender distribution ratio: -1 = genderless, 0 = always male, 8 = always female
+    /// Values 1-7 represent increasing likelihood of being female (1/8 to 7/8)
     @Column("gender_rate") public var genderRate: Int
 
-    // TODO: Add description for capture_rate
+    /// Base capture rate (0-255, higher = easier to catch)
+    /// Example: Caterpie = 255 (very easy), Mewtwo = 3 (very hard)
     @Column("capture_rate") public var captureRate: Int
 
-    // TODO: Add description for base_happiness
+    /// Base friendship/happiness value when caught (0-255)
+    /// Affects happiness evolution and certain move effectiveness
     @Column("base_happiness") public var baseHappiness: Int
 
-    // TODO: Add description for is_baby
+    /// Whether this is considered a "baby" Pokemon
+    /// Baby Pokemon cannot breed and often evolve via friendship
     @Column("is_baby") public var isBaby: Bool
 
-    // TODO: Add description for hatch_counter
+    /// Base number of egg cycles required to hatch (steps = cycles × 256)
+    /// Used for breeding mechanics
     @Column("hatch_counter") public var hatchCounter: Int
 
-    // TODO: Add description for has_gender_differences
+    /// Whether male and female versions have visual differences (1 for true, 0 for false)
+    /// True for species like Nidoran, Pyroar, etc.
     @Column("has_gender_differences") public var hasGenderDifferences: Int
 
-    // TODO: Add description for growth_rate_id
+    /// Experience growth rate category (slow, medium, fast, etc.)
+    /// Determines how much EXP is needed to reach each level
     @Column("growth_rate_id") public var growthRateId: PokeAPIGrowthRate.ID
 
-    // TODO: Add description for forms_switchable
+    /// Whether this Pokemon can switch between different forms (1 for true, 0 for false)
+    /// True for Pokemon like Rotom, Deoxys, Shaymin, etc.
     @Column("forms_switchable") public var formsSwitchable: Int
 
-    // TODO: Add description for is_legendary
+    /// Whether this Pokemon is classified as Legendary
+    /// Legendary Pokemon are rare, powerful, and often unique
     @Column("is_legendary") public var isLegendary: Bool
 
-    // TODO: Add description for is_mythical
+    /// Whether this Pokemon is classified as Mythical
+    /// Mythical Pokemon are typically event-exclusive
     @Column("is_mythical") public var isMythical: Bool
 
-    // TODO: Add description for order
+    /// National Pokedex sort order
     @Column("order") public var order: Int
 
-    // TODO: Add description for conquest_order
+    /// Sort order for Pokemon Conquest game (if applicable)
     @Column("conquest_order") public var conquestOrder: Int?
 
 }

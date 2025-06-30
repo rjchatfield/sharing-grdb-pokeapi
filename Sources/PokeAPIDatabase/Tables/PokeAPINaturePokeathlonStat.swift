@@ -1,17 +1,20 @@
 import StructuredQueries
 import Tagged
 
-// TODO: Add description for nature_pokeathlon_stats table
+/// Maps Pokemon natures to their effects on Pokeathlon statistics.
+/// Each nature can modify specific Pokeathlon stats (Speed, Power, Technique, Stamina, Jump)
+/// by positive or negative amounts, affecting performance in Pokeathlon events.
 @Table("nature_pokeathlon_stats")
 public struct PokeAPINaturePokeathlonStat: Decodable, Hashable, Sendable {
 
-    // TODO: Add description for nature_id
+    /// Reference to the nature that affects this Pokeathlon statistic
     @Column("nature_id") public var natureId: PokeAPINature.ID
 
-    // TODO: Add description for pokeathlon_stat_id
+    /// Reference to the Pokeathlon statistic being modified
     @Column("pokeathlon_stat_id") public var pokeathlonStatId: PokeAPIPokeathlonStat.ID
 
-    // TODO: Add description for max_change
+    /// Maximum change this nature applies to the Pokeathlon stat
+    /// Positive values increase the stat, negative values decrease it
     @Column("max_change") public var maxChange: Int
 
 }

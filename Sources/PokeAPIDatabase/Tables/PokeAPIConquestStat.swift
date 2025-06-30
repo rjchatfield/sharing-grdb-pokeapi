@@ -1,19 +1,23 @@
 import StructuredQueries
 import Tagged
 
-// TODO: Add description for conquest_stats table
+/// Statistical categories used in Pokemon Conquest battles.
+/// Defines the various performance metrics for warriors and Pokemon
+/// including attack, defense, accuracy, and special tactical abilities.
 @Table("conquest_stats")
 public struct PokeAPIConquestStat: Decodable, Hashable, Identifiable, Sendable {
     public typealias ID = Tagged<Self, Int>
     public typealias Identifier = String
 
-    // TODO: Add description for id
+    /// The primary key identifier for this Conquest statistic
     @Column("id", primaryKey: true) public var id: ID
 
-    // TODO: Add description for identifier
+    /// Machine-readable stat name ("attack", "defense", "accuracy", etc.)
+    /// Used for battle calculations and strategic planning
     @Column("identifier") public var identifier: Identifier
 
-    // TODO: Add description for is_base
+    /// Whether this is a base statistic that all units possess
+    /// Base stats are fundamental to all warriors and Pokemon
     @Column("is_base") public var isBase: Bool
 
 }
