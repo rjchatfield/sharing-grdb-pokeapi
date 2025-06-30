@@ -125,11 +125,6 @@ This script will:
 - `sqlite3` (usually pre-installed on macOS/Linux)
 - `csvs-to-sqlite` - install with `pip install csvs-to-sqlite`
 
-After updating, run the tests to ensure everything still works:
-```bash
-swift test
-```
-
 ## Data Attribution
 
 This package contains data from the [PokeAPI](https://pokeapi.co) project. All Pokemon data is sourced from PokeAPI's comprehensive database.

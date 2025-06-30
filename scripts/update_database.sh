@@ -203,8 +203,6 @@ echo ""
 
 # Prompt to run tests
 echo "🧪 To verify the tests still pass with the updated data, run:"
+echo "   swift package clean"
 echo "   swift test"
-echo ""
-echo "💡 Note: If tests fail due to snapshot mismatches, use this command instead:"
-echo "   xcodebuild test -scheme PokeAPIDatabase -destination \"platform=macOS,arch=arm64\""
 echo ""
