@@ -85,7 +85,7 @@ echo "📊 Importing CSV data..."
 echo "   Finding CSV files (excluding translations, names, prose, and text files)..."
 
 # Use find to get CSV files, excluding the ones we don't want
-csv_files=$(find "$CSV_DIR" -name "*.csv" ! -path "*/translations/*" ! -name "*_names.csv" ! -name "*_prose.csv" ! -name "*_text.csv")
+csv_files=$(find "$CSV_DIR" -name "*.csv" ! -path "*/translations/*" ! -name "*_names.csv" ! -name "*_prose.csv" ! -name "*_text.csv" ! -name "*_summaries.csv")
 
 if [ -z "$csv_files" ]; then
     echo "❌ Error: No CSV files found to import"
