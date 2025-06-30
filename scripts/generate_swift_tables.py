@@ -105,6 +105,8 @@ def sql_to_swift_type(sql_type, column_name, is_primary_key, foreign_keys):
     if sql_type == 'INTEGER':
         if column_name == 'id' and is_primary_key:
             return "ID"
+        elif column_name.startswith('is_'):
+            return "Bool"
         else:
             return "Int"
     elif sql_type == 'TEXT':

@@ -14,6 +14,6 @@ public struct PokeAPIConquestStat: Decodable, Hashable, Identifiable, Sendable {
     @Column("identifier") public var identifier: Identifier
 
     // TODO: Add description for is_base
-    @Column("is_base") public var isBase: Int
+    @Column("is_base") public var isBase: Bool
 
 }

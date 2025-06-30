@@ -15,7 +15,7 @@ public struct PokeAPIPokemonAbilitiesPast: Decodable, Hashable, Sendable {
     @Column("ability_id") public var abilityId: PokeAPIAbility.ID?
 
     // TODO: Add description for is_hidden
-    @Column("is_hidden") public var isHidden: Int
+    @Column("is_hidden") public var isHidden: Bool
 
     // TODO: Add description for slot
     @Column("slot") public var slot: Int

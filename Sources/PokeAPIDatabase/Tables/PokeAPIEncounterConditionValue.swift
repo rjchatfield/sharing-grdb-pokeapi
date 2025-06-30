@@ -17,6 +17,6 @@ public struct PokeAPIEncounterConditionValue: Decodable, Hashable, Identifiable,
     @Column("identifier") public var identifier: Identifier
 
     // TODO: Add description for is_default
-    @Column("is_default") public var isDefault: Int
+    @Column("is_default") public var isDefault: Bool
 
 }

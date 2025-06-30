@@ -44,7 +44,7 @@ struct PokeAPIConquestWarriorTransformationTests {
             ┌──────────────────────────────────────────────────┐
             │ PokeAPIConquestWarriorTransformation(            │
             │   transformedWarriorRankId: Tagged(rawValue: 2), │
-            │   isAutomatic: 1,                                │
+            │   isAutomatic: true,                             │
             │   requiredLink: nil,                             │
             │   completedEpisodeId: nil,                       │
             │   currentEpisodeId: nil,                         │
@@ -57,7 +57,7 @@ struct PokeAPIConquestWarriorTransformationTests {
             ├──────────────────────────────────────────────────┤
             │ PokeAPIConquestWarriorTransformation(            │
             │   transformedWarriorRankId: Tagged(rawValue: 3), │
-            │   isAutomatic: 0,                                │
+            │   isAutomatic: false,                            │
             │   requiredLink: 80,                              │
             │   completedEpisodeId: nil,                       │
             │   currentEpisodeId: Tagged(rawValue: 38),        │
@@ -70,7 +70,7 @@ struct PokeAPIConquestWarriorTransformationTests {
             ├──────────────────────────────────────────────────┤
             │ PokeAPIConquestWarriorTransformation(            │
             │   transformedWarriorRankId: Tagged(rawValue: 5), │
-            │   isAutomatic: 1,                                │
+            │   isAutomatic: true,                             │
             │   requiredLink: nil,                             │
             │   completedEpisodeId: nil,                       │
             │   currentEpisodeId: nil,                         │
@@ -83,7 +83,7 @@ struct PokeAPIConquestWarriorTransformationTests {
             ├──────────────────────────────────────────────────┤
             │ PokeAPIConquestWarriorTransformation(            │
             │   transformedWarriorRankId: Tagged(rawValue: 6), │
-            │   isAutomatic: 0,                                │
+            │   isAutomatic: false,                            │
             │   requiredLink: 80,                              │
             │   completedEpisodeId: nil,                       │
             │   currentEpisodeId: Tagged(rawValue: 38),        │
@@ -96,7 +96,7 @@ struct PokeAPIConquestWarriorTransformationTests {
             ├──────────────────────────────────────────────────┤
             │ PokeAPIConquestWarriorTransformation(            │
             │   transformedWarriorRankId: Tagged(rawValue: 8), │
-            │   isAutomatic: 0,                                │
+            │   isAutomatic: false,                            │
             │   requiredLink: 80,                              │
             │   completedEpisodeId: nil,                       │
             │   currentEpisodeId: Tagged(rawValue: 2),         │

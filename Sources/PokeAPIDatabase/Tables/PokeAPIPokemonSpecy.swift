@@ -41,7 +41,7 @@ public struct PokeAPIPokemonSpecy: Decodable, Hashable, Identifiable, Sendable {
     @Column("base_happiness") public var baseHappiness: Int
 
     // TODO: Add description for is_baby
-    @Column("is_baby") public var isBaby: Int
+    @Column("is_baby") public var isBaby: Bool
 
     // TODO: Add description for hatch_counter
     @Column("hatch_counter") public var hatchCounter: Int
@@ -56,10 +56,10 @@ public struct PokeAPIPokemonSpecy: Decodable, Hashable, Identifiable, Sendable {
     @Column("forms_switchable") public var formsSwitchable: Int
 
     // TODO: Add description for is_legendary
-    @Column("is_legendary") public var isLegendary: Int
+    @Column("is_legendary") public var isLegendary: Bool
 
     // TODO: Add description for is_mythical
-    @Column("is_mythical") public var isMythical: Int
+    @Column("is_mythical") public var isMythical: Bool
 
     // TODO: Add description for order
     @Column("order") public var order: Int

@@ -54,13 +54,13 @@ struct PokeAPIPokemonSpecyTests {
             │   genderRate: 1,                             │
             │   captureRate: 45,                           │
             │   baseHappiness: 70,                         │
-            │   isBaby: 0,                                 │
+            │   isBaby: false,                             │
             │   hatchCounter: 20,                          │
             │   hasGenderDifferences: 0,                   │
             │   growthRateId: Tagged(rawValue: 4),         │
             │   formsSwitchable: 0,                        │
-            │   isLegendary: 0,                            │
-            │   isMythical: 0,                             │
+            │   isLegendary: false,                        │
+            │   isMythical: false,                         │
             │   order: 1,                                  │
             │   conquestOrder: nil                         │
             │ )                                            │
@@ -77,13 +77,13 @@ struct PokeAPIPokemonSpecyTests {
             │   genderRate: 1,                             │
             │   captureRate: 45,                           │
             │   baseHappiness: 70,                         │
-            │   isBaby: 0,                                 │
+            │   isBaby: false,                             │
             │   hatchCounter: 20,                          │
             │   hasGenderDifferences: 0,                   │
             │   growthRateId: Tagged(rawValue: 4),         │
             │   formsSwitchable: 0,                        │
-            │   isLegendary: 0,                            │
-            │   isMythical: 0,                             │
+            │   isLegendary: false,                        │
+            │   isMythical: false,                         │
             │   order: 2,                                  │
             │   conquestOrder: nil                         │
             │ )                                            │
@@ -100,13 +100,13 @@ struct PokeAPIPokemonSpecyTests {
             │   genderRate: 1,                             │
             │   captureRate: 45,                           │
             │   baseHappiness: 70,                         │
-            │   isBaby: 0,                                 │
+            │   isBaby: false,                             │
             │   hatchCounter: 20,                          │
             │   hasGenderDifferences: 1,                   │
             │   growthRateId: Tagged(rawValue: 4),         │
             │   formsSwitchable: 1,                        │
-            │   isLegendary: 0,                            │
-            │   isMythical: 0,                             │
+            │   isLegendary: false,                        │
+            │   isMythical: false,                         │
             │   order: 3,                                  │
             │   conquestOrder: nil                         │
             │ )                                            │
@@ -123,13 +123,13 @@ struct PokeAPIPokemonSpecyTests {
             │   genderRate: 1,                             │
             │   captureRate: 45,                           │
             │   baseHappiness: 70,                         │
-            │   isBaby: 0,                                 │
+            │   isBaby: false,                             │
             │   hatchCounter: 20,                          │
             │   hasGenderDifferences: 0,                   │
             │   growthRateId: Tagged(rawValue: 4),         │
             │   formsSwitchable: 0,                        │
-            │   isLegendary: 0,                            │
-            │   isMythical: 0,                             │
+            │   isLegendary: false,                        │
+            │   isMythical: false,                         │
             │   order: 4,                                  │
             │   conquestOrder: 109                         │
             │ )                                            │
@@ -146,13 +146,13 @@ struct PokeAPIPokemonSpecyTests {
             │   genderRate: 1,                             │
             │   captureRate: 45,                           │
             │   baseHappiness: 70,                         │
-            │   isBaby: 0,                                 │
+            │   isBaby: false,                             │
             │   hatchCounter: 20,                          │
             │   hasGenderDifferences: 0,                   │
             │   growthRateId: Tagged(rawValue: 4),         │
             │   formsSwitchable: 0,                        │
-            │   isLegendary: 0,                            │
-            │   isMythical: 0,                             │
+            │   isLegendary: false,                        │
+            │   isMythical: false,                         │
             │   order: 5,                                  │
             │   conquestOrder: 110                         │
             │ )                                            │

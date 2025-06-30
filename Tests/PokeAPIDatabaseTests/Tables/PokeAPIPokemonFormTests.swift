@@ -48,9 +48,9 @@ struct PokeAPIPokemonFormTests {
             │   formIdentifier: nil,                             │
             │   pokemonId: Tagged(rawValue: 1),                  │
             │   introducedInVersionGroupId: Tagged(rawValue: 1), │
-            │   isDefault: 1,                                    │
-            │   isBattleOnly: 0,                                 │
-            │   isMega: 0,                                       │
+            │   isDefault: true,                                 │
+            │   isBattleOnly: false,                             │
+            │   isMega: false,                                   │
             │   formOrder: 1,                                    │
             │   order: 1                                         │
             │ )                                                  │
@@ -61,9 +61,9 @@ struct PokeAPIPokemonFormTests {
             │   formIdentifier: nil,                             │
             │   pokemonId: Tagged(rawValue: 2),                  │
             │   introducedInVersionGroupId: Tagged(rawValue: 1), │
-            │   isDefault: 1,                                    │
-            │   isBattleOnly: 0,                                 │
-            │   isMega: 0,                                       │
+            │   isDefault: true,                                 │
+            │   isBattleOnly: false,                             │
+            │   isMega: false,                                   │
             │   formOrder: 1,                                    │
             │   order: 2                                         │
             │ )                                                  │
@@ -74,9 +74,9 @@ struct PokeAPIPokemonFormTests {
             │   formIdentifier: nil,                             │
             │   pokemonId: Tagged(rawValue: 3),                  │
             │   introducedInVersionGroupId: Tagged(rawValue: 1), │
-            │   isDefault: 1,                                    │
-            │   isBattleOnly: 0,                                 │
-            │   isMega: 0,                                       │
+            │   isDefault: true,                                 │
+            │   isBattleOnly: false,                             │
+            │   isMega: false,                                   │
             │   formOrder: 1,                                    │
             │   order: 3                                         │
             │ )                                                  │
@@ -87,9 +87,9 @@ struct PokeAPIPokemonFormTests {
             │   formIdentifier: nil,                             │
             │   pokemonId: Tagged(rawValue: 4),                  │
             │   introducedInVersionGroupId: Tagged(rawValue: 1), │
-            │   isDefault: 1,                                    │
-            │   isBattleOnly: 0,                                 │
-            │   isMega: 0,                                       │
+            │   isDefault: true,                                 │
+            │   isBattleOnly: false,                             │
+            │   isMega: false,                                   │
             │   formOrder: 1,                                    │
             │   order: 5                                         │
             │ )                                                  │
@@ -100,9 +100,9 @@ struct PokeAPIPokemonFormTests {
             │   formIdentifier: nil,                             │
             │   pokemonId: Tagged(rawValue: 5),                  │
             │   introducedInVersionGroupId: Tagged(rawValue: 1), │
-            │   isDefault: 1,                                    │
-            │   isBattleOnly: 0,                                 │
-            │   isMega: 0,                                       │
+            │   isDefault: true,                                 │
+            │   isBattleOnly: false,                             │
+            │   isMega: false,                                   │
             │   formOrder: 1,                                    │
             │   order: 6                                         │
             │ )                                                  │

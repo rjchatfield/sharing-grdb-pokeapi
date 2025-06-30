@@ -46,35 +46,35 @@ struct PokeAPIEncounterConditionValueTests {
             │   id: Tagged(rawValue: 1),                   │
             │   encounterConditionId: Tagged(rawValue: 1), │
             │   identifier: "swarm-yes",                   │
-            │   isDefault: 0                               │
+            │   isDefault: false                           │
             │ )                                            │
             ├──────────────────────────────────────────────┤
             │ PokeAPIEncounterConditionValue(              │
             │   id: Tagged(rawValue: 2),                   │
             │   encounterConditionId: Tagged(rawValue: 1), │
             │   identifier: "swarm-no",                    │
-            │   isDefault: 1                               │
+            │   isDefault: true                            │
             │ )                                            │
             ├──────────────────────────────────────────────┤
             │ PokeAPIEncounterConditionValue(              │
             │   id: Tagged(rawValue: 3),                   │
             │   encounterConditionId: Tagged(rawValue: 2), │
             │   identifier: "time-morning",                │
-            │   isDefault: 0                               │
+            │   isDefault: false                           │
             │ )                                            │
             ├──────────────────────────────────────────────┤
             │ PokeAPIEncounterConditionValue(              │
             │   id: Tagged(rawValue: 4),                   │
             │   encounterConditionId: Tagged(rawValue: 2), │
             │   identifier: "time-day",                    │
-            │   isDefault: 1                               │
+            │   isDefault: true                            │
             │ )                                            │
             ├──────────────────────────────────────────────┤
             │ PokeAPIEncounterConditionValue(              │
             │   id: Tagged(rawValue: 5),                   │
             │   encounterConditionId: Tagged(rawValue: 2), │
             │   identifier: "time-night",                  │
-            │   isDefault: 0                               │
+            │   isDefault: false                           │
             │ )                                            │
             └──────────────────────────────────────────────┘
             """

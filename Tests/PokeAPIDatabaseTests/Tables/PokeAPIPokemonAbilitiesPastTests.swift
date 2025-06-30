@@ -46,7 +46,7 @@ struct PokeAPIPokemonAbilitiesPastTests {
             │   pokemonId: Tagged(rawValue: 1),    │
             │   generationId: Tagged(rawValue: 4), │
             │   abilityId: nil,                    │
-            │   isHidden: 1,                       │
+            │   isHidden: true,                    │
             │   slot: 3                            │
             │ )                                    │
             ├──────────────────────────────────────┤
@@ -54,7 +54,7 @@ struct PokeAPIPokemonAbilitiesPastTests {
             │   pokemonId: Tagged(rawValue: 2),    │
             │   generationId: Tagged(rawValue: 4), │
             │   abilityId: nil,                    │
-            │   isHidden: 1,                       │
+            │   isHidden: true,                    │
             │   slot: 3                            │
             │ )                                    │
             ├──────────────────────────────────────┤
@@ -62,7 +62,7 @@ struct PokeAPIPokemonAbilitiesPastTests {
             │   pokemonId: Tagged(rawValue: 3),    │
             │   generationId: Tagged(rawValue: 4), │
             │   abilityId: nil,                    │
-            │   isHidden: 1,                       │
+            │   isHidden: true,                    │
             │   slot: 3                            │
             │ )                                    │
             ├──────────────────────────────────────┤
@@ -70,7 +70,7 @@ struct PokeAPIPokemonAbilitiesPastTests {
             │   pokemonId: Tagged(rawValue: 4),    │
             │   generationId: Tagged(rawValue: 4), │
             │   abilityId: nil,                    │
-            │   isHidden: 1,                       │
+            │   isHidden: true,                    │
             │   slot: 3                            │
             │ )                                    │
             ├──────────────────────────────────────┤
@@ -78,7 +78,7 @@ struct PokeAPIPokemonAbilitiesPastTests {
             │   pokemonId: Tagged(rawValue: 5),    │
             │   generationId: Tagged(rawValue: 4), │
             │   abilityId: nil,                    │
-            │   isHidden: 1,                       │
+            │   isHidden: true,                    │
             │   slot: 3                            │
             │ )                                    │
             └──────────────────────────────────────┘

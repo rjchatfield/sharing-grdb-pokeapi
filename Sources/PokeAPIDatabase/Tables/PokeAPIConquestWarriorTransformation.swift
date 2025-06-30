@@ -9,7 +9,7 @@ public struct PokeAPIConquestWarriorTransformation: Decodable, Hashable, Sendabl
     @Column("transformed_warrior_rank_id") public var transformedWarriorRankId: PokeAPIConquestWarriorRank.ID
 
     // TODO: Add description for is_automatic
-    @Column("is_automatic") public var isAutomatic: Int
+    @Column("is_automatic") public var isAutomatic: Bool
 
     // TODO: Add description for required_link
     @Column("required_link") public var requiredLink: Int?

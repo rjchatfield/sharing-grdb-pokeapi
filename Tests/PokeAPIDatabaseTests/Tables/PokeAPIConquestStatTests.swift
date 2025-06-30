@@ -45,31 +45,31 @@ struct PokeAPIConquestStatTests {
             │ PokeAPIConquestStat(       │
             │   id: Tagged(rawValue: 1), │
             │   identifier: "hp",        │
-            │   isBase: 1                │
+            │   isBase: true             │
             │ )                          │
             ├────────────────────────────┤
             │ PokeAPIConquestStat(       │
             │   id: Tagged(rawValue: 2), │
             │   identifier: "attack",    │
-            │   isBase: 1                │
+            │   isBase: true             │
             │ )                          │
             ├────────────────────────────┤
             │ PokeAPIConquestStat(       │
             │   id: Tagged(rawValue: 3), │
             │   identifier: "defense",   │
-            │   isBase: 1                │
+            │   isBase: true             │
             │ )                          │
             ├────────────────────────────┤
             │ PokeAPIConquestStat(       │
             │   id: Tagged(rawValue: 4), │
             │   identifier: "speed",     │
-            │   isBase: 1                │
+            │   isBase: true             │
             │ )                          │
             ├────────────────────────────┤
             │ PokeAPIConquestStat(       │
             │   id: Tagged(rawValue: 5), │
             │   identifier: "range",     │
-            │   isBase: 0                │
+            │   isBase: false            │
             │ )                          │
             └────────────────────────────┘
             """

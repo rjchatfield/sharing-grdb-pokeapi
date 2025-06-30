@@ -17,7 +17,7 @@ public struct PokeAPIPokedex: Decodable, Hashable, Identifiable, Sendable {
     @Column("region_id") public var regionId: PokeAPIRegion.ID?
 
     /// Is main series
-    @Column("is_main_series") public var isMainSeries: Int
+    @Column("is_main_series") public var isMainSeries: Bool
 
     // MARK: - Helpers
 

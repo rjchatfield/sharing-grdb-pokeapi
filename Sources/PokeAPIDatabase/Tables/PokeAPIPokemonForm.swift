@@ -23,13 +23,13 @@ public struct PokeAPIPokemonForm: Decodable, Hashable, Identifiable, Sendable {
     @Column("introduced_in_version_group_id") public var introducedInVersionGroupId: PokeAPIVersionGroup.ID
 
     // TODO: Add description for is_default
-    @Column("is_default") public var isDefault: Int
+    @Column("is_default") public var isDefault: Bool
 
     // TODO: Add description for is_battle_only
-    @Column("is_battle_only") public var isBattleOnly: Int
+    @Column("is_battle_only") public var isBattleOnly: Bool
 
     // TODO: Add description for is_mega
-    @Column("is_mega") public var isMega: Int
+    @Column("is_mega") public var isMega: Bool
 
     // TODO: Add description for form_order
     @Column("form_order") public var formOrder: Int
