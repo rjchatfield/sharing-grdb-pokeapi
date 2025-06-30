@@ -47,15 +47,19 @@ echo "✅ All prerequisites satisfied"
 if [ -f "$DB_FILE" ]; then
     echo "📦 Creating backup of existing database..."
     
+    # Create sql_backup directory if it doesn't exist
+    sql_backup_dir="$DB_DIR/sql_backup"
+    mkdir -p "$sql_backup_dir"
+    
     # Find next available backup number
     backup_num=1
-    while [ -f "${DB_FILE%.db}_backup_${backup_num}.db" ]; do
+    while [ -f "$sql_backup_dir/pokeapi_backup_${backup_num}.db" ]; do
         ((backup_num++))
     done
     
-    backup_file="${DB_FILE%.db}_backup_${backup_num}.db"
+    backup_file="$sql_backup_dir/pokeapi_backup_${backup_num}.db"
     cp "$DB_FILE" "$backup_file"
-    echo "✅ Backup created: $(basename "$backup_file")"
+    echo "✅ Backup created: sql_backup/$(basename "$backup_file")"
     
     # Remove original database
     rm "$DB_FILE"

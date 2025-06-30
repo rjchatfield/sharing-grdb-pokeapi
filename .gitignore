@@ -63,3 +63,6 @@ DerivedData/
 
 ### Secrets
 Config.swift
+
+### Database backups
+Sources/PokeAPIDatabase/Resources/sql_backup

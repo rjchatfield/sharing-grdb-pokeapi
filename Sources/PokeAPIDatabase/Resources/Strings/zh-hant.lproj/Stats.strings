@@ -1,0 +1,11 @@
+/* Stats - zh-Hant */
+
+"stat.1.name" = "HP";
+"stat.2.name" = "攻擊";
+"stat.3.name" = "防禦";
+"stat.4.name" = "特攻";
+"stat.5.name" = "特防";
+"stat.6.name" = "速度";
+"stat.7.name" = "命中";
+"stat.8.name" = "閃避";
+

@@ -32,10 +32,13 @@ let package = Package(
                 .product(name: "Tagged", package: "swift-tagged"),
                 .product(name: "_StructuredQueriesSQLite", package: "swift-structured-queries"),
             ],
+            exclude: [
+                "Resources/sql_backup",
+            ],
             resources: [
                 .copy("Resources/pokeapi.db"),
                 .process("Resources/Strings"),
-            ]
+            ],
         ),
         .testTarget(
             name: "PokeAPIDatabaseTests",
