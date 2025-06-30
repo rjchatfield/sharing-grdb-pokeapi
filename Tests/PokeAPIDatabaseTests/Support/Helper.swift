@@ -57,7 +57,6 @@ enum Helper {
 
 extension StructuredQueriesSQLite.Database: @retroactive @unchecked Sendable {
     static var pokeAPI: StructuredQueriesSQLite.Database {
-        let db = try! PokeAPIDatabase.makeDatabase()
-        return try! StructuredQueriesSQLite.Database(path: db.path)
+        return try! PokeAPIDatabase.makeSQLDatabase()
     }
 }

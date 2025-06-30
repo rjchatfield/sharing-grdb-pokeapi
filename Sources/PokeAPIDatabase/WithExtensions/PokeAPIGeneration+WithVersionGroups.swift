@@ -21,12 +21,12 @@ extension PokeAPIGeneration {
     ///     }
     /// }
     /// ```
-    public struct WithVersionGroups {
+    public struct WithVersionGroups: Sendable, Equatable {
         public let generation: PokeAPIGeneration
         public let region: PokeAPIRegion
         public let versionGroups: [VersionGroupData]
 
-        public struct VersionGroupData {
+        public struct VersionGroupData: Sendable, Equatable {
             public let versionGroup: PokeAPIVersionGroup
             public let versions: [PokeAPIVersion]
 
