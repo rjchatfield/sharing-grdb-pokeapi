@@ -1,7 +1,11 @@
 #!/bin/bash
 
-# Script to update the PokeAPI database with latest CSV data
-# This script backs up the existing database and creates a fresh one from CSV files
+# This script will:
+# - 🔒 Backup your existing database
+# - 🗄️ Create a fresh database from the schema
+# - 📊 Import the latest CSV data (excluding translations and text files)
+# - 📈 Compare changes between old and new databases
+# - ✅ Verify the update was successful
 
 set -e  # Exit on any error
 

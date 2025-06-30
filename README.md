@@ -43,46 +43,7 @@ Or add it through Xcode:
 2. Enter the repository URL
 3. Select the version you want to use
 
-## Usage
-
-### Basic Setup
-
-```swift
-import PokeAPIDatabase
-
-// Create a database connection
-let database = try PokeAPIDatabase.makeDatabase()
-
-// Query Pokemon data
-let pikachu = try database.read { db in
-    try PokeAPIPokemon
-        .filter(Column("identifier") == "pikachu")
-        .fetchOne(db)
-}
-```
-
-### Querying Pokemon
-
-```swift
-// Get all Pokemon from generation 1
-let gen1Pokemon = try database.read { db in
-    try PokeAPIPokemon
-        .joining(required: PokeAPIPokemonSpecies.self)
-        .filter(PokeAPIPokemonSpecies.Columns.generationId == 1)
-        .fetchAll(db)
-}
-
-// Get Pokemon by type
-let firePokemon = try database.read { db in
-    try PokeAPIPokemon
-        .joining(required: PokeAPIPokemonType.self)
-        .joining(required: PokeAPIType.self)
-        .filter(PokeAPIType.Columns.identifier == "fire")
-        .fetchAll(db)
-}
-```
-
-### Available Models
+## Available Models
 
 The package includes complete models for all PokeAPI entities:
 
@@ -113,13 +74,6 @@ To update the SQLite database with the latest Pokemon data from the PokeAPI CSV 
 # Update database with latest CSV data
 ./scripts/update_database.sh
 ```
-
-This script will:
-- 🔒 Backup your existing database
-- 🗄️ Create a fresh database from the schema
-- 📊 Import the latest CSV data (excluding translations and text files)
-- 📈 Compare changes between old and new databases
-- ✅ Verify the update was successful
 
 **Prerequisites:**
 - `sqlite3` (usually pre-installed on macOS/Linux)

@@ -1,5 +1,5 @@
 A local SQLite version of the PokeAPI.com database. 
-- SQLite file located in /Sources/PokeAPIDatabase/Resources/pokemon.db
+- SQLite file located in /Sources/PokeAPIDatabase/Resources/pokeapi.db
 - SQLite file was populated by the CSV files in /submodules/pokeapi/data/v2/csv
 - Uses https://github.com/pointfreeco/swift-structured-queries for accessing SQL.
 - Written in Swift 6.1 in Xcode 16.4.
